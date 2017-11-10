@@ -18,4 +18,8 @@ public class Joueur {
 		return null;
     }
 
+	public List<Carte> getMain() {
+		return main;
+	}
+
 }
