@@ -21,7 +21,7 @@ public class Jeu extends Observable {
     	
     }
     
-    public void creerCarte(int variante) {
+    public void initCarte(int variante) {
     	
     }
     
@@ -31,17 +31,13 @@ public class Jeu extends Observable {
 
     
     public void defausserCarte(Joueur joueurCourant, Carte carte) {
-   
     	defausse.add(carte);
     	joueurCourant.getMain().remove(carte);
-    	
     }
     
     public void defausserCarte(Joueur joueurCourant, int indexCarte) {   
-    	
     	defausse.add(joueurCourant.getMain().get(indexCarte));
-    	joueurCourant.getMain().remove(indexCarte); 
-    	
+    	joueurCourant.getMain().remove(indexCarte);   	
     }
 
     
@@ -87,6 +83,7 @@ public class Jeu extends Observable {
 
     
     public void jouerPartie() {
+    	
     }
 
     
@@ -95,10 +92,6 @@ public class Jeu extends Observable {
     }
 
     
-    public void choisirCarte(Joueur joueurCourant) {
-    }
-
-   
     public Joueur getJoueurSuivant() {
 		return null;
     }
