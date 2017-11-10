@@ -2,7 +2,16 @@ package model;
 
 public class CarteSauterTour extends Carte {
 
-    public void action(Joueur joueurCourant) {
+    public CarteSauterTour(int valeur, int couleur) {
+		super(valeur, couleur);
+	}
+    
+    public CarteSauterTour (String valeur, String couleur) {
+    	super(valeur,couleur);
+    }
+
+	public void action(Joueur joueurCourant) {
+		
     }
 
 }
