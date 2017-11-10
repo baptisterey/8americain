@@ -7,7 +7,7 @@ public class Controller {
     private Jeu jeu;
     
     public Controller () {
-    	this.jeu = new Jeu();
+    	this.jeu = Jeu.getInstance();
     }
     
     // Méthode MAIN du logiciel.
