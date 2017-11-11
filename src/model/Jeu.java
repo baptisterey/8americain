@@ -33,14 +33,19 @@ public class Jeu extends Observable {
     	
     }
     
+    // TODO REVOIR LA GESTION DU JOUEURCOURANT CAR ICI CA MARCHE MAIS CEST PAS SUPER RESISTANT AU ALLEAS DU CODE
     public Joueur getJoueurCourant() {
-    	
     	Joueur joueurCourant = joueurs.get(0);
     	joueurs.add(joueurs.remove(0));
     	
     	return joueurCourant;
     }
+    
+    public Joueur getJoueurSuivant() {
+		return joueurs.get(0);
+    }
 
+    
     public void changerSensJeu() {
     	Collections.reverse(joueurs);
     	
@@ -93,7 +98,6 @@ public class Jeu extends Observable {
    
     public static Jeu getInstance() {
     	if(instance !=null) {
-    		
 			return instance;
 		}else {
 			Jeu.instance = new Jeu();
@@ -108,21 +112,12 @@ public class Jeu extends Observable {
 
     
     public boolean isPartieOver() {
-    	
     	for(Joueur joueur : joueurs) {
     		if(joueur.getMain().isEmpty()) {
     			return true;
     		}
     	}
-    	
 		return false;
-    }
-
-    
-    public Joueur getJoueurSuivant() {
-    	
-    	
-		return null;
     }
 
 
@@ -139,6 +134,4 @@ public class Jeu extends Observable {
     	this.nbCarteModeAttaque = nbCarte;
     }
     
-    
-
 }

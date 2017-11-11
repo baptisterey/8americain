@@ -8,10 +8,19 @@ public class Joueur {
     
     private String pseudo;
     private int score = 0;
+    private boolean peutJoueur = true;
 
     public Joueur(String pseudo) {
     	this.pseudo = pseudo;
     }
+    
+    public boolean isPeutJoueur() {
+		return peutJoueur;
+	}
+
+	public void setPeutJoueur(boolean peutJoueur) {
+		this.peutJoueur = peutJoueur;
+	}
 
     private List<Carte> main = new ArrayList<Carte> ();
 
@@ -26,6 +35,8 @@ public class Joueur {
 	public String getPseudo() {
 		return pseudo;
 	}
+
+	
 	
 
 }
