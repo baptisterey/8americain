@@ -111,7 +111,7 @@ public class Jeu extends Observable {
     }
 
     
-    public boolean isPartieOver() {
+    public boolean isMancheOver() {
     	for(Joueur joueur : joueurs) {
     		if(joueur.getMain().isEmpty()) {
     			return true;
