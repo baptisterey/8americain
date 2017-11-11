@@ -23,6 +23,9 @@ public class Joueur {
 		return main;
 	}
 	
+	public String getPseudo() {
+		return pseudo;
+	}
 	
 
 }

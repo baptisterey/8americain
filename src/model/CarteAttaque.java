@@ -15,6 +15,13 @@ public class CarteAttaque extends Carte {
     private int valeurAttaque;
 
     public void action(Joueur joueurCourant) {
+    	if(isContrable) {
+    		Jeu.getInstance().setModeAttaque(true);
+        	Jeu.getInstance().addCarteAttaque(valeurAttaque);
+    	}else {
+    		Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(), valeurAttaque);
+    	}
+    	
     }
 
 }

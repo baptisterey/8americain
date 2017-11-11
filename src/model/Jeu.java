@@ -21,14 +21,32 @@ public class Jeu extends Observable {
     	
     }
     
+    public List<Joueur> getJoueurs(){
+    	return joueurs;
+    }
+    
+    public void setJoueurs(List<Joueur> joueurs) {
+    	this.joueurs = joueurs;
+    }
+    
     public void initCarte(int variante) {
     	
     }
     
     public Joueur getJoueurCourant() {
-    	return null;
+    	
+    	Joueur joueurCourant = joueurs.get(0);
+    	joueurs.add(joueurs.remove(0));
+    	
+    	return joueurCourant;
     }
 
+    public void changerSensJeu() {
+    	Collections.reverse(joueurs);
+    	
+    	//OBLIGATOIRE Sinon le joueur rejoue.
+    	joueurs.add(joueurs.remove(0));
+    }
     
     public void defausserCarte(Joueur joueurCourant, Carte carte) {
     	defausse.add(carte);
@@ -75,9 +93,11 @@ public class Jeu extends Observable {
    
     public static Jeu getInstance() {
     	if(instance !=null) {
+    		
 			return instance;
 		}else {
-			return new Jeu();
+			Jeu.instance = new Jeu();
+			return Jeu.instance;
 		}
     }
 
@@ -88,11 +108,20 @@ public class Jeu extends Observable {
 
     
     public boolean isPartieOver() {
+    	
+    	for(Joueur joueur : joueurs) {
+    		if(joueur.getMain().isEmpty()) {
+    			return true;
+    		}
+    	}
+    	
 		return false;
     }
 
     
     public Joueur getJoueurSuivant() {
+    	
+    	
 		return null;
     }
 
@@ -109,5 +138,7 @@ public class Jeu extends Observable {
     public void setNbCarteModeAttaque(int nbCarte) {
     	this.nbCarteModeAttaque = nbCarte;
     }
+    
+    
 
 }
