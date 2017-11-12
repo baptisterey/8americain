@@ -19,7 +19,7 @@ public class CarteAttaque extends Carte {
     		Jeu.getInstance().setModeAttaque(true);
         	Jeu.getInstance().addCarteAttaque(valeurAttaque);
     	}else {
-    		Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(), valeurAttaque);
+    		Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(joueurCourant), valeurAttaque);
     	}
     	
     }

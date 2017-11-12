@@ -2,11 +2,11 @@ package view;
 
 import java.util.Observable;
 
-public class InterfaceConsole implements Observateur {
+public class InterfaceGraphique implements Observateur {
 
 	@Override
 	public void notifier(String msg) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

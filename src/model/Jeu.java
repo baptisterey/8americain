@@ -7,8 +7,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
-public class Jeu extends Observable {
+public class Jeu {
+	
+    //DEFINITION DES VARIABLES REPRESENTANTS CHAQUE VARIANTE
+	public final static int BASIQUE = 0;
+    public final static int MINIMALE = 1;
+    public final static int MONCLAR = 2;
     
+    public final static int COMPTEPOSITIF = 100;
+    public final static int COMPTENEGATIF = 101;
+	
+    
+    private int methodeCompte = COMPTEPOSITIF;
     private int nbCarteModeAttaque = 0;
     private boolean modeAttaque = false;
     private List<Joueur> joueurs = new ArrayList<Joueur> ();
@@ -16,9 +26,21 @@ public class Jeu extends Observable {
     private List<Carte> defausse = new ArrayList<Carte> ();
     
     private static Jeu instance;
-    
+   
     private Jeu() {
     	
+    }
+    
+    /**
+     * Implementation du design patern SINGLETON
+     */
+    public static Jeu getInstance() {
+    	if(instance !=null) {
+			return instance;
+		}else {
+			Jeu.instance = new Jeu();
+			return Jeu.instance;
+		}
     }
     
     public List<Joueur> getJoueurs(){
@@ -33,19 +55,34 @@ public class Jeu extends Observable {
     	
     }
     
-    // TODO REVOIR LA GESTION DU JOUEURCOURANT CAR ICI CA MARCHE MAIS CEST PAS SUPER RESISTANT AU ALLEAS DU CODE
-    public Joueur getJoueurCourant() {
-    	Joueur joueurCourant = joueurs.get(0);
-    	joueurs.add(joueurs.remove(0));
-    	
-    	return joueurCourant;
+    public Joueur getJoueurCourant() { 
+    	return joueurs.get(0);
     }
     
-    public Joueur getJoueurSuivant() {
-		return joueurs.get(0);
+    public Joueur getJoueurSuivant(Joueur joueurCourant) {
+		return joueurs.get((joueurs.indexOf(joueurCourant)+1) % joueurs.size());
+    }
+    
+    public void setModeAttaque(boolean bool) {
+    	this.modeAttaque = bool;
     }
 
+    public void addCarteAttaque(int nbCarteAPiocher) {
+    	this.nbCarteModeAttaque+=nbCarteAPiocher;
+    }
+ 
+    public void setNbCarteModeAttaque(int nbCarte) {
+    	this.nbCarteModeAttaque = nbCarte;
+    }
     
+
+    /**
+     * Méthode à appeler à chaque fin du tour du joueur afin de changer le joueur courant
+     */
+    public void setJoueurSuivant() {
+    	joueurs.add(joueurs.remove(0));
+    }
+
     public void changerSensJeu() {
     	Collections.reverse(joueurs);
     	
@@ -63,7 +100,6 @@ public class Jeu extends Observable {
     	joueurCourant.getMain().remove(indexCarte);   	
     }
 
-    
     public void piocherCarte(Joueur joueur, int nb) {
     	
     	if(pioche.isEmpty()) {
@@ -96,21 +132,6 @@ public class Jeu extends Observable {
     }
 
    
-    public static Jeu getInstance() {
-    	if(instance !=null) {
-			return instance;
-		}else {
-			Jeu.instance = new Jeu();
-			return Jeu.instance;
-		}
-    }
-
-    
-    public void jouerPartie() {
-    	
-    }
-
-    
     public boolean isMancheOver() {
     	for(Joueur joueur : joueurs) {
     		if(joueur.getMain().isEmpty()) {
@@ -119,19 +140,23 @@ public class Jeu extends Observable {
     	}
 		return false;
     }
-
-
-    public void setModeAttaque(boolean bool) {
-    	this.modeAttaque = bool;
-    }
-
-    public void addCarteAttaque(int nbCarteAPiocher) {
-    	this.nbCarteModeAttaque+=nbCarteAPiocher;
-    }
-
     
-    public void setNbCarteModeAttaque(int nbCarte) {
-    	this.nbCarteModeAttaque = nbCarte;
+    public void compterScore() {
+    	switch (methodeCompte) {
+		
+    	case COMPTENEGATIF:
+    		// COMPTENEGATIF 
+    		
+			break;
+
+		default:
+			// COMPTEPOSITIF
+			
+			break;
+		
+    	}
+    	
     }
+
     
 }

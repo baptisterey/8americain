@@ -12,7 +12,7 @@ public class CarteSauterTour extends Carte {
 
 	public void action(Joueur joueurCourant) {
 		
-		Jeu.getInstance().getJoueurSuivant().setPeutJoueur(false);
+		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJoueur(false);
     
 	}
 

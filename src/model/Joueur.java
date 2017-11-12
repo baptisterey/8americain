@@ -23,11 +23,7 @@ public class Joueur {
 	}
 
     private List<Carte> main = new ArrayList<Carte> ();
-
-    public Carte choisirCarte() {
-		return null;
-    }
-
+	
 	public List<Carte> getMain() {
 		return main;
 	}
