@@ -14,6 +14,7 @@ public class Jeu {
     public final static int MINIMALE = 1;
     public final static int MONCLAR = 2;
     
+    //DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
     public final static int COMPTEPOSITIF = 100;
     public final static int COMPTENEGATIF = 101;
 	
@@ -52,6 +53,35 @@ public class Jeu {
     }
     
     public void initCarte(int variante) {
+    	
+    	//Création des 52 cartes 
+    	for (int valeur = 0; valeur < 8; valeur++) {
+    		for (int couleur = 0; couleur < 4; couleur++) {
+    			pioche.add(new Carte(valeur,couleur));	
+			}
+		}
+    	
+    	//Création des DEUX Jokers
+    	// TODO Creer JOKER
+    	
+    	//Modification des effets pour chaque variante
+    	switch (variante) {
+			case BASIQUE:
+				
+				break;
+			case MINIMALE:
+				
+				break;
+				
+			case MONCLAR:
+				
+				break;
+			default:
+				
+				
+				break;
+		}
+    	
     	
     }
     
