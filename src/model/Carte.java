@@ -22,9 +22,12 @@ public class Carte {
     private int couleur;
     private int valeur;
 
+    private Effet effet = new EffetClassique();
+    
+    
     public Carte (int valeur, int couleur) {
-	this.setCouleur(couleur);
-	this.setValeur(valeur);
+		this.setCouleur(couleur);
+		this.setValeur(valeur);
     }
 
     public Carte (String valeur, String couleur) {
@@ -86,9 +89,4 @@ public class Carte {
 		return sb.toString();
     }
     
-
-    public void action(Joueur joueurCourant) {
-    	
-    }
-
 }
