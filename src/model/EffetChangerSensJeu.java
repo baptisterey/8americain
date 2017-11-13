@@ -12,7 +12,7 @@ public class EffetChangerSensJeu implements Effet {
 
 	@Override
 	public String getMessage(Joueur joueurCourant) {
-		String str = joueurCourant.getPseudo()+" inverse le sens de jeu !";
+		String str = joueurCourant.getPseudo()+" inverse le sens de jeu!";
 		return str;
 	}
 

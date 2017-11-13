@@ -24,9 +24,9 @@ public class EffetAttaque implements Effet {
 	public String getMessage(Joueur joueurCourant) {
 		String str = "";
 		if(isContrable==false) {
-			str+= joueurCourant.getPseudo()+ " ajoute "+this.valeurAttaque+" carte(s) au tas attaque.";
+			str+= joueurCourant.getPseudo()+ " ajoute "+this.valeurAttaque+" carte(s) au tas attaque!";
 		}else {
-			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" à piocher "+this.valeurAttaque+" carte(s).";	
+			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" à piocher "+this.valeurAttaque+" carte(s)!";	
 		}
 		return str;
 	}

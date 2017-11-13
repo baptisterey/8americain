@@ -11,7 +11,7 @@ public class EffetSauterTour implements Effet {
 
 	@Override
 	public String getMessage(Joueur joueurCourant) {
-		String str = joueurCourant.getPseudo()+" empêche "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" de jouer !";
+		String str = joueurCourant.getPseudo()+" empêche "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" de jouer!";
 		return str;
 	}
 
