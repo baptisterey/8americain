@@ -8,8 +8,7 @@ public class EffetClassique implements Effet {
 
 	@Override
 	public String getMessage(Joueur joueurCourant) {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }

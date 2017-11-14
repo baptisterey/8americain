@@ -15,10 +15,11 @@ public class Jeu {
     public final static int MONCLAR = 2;
     
     //DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
-    public final static int COMPTEPOSITIF = 100;
-    public final static int COMPTENEGATIF = 101;
+    public final static int COMPTEPOSITIF = 0;
+    public final static int COMPTENEGATIF = 1;
 	
     
+    private int variante = BASIQUE;
     private int methodeCompte = COMPTEPOSITIF;
     private int nbCarteModeAttaque = 0;
     private boolean modeAttaque = false;
@@ -52,46 +53,53 @@ public class Jeu {
     	this.joueurs = joueurs;
     }
     
-    public void initCarte(int variante) {
+    public void initCarteManche() {
+    	
+    	for(Joueur joueur : joueurs) {
+    		joueur.getMain().clear();
+    	}
+    	
+    	pioche.clear();
+    	defausse.clear();
     	
     	//Création des 52 cartes 
     	for (int valeur = 0; valeur < 8; valeur++) {
     		for (int couleur = 0; couleur < 4; couleur++) {
-    			pioche.add(new Carte(valeur,couleur));	
+    			Carte carte = new Carte(valeur,couleur);
+    			gererVariante(carte); // Application des effets en fonction de la variante
+    			pioche.add(carte);	
 			}
 		}
     	
-    	//Création des DEUX Jokers
-    	// TODO Creer JOKER
-    	
-    	//Modification des effets pour chaque variante
-    	switch (variante) {
-			case BASIQUE:
-				
-				break;
-			case MINIMALE:
-				
-				break;
-				
-			case MONCLAR:
-				
-				break;
-			default:
-				
-				
-				break;
-		}
-    	
-    	
+    	Collections.shuffle(pioche);
     }
     
-    public Joueur getJoueurCourant() { 
-    	return joueurs.get(0);
+    private void gererVariante(Carte carte) {
+    	int valeur = carte.getValeur();
+    	// TODO Gérer les variantes
+    	switch (valeur) {
+			case Carte.CINQ:
+				carte.setEffet(new EffetDonner());
+				break;
+			case Carte.SEPT:
+				carte.setEffet(new EffetSauterTour());
+				break;
+			case Carte.HUIT:
+				carte.setEffet(new EffetContrerChangerValeur());
+				break;
+			case Carte.DIX:
+				carte.setEffet(new EffetRejouer());
+				break;
+			case Carte.VALET:
+				carte.setEffet(new EffetChangerSensJeu());
+				break;
+			case Carte.AS:
+				carte.setEffet(new EffetAttaque(2, true));
+				break;	
+    	}
     }
     
-    public Joueur getJoueurSuivant(Joueur joueurCourant) {
-		return joueurs.get((joueurs.indexOf(joueurCourant)+1) % joueurs.size());
-    }
+  
     
     public void setModeAttaque(boolean bool) {
     	this.modeAttaque = bool;
@@ -105,7 +113,14 @@ public class Jeu {
     	this.nbCarteModeAttaque = nbCarte;
     }
     
-
+    public Joueur getJoueurCourant() { 
+    	return joueurs.get(0);
+    }
+    
+    public Joueur getJoueurSuivant(Joueur joueurCourant) {
+		return joueurs.get((joueurs.indexOf(joueurCourant)+1) % joueurs.size());
+    }
+    
     /**
      * Méthode à appeler à chaque fin du tour du joueur afin de changer le joueur courant
      */
@@ -119,6 +134,13 @@ public class Jeu {
     	//OBLIGATOIRE Sinon le joueur rejoue.
     	joueurs.add(joueurs.remove(0));
     }
+    
+    public void faireRejouer(Joueur joueurCourant) {
+    	while(!joueurCourant.equals(joueurs.get(0))) {
+    		joueurs.add(joueurs.remove(0));
+    	}
+    }
+    
     
     public void defausserCarte(Joueur joueurCourant, Carte carte) {
     	defausse.add(carte);

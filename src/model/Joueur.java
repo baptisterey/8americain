@@ -14,7 +14,7 @@ public class Joueur {
     	this.pseudo = pseudo;
     }
     
-    public boolean isPeutJoueur() {
+    public boolean isPeutJouer() {
 		return peutJoueur;
 	}
 
