@@ -3,15 +3,16 @@ package model;
 public class EffetSauterTour implements Effet {
 
     
-	public void action(Joueur joueurCourant) {
+	public String action(Joueur joueurCourant) {
 		
 		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJoueur(false);
-    
+		
+    		return getMessage(joueurCourant);
 	}
 
-	@Override
-	public String getMessage(Joueur joueurCourant) {
-		String str = joueurCourant.getPseudo()+" empêche "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" de jouer!";
+	
+	private String getMessage(Joueur joueurCourant) {
+		String str = joueurCourant.getPseudo()+" empÃªche "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" de jouer!";
 		return str;
 	}
 
