@@ -11,22 +11,24 @@ public class EffetAttaque implements Effet {
     	this.valeurAttaque = valeurAttaque;
     }
 
-    public void action(Joueur joueurCourant) {
+    public String action(Joueur joueurCourant) {
     	if(isContrable) {
     		Jeu.getInstance().setModeAttaque(true);
         	Jeu.getInstance().addCarteAttaque(valeurAttaque);
     	}else {
     		Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(joueurCourant), valeurAttaque);
     	}
+	    
+	return getMessage(joueurCourant);
     }
 
-	@Override
-	public String getMessage(Joueur joueurCourant) {
+	
+	private String getMessage(Joueur joueurCourant) {
 		String str = "";
 		if(isContrable==false) {
 			str+= joueurCourant.getPseudo()+ " ajoute "+this.valeurAttaque+" carte(s) au tas attaque!";
 		}else {
-			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" à piocher "+this.valeurAttaque+" carte(s)!";	
+			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" Ã  piocher "+this.valeurAttaque+" carte(s)!";	
 		}
 		return str;
 	}
