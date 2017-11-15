@@ -29,7 +29,7 @@ public class InterfaceConsole extends IHM {
 	@Override
 	public void initJoueurs() {
 		
-		this.getControleur.getJeu().getJoueurs().clear;
+		this.getControleur().getJeu().getJoueurs().clear();
 		
 		
 		
@@ -39,7 +39,7 @@ public class InterfaceConsole extends IHM {
 		System.out.print("Entrer votre nom : ");
 		String nom = sc.nextLine();
 		Joueur j = new Joueur(nom);
-		this.getControleur.getJeu().getJoueur().add(j);
+		this.getControleur().getJeu().getJoueurs().add(j);
 		System.out.println("---- CREATION DES JOUEURS ARTIFICELS ----");
 		System.out.print("Combien de joueurs artificiels ? ");
 		int nbJoueur = sc.nextInt();
@@ -57,7 +57,7 @@ public class InterfaceConsole extends IHM {
 			j = new JoueurArtificiel(nom, strategie);
 			
 			
-			this.getControleur.getJeu().getJoueurs().add(j1);
+			this.getControleur().getJeu().getJoueurs().add(j);
 		}	
 			
 		
