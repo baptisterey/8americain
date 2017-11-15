@@ -6,6 +6,9 @@ import java.util.Scanner;
 import controleur.Controleur;
 import model.JoueurArtificiel;
 
+import model.Joueur;
+
+
 public class InterfaceConsole extends IHM {
 
 	public InterfaceConsole(Controleur ctrl) {
@@ -25,10 +28,38 @@ public class InterfaceConsole extends IHM {
 
 	@Override
 	public void initJoueurs() {
+		
+		this.getControleur.getJeu().getJoueurs().clear;
+		
+		
+		
+		
 		Scanner sc = new Scanner(System.in);
+		System.out.println("---- CREATION DU JOUEUR ----");
+		System.out.print("Entrer votre nom : ");
+		String nom = sc.nextString();
+		Joueur j = new Joueur(nom);
+		this.getControleur.getJeu().getJoueur().add(j);
 		System.out.println("---- CREATION DES JOUEURS ARTIFICELS ----");
-		
-		
+		System.out.print("Combien de joueurs artificiels ? ");
+		int nbJoueur = sc.nextInt();
+		String strategie;
+		for (int i = 1 ; i <= nbJoueur ; i++) {
+			
+			System.out.print("Entrer nom joueur"+i+": ");
+			
+			nom = sc.nextString();
+			
+			System.out.print("Entrer stratégie joueur"+i+" (taper 0 pour passif, 1 pour agréssif) :");
+			
+			strategie = sc.nextInt();
+			
+			Joueur j = new JoueurArtificiel(String nom, int strategie);
+			
+			
+			this.getControleur.getJeu().getJoueurs().add(j);
+		}	
+			
 		
 	}
 
