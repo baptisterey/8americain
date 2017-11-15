@@ -2,8 +2,6 @@ package model;
 
 public interface Effet {
 
-	public void action(Joueur joueurCourant);
-	
-	public String getMessage(Joueur joueurCourant);
+	public String action(Joueur joueurCourant);
 	
 }
