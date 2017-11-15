@@ -3,14 +3,12 @@ package model;
 public class EffetContrerChangerValeur implements Effet {
 
    
-	public void action(Joueur joueurCourant) {
+	public String action(Joueur joueurCourant) {
 		
-    }
+		
+		return "";	
+    	}
 
-	@Override
-	public String getMessage(Joueur joueurCourant) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
