@@ -6,12 +6,12 @@ import java.util.List;
 public class EffetChangerSensJeu implements Effet {
 
 	@Override
-	public void action(Joueur joueurCourant) {
+	public String action(Joueur joueurCourant) {
 		Jeu.getInstance().changerSensJeu();
+		return getMessage(joueurCourant);
 	}
 
-	@Override
-	public String getMessage(Joueur joueurCourant) {
+	private String getMessage(Joueur joueurCourant) {
 		String str = joueurCourant.getPseudo()+" inverse le sens de jeu!";
 		return str;
 	}
