@@ -1,9 +1,10 @@
 package view;
+import model.*;
 
 public interface Observateur {
 	
 	public void notifier(String msg);
-	public int choixIndexCarte();
+	public int choixIndexCarte(Joueur joueurCourant);
 	
 	
 }

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EffetChangerSensJeu implements Effet {
+public class EffetChangerSensJeu extends Effet {
 
 	@Override
 	public String action(Joueur joueurCourant) {

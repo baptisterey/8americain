@@ -1,13 +1,13 @@
 package model;
 
-public class EffetSauterTour implements Effet {
+public class EffetSauterTour extends Effet {
 
     
 	public String action(Joueur joueurCourant) {
 		
 		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJoueur(false);
 		
-    		return getMessage(joueurCourant);
+    	return getMessage(joueurCourant);
 	}
 
 	

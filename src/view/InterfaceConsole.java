@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import controleur.Controleur;
 import model.JoueurArtificiel;
-
+import model.Carte;
 import model.Joueur;
 
 
@@ -21,18 +21,22 @@ public class InterfaceConsole extends IHM {
 	}
 
 	@Override
-	public int choixIndexCarte() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int choixIndexCarte(Joueur joueurCourant) {
+		System.out.println("-- MAIN DE "+joueurCourant.getPseudo()+" --");
+		for(Carte carte : joueurCourant.getMain()){
+			System.out.println("("+joueurCourant.getMain().indexOf(carte)+")"+carte.toString());
+		}
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Choisir index Carte : ");
+		int index = sc.nextInt();
+		
+		return index;
 	}
 
 	@Override
 	public void initJoueurs() {
 		
 		this.getControleur().getJeu().getJoueurs().clear();
-		
-		
-		
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---- CREATION DU JOUEUR ----");
@@ -48,7 +52,7 @@ public class InterfaceConsole extends IHM {
 			
 			System.out.print("Entrer nom joueur"+i+": ");
 			
-			nom = sc.nextLine();
+			nom = sc.next();
 			
 			System.out.print("Entrer stratégie joueur"+i+" (taper 0 pour passif, 1 pour agréssif) :");
 			
@@ -60,7 +64,7 @@ public class InterfaceConsole extends IHM {
 			this.getControleur().getJeu().getJoueurs().add(j);
 		}	
 			
-		
+		this.getControleur().commencerPartie();
 	}
 
 	

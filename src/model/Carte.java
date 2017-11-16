@@ -8,23 +8,24 @@ public class Carte {
     public final static int TREFLE = 3;
 
     
-    public final static int AS = 0;
-    public final static int DEUX = 1;
-    public final static int TROIS = 2;
-    public final static int QUATRE = 3;
-    public final static int CINQ = 4;
-    public final static int SIX = 5;
-    public final static int SEPT = 6;
-    public final static int HUIT = 7;
-    public final static int NEUF = 8;
-    public final static int DIX = 9;
-    public final static int VALET = 10;
-    public final static int DAME = 11;
-    public final static int ROI = 12;
-	
+    public final static int DEUX = 0;
+    public final static int TROIS = 1;
+    public final static int QUATRE = 2;
+    public final static int CINQ = 3;
+    public final static int SIX = 4;
+    public final static int SEPT = 5;
+    public final static int HUIT = 6;
+    public final static int NEUF = 7;
+    public final static int DIX = 8;
+    public final static int VALET = 9;
+    public final static int DAME = 10;
+    public final static int ROI = 11;
+    public final static int AS = 12;
+    
     public final static String[] COULEURS = {"Pic", "Coeur", "Carreau", "Trefle"};
-    public final static String[] VALEURS = {"As","Deux","Trois","Quatre","Cinq","Six","Sept", "Huit", "Neuf", "Dix", "Valet", "Dame", "Roi"};
-
+    public final static String[] VALEURS = {"Deux","Trois","Quatre","Cinq","Six","Sept", "Huit", "Neuf", "Dix", "Valet", "Dame", "Roi","As"};
+    
+    
     private int couleur;
     private int valeur;
 
@@ -82,7 +83,7 @@ public class Carte {
     }
 
     public void setValeur(int valeur) {
-		if (valeur >= Carte.AS && valeur <= Carte.ROI) {
+		if (valeur >= Carte.DEUX && valeur <= Carte.AS) {
 		    this.valeur = valeur;
 		}
     }

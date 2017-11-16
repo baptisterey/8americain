@@ -25,6 +25,10 @@ public class Controleur {
 	public void setObservateur(Observateur obs) {
 		this.obs = obs;
 	}
+	
+	public Observateur getObservateur() {
+		return obs;
+	}
 
 	// Méthode MAIN du logiciel.
 	public static void main(String [] args) {
@@ -34,5 +38,35 @@ public class Controleur {
         
 	}
 
+	
+	public void commencerPartie(){
+		
+		while(true){
+			getJeu().initCarteManche();
+			
+			while(!getJeu().isMancheOver()){
+				
+				Joueur joueurCourant = getJeu().getJoueurCourant();
+				Carte carte;
+				if(joueurCourant instanceof JoueurArtificiel){
+					carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
+				}else {
+					carte = getJeu().getJoueurs().get(getJeu().getJoueurs().indexOf(joueurCourant)).getMain().get(obs.choixIndexCarte(joueurCourant)); 
+				}
+				
+				
+				String messagePoserCarte = joueurCourant.getPseudo()+" pose un "+ carte.toString()+"!";
+				getObservateur().notifier(messagePoserCarte);
+				
+				String messageEffet = carte.getEffet().action(joueurCourant);
+				getObservateur().notifier(messageEffet);
+				
+				
+				getJeu().defausserCarte(joueurCourant, carte);
+			}
+			
+		}
+		
+	}
 	
 }

@@ -3,6 +3,7 @@ package view;
 import java.util.Observable;
 
 import controleur.Controleur;
+import model.Joueur;
 
 public class InterfaceGraphique extends IHM {
 
@@ -15,10 +16,11 @@ public class InterfaceGraphique extends IHM {
 	public void notifier(String msg) {
 		
 		
+		
 	}
 
 	@Override
-	public int choixIndexCarte() {
+	public int choixIndexCarte(Joueur joueurCourant) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

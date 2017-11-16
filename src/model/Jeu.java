@@ -22,10 +22,14 @@ public class Jeu {
     private int variante = BASIQUE;
     private int methodeCompte = COMPTEPOSITIF;
     private int nbCarteModeAttaque = 0;
+    private int carteAPiocher = 5;
+    
     private boolean modeAttaque = false;
     private List<Joueur> joueurs = new ArrayList<Joueur> ();
     private List<Carte> pioche = new ArrayList<Carte> ();
     private List<Carte> defausse = new ArrayList<Carte> ();
+   
+    
     
     private static Jeu instance;
    
@@ -62,16 +66,29 @@ public class Jeu {
     	pioche.clear();
     	defausse.clear();
     	
-    	//Création des 52 cartes 
-    	for (int valeur = 0; valeur < 8; valeur++) {
+    	//Création des 32 cartes (TODO faire avec 52)
+    	for (int valeur = 5; valeur < 13; valeur++) {
     		for (int couleur = 0; couleur < 4; couleur++) {
     			Carte carte = new Carte(valeur,couleur);
     			gererVariante(carte); // Application des effets en fonction de la variante
+    			
+    			
     			pioche.add(carte);	
 			}
 		}
     	
     	Collections.shuffle(pioche);
+    	
+    	System.out.println(pioche.size());
+    	
+    	for (int i = 0; i <this.carteAPiocher ; i++){
+    		for(Joueur joueur : getJoueurs()){
+        		piocherCarte(joueur, 1);
+        	}
+    		
+    	}
+    	
+    	
     }
     
     private void gererVariante(Carte carte) {
@@ -113,21 +130,17 @@ public class Jeu {
     	this.nbCarteModeAttaque = nbCarte;
     }
     
-    public Joueur getJoueurCourant() { 
-    	return joueurs.get(0);
+    public Joueur getJoueurCourant() {
+    	Joueur joueurCourant = joueurs.get(0);
+    	joueurs.add(joueurs.remove(0));
+    	return joueurCourant;
     }
     
     public Joueur getJoueurSuivant(Joueur joueurCourant) {
 		return joueurs.get((joueurs.indexOf(joueurCourant)+1) % joueurs.size());
     }
     
-    /**
-     * Méthode à appeler à chaque fin du tour du joueur afin de changer le joueur courant
-     */
-    public void setJoueurSuivant() {
-    	joueurs.add(joueurs.remove(0));
-    }
-
+   
     public void changerSensJeu() {
     	Collections.reverse(joueurs);
     	

@@ -1,7 +1,7 @@
 package model;
 
 
-public class EffetAttaque implements Effet {
+public class EffetAttaque extends Effet {
 
 	private boolean isContrable = true;
     private int valeurAttaque;
@@ -28,7 +28,7 @@ public class EffetAttaque implements Effet {
 		if(isContrable==false) {
 			str+= joueurCourant.getPseudo()+ " ajoute "+this.valeurAttaque+" carte(s) au tas attaque!";
 		}else {
-			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" Ã  piocher "+this.valeurAttaque+" carte(s)!";	
+			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" à piocher "+this.valeurAttaque+" carte(s)!";	
 		}
 		return str;
 	}

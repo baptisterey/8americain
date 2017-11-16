@@ -1,7 +1,11 @@
 package model;
 
-public interface Effet {
+public abstract class Effet {
 
-	public String action(Joueur joueurCourant);
+	private boolean isAgressif = false;
+	
+	
+	
+	public abstract String action(Joueur joueurCourant);
 	
 }
