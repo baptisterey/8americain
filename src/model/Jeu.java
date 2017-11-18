@@ -57,6 +57,10 @@ public class Jeu {
     	this.joueurs = joueurs;
     }
     
+    public List<Carte> getDefausse(){
+    	return defausse;
+    }
+    
     public void initCarteManche() {
     	
     	for(Joueur joueur : joueurs) {
@@ -187,13 +191,21 @@ public class Jeu {
 
     
     public boolean isCartePosable(Carte carte) {
+    	if(defausse.isEmpty() || carte == null) {
+			return true;
+		}
+    	
     	if(modeAttaque) {
     		
     	}else {
     		
+    		Carte carteTapis = defausse.get(defausse.size()-1);
+    		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getEffet() == carte.getEffet()) {
+    			return true;
+    		}
     	}
     	
-		return true;
+		return false;
     }
 
    

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import controleur.Controleur;
 import model.JoueurArtificiel;
 import model.Carte;
+import model.Jeu;
 import model.Joueur;
 
 
@@ -22,6 +23,15 @@ public class InterfaceConsole extends IHM {
 
 	@Override
 	public int choixIndexCarte(Joueur joueurCourant) {
+		String carteDefausse = "Carte sommet défausse : ";
+		if(Jeu.getInstance().getDefausse().isEmpty()) {
+			carteDefausse+="aucune!";
+			
+		}else {
+			carteDefausse+=Jeu.getInstance().getDefausse().get(Jeu.getInstance().getDefausse().size()-1);
+		}
+		System.out.println(carteDefausse);
+		
 		System.out.println("-- MAIN DE "+joueurCourant.getPseudo()+" --");
 		for(Carte carte : joueurCourant.getMain()){
 			System.out.println("("+joueurCourant.getMain().indexOf(carte)+")"+carte.toString());

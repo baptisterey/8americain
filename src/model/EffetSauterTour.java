@@ -5,7 +5,7 @@ public class EffetSauterTour extends Effet {
     
 	public String action(Joueur joueurCourant) {
 		
-		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJoueur(false);
+		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJouer(false);
 		
     	return getMessage(joueurCourant);
 	}
