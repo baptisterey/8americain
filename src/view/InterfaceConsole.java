@@ -18,7 +18,9 @@ public class InterfaceConsole extends IHM {
 
 	@Override
 	public void notifier(String msg) {
-		System.out.println(msg);
+		if(msg != "") {
+			System.out.println(msg);
+		}
 	}
 
 	@Override

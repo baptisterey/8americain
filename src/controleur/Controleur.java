@@ -40,53 +40,58 @@ public class Controleur {
 
 	
 	public void commencerPartie(){
-		
 		while(true){
-			getJeu().initCarteManche();
-			
-			while(!getJeu().isMancheOver()){
+				int nbManche = 1;
 				
-				Joueur joueurCourant = getJeu().getJoueurCourant();
+				getJeu().initCarteManche();
+				jouerManche(nbManche);
 				
-				if(joueurCourant.isPeutJouer()) {
-					Carte carte;
-					 do {
-							if(joueurCourant instanceof JoueurArtificiel){
-								carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
-							}else {
-								int indexCarte = obs.choixIndexCarte(joueurCourant);
-								if(indexCarte==-1) {
-									carte = null;
-								}else {
-									carte = getJeu().getJoueurs().get(getJeu().getJoueurs().indexOf(joueurCourant)).getMain().get(indexCarte); 
-								}
-									}
-					} while (!getJeu().isCartePosable(carte));
-					 
-					 
-					if(carte == null) {
-						getJeu().piocherCarte(joueurCourant, 1);
-						String messagePiocherCarte = joueurCourant.getPseudo()+" pioche une carte!";
-						getObservateur().notifier(messagePiocherCarte);
-					}else { // On joue la carte
-						String messagePoserCarte = joueurCourant.getPseudo()+" pose un(e) "+ carte.toString()+"!";
-						getObservateur().notifier(messagePoserCarte);
-						
-						String messageEffet = carte.getEffet().action(joueurCourant);
-						getObservateur().notifier(messageEffet);
-						
-						getJeu().defausserCarte(joueurCourant, carte);
-					}
-					
-				}else {
-					String messageSauterTour = joueurCourant.getPseudo()+ " ne peut pas jouer!";
-					getObservateur().notifier(messageSauterTour);
-					joueurCourant.setPeutJouer(true);
-				}	
+				nbManche++;		
+		}	
+	}
+	
+	public void jouerManche(int nbManche) {
+		
+		getObservateur().notifier("--- MANCHE N°"+nbManche+" ---");
+		while(!getJeu().isMancheOver()){
+		Joueur joueurCourant = getJeu().getJoueurCourant();
+		getObservateur().notifier("-- TOUR DE "+joueurCourant.getPseudo()+" --");
+		if(joueurCourant.isPeutJouer()) {
+			Carte carte;
+			 do {
+					if(joueurCourant instanceof JoueurArtificiel){
+						carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
+					}else {
+						int indexCarte = obs.choixIndexCarte(joueurCourant);
+						if(indexCarte==-1) {
+							carte = null;
+						}else {
+							carte = getJeu().getJoueurs().get(getJeu().getJoueurs().indexOf(joueurCourant)).getMain().get(indexCarte); 
+						}
+							}
+			} while (!getJeu().isCartePosable(carte));
+			 
+			if(carte == null) {
+				getJeu().piocherCarte(joueurCourant, 1);
+				String messagePiocherCarte = joueurCourant.getPseudo()+" pioche une carte!";
+				getObservateur().notifier(messagePiocherCarte);
+			}else { // On joue la carte
+				String messagePoserCarte = joueurCourant.getPseudo()+" pose un(e) "+ carte.toString()+"!";
+				getObservateur().notifier(messagePoserCarte);
+				
+				String messageEffet = carte.getEffet().action(joueurCourant);
+				getObservateur().notifier(messageEffet);
+				
+				getJeu().defausserCarte(joueurCourant, carte);
 			}
 			
+		}else {
+			String messageSauterTour = joueurCourant.getPseudo()+ " ne peut pas jouer!";
+			getObservateur().notifier(messageSauterTour);
+			joueurCourant.setPeutJouer(true);
 		}
 		
+		}
 	}
 	
 }
