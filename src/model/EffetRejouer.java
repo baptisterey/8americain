@@ -7,7 +7,7 @@ public class EffetRejouer extends Effet {
 		
 		Jeu.getInstance().faireRejouer(joueurCourant);
 		
-		return "";
+		return getMessage(joueurCourant);
     }
 	
 	private String getMessage(Joueur joueurCourant){
