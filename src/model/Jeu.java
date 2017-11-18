@@ -83,16 +83,11 @@ public class Jeu {
     	
     	Collections.shuffle(pioche);
     	
-    	System.out.println(pioche.size());
-    	
     	for (int i = 0; i <this.carteAPiocher ; i++){
     		for(Joueur joueur : getJoueurs()){
         		piocherCarte(joueur, 1);
         	}
-    		
     	}
-    	
-    	
     }
     
     private void gererVariante(Carte carte) {
@@ -121,9 +116,16 @@ public class Jeu {
     }
     
   
+    public boolean isModeAttaque() {
+    	return this.modeAttaque;
+    }
     
     public void setModeAttaque(boolean bool) {
     	this.modeAttaque = bool;
+    }
+    
+    public int getNbCarteAttaque() {
+    	return this.nbCarteModeAttaque;
     }
 
     public void addCarteAttaque(int nbCarteAPiocher) {
@@ -196,7 +198,9 @@ public class Jeu {
 		}
     	
     	if(modeAttaque) {
-    		
+    		if(carte.getEffet() instanceof EffetAttaque) {
+    			return true;
+    		}
     	}else {
     		
     		Carte carteTapis = defausse.get(defausse.size()-1);
@@ -220,20 +224,23 @@ public class Jeu {
     
     public void compterScore() {
     	switch (methodeCompte) {
-		
-    	case COMPTENEGATIF:
-    		// COMPTENEGATIF 
-    		
-			break;
-
-		default:
-			// COMPTEPOSITIF
-			
-			break;
+	    	case COMPTENEGATIF:
+	    		// COMPTENEGATIF 
+	    		
+				break;
+	
+			default:
+				// COMPTEPOSITIF
+				
+				break;
 		
     	}
     	
     }
 
-    
+    public boolean isPartieOver() {
+    	
+    	
+    	return true;
+    }
 }

@@ -17,6 +17,7 @@ public class EffetAttaque extends Effet {
         	Jeu.getInstance().addCarteAttaque(valeurAttaque);
     	}else {
     		Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(joueurCourant), valeurAttaque);
+    		
     	}
 	    
 	return getMessage(joueurCourant);
@@ -25,7 +26,7 @@ public class EffetAttaque extends Effet {
 	
 	private String getMessage(Joueur joueurCourant) {
 		String str = "";
-		if(isContrable==false) {
+		if(isContrable) {
 			str+= joueurCourant.getPseudo()+ " ajoute "+this.valeurAttaque+" carte(s) au tas attaque!";
 		}else {
 			str+= joueurCourant.getPseudo()+" oblige "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" à piocher "+this.valeurAttaque+" carte(s)!";	

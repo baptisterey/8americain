@@ -38,6 +38,8 @@ public class InterfaceConsole extends IHM {
 		for(Carte carte : joueurCourant.getMain()){
 			System.out.println("("+joueurCourant.getMain().indexOf(carte)+")"+carte.toString());
 		}
+		System.out.println("=====================");
+		System.out.println("(-1)Piocher une carte");
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Choisir index Carte : ");
 		int index = sc.nextInt();
@@ -47,9 +49,13 @@ public class InterfaceConsole extends IHM {
 
 	@Override
 	public void initJoueurs() {
-		
+		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
 		this.getControleur().getJeu().getJoueurs().clear();
+		this.getControleur().getJeu().getJoueurs().add(new Joueur("Civetdelapin"));
+		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_1",0));
+		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_2",1));
 		
+		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---- CREATION DU JOUEUR ----");
 		System.out.print("Entrer votre nom : ");
@@ -75,7 +81,8 @@ public class InterfaceConsole extends IHM {
 			
 			this.getControleur().getJeu().getJoueurs().add(j);
 		}	
-			
+			*/
+		
 		this.getControleur().commencerPartie();
 	}
 

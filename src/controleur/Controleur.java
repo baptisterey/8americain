@@ -40,21 +40,29 @@ public class Controleur {
 
 	
 	public void commencerPartie(){
+		
 		while(true){
 				int nbManche = 1;
-				
 				getJeu().initCarteManche();
 				jouerManche(nbManche);
 				
+				getJeu().compterScore();
 				nbManche++;		
-		}	
+		}
+		
 	}
 	
 	public void jouerManche(int nbManche) {
 		
 		getObservateur().notifier("--- MANCHE N°"+nbManche+" ---");
 		while(!getJeu().isMancheOver()){
-		Joueur joueurCourant = getJeu().getJoueurCourant();
+			Joueur joueurCourant = getJeu().getJoueurCourant();
+			jouerTour(joueurCourant);
+			
+		}
+	}
+	
+	public void jouerTour(Joueur joueurCourant) {
 		getObservateur().notifier("-- TOUR DE "+joueurCourant.getPseudo()+" --");
 		if(joueurCourant.isPeutJouer()) {
 			Carte carte;
@@ -72,9 +80,18 @@ public class Controleur {
 			} while (!getJeu().isCartePosable(carte));
 			 
 			if(carte == null) {
-				getJeu().piocherCarte(joueurCourant, 1);
-				String messagePiocherCarte = joueurCourant.getPseudo()+" pioche une carte!";
-				getObservateur().notifier(messagePiocherCarte);
+				if(getJeu().isModeAttaque()) {
+					int nbCarteAttaque = getJeu().getNbCarteAttaque();
+					getJeu().piocherCarte(joueurCourant, nbCarteAttaque);
+					getJeu().setModeAttaque(false);
+					String messagePiocherCarte = joueurCourant.getPseudo()+" pioche "+nbCarteAttaque+" cartes!";
+					getObservateur().notifier(messagePiocherCarte);
+				}else {
+					getJeu().piocherCarte(joueurCourant, 1);
+					String messagePiocherCarte = joueurCourant.getPseudo()+" pioche une carte!";
+					getObservateur().notifier(messagePiocherCarte);
+				}
+				
 			}else { // On joue la carte
 				String messagePoserCarte = joueurCourant.getPseudo()+" pose un(e) "+ carte.toString()+"!";
 				getObservateur().notifier(messagePoserCarte);
@@ -89,8 +106,6 @@ public class Controleur {
 			String messageSauterTour = joueurCourant.getPseudo()+ " ne peut pas jouer!";
 			getObservateur().notifier(messageSauterTour);
 			joueurCourant.setPeutJouer(true);
-		}
-		
 		}
 	}
 	
