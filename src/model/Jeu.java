@@ -198,7 +198,7 @@ public class Jeu {
 		}
     	
     	if(modeAttaque) {
-    		if(carte.getEffet() instanceof EffetAttaque) {
+    		if(carte.getEffet() instanceof EffetAttaque || carte.getEffet() instanceof EffetContrerChangerValeur) {
     			return true;
     		}
     	}else {
