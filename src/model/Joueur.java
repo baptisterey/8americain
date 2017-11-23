@@ -10,6 +10,7 @@ public class Joueur {
     private int score = 0;
     private boolean peutJouer = true;
 
+    
     public Joueur(String pseudo) {
     	this.pseudo = pseudo;
     }

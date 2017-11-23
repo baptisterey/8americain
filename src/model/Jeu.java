@@ -25,11 +25,10 @@ public class Jeu {
     private int carteAPiocher = 5;
     
     private boolean modeAttaque = false;
-    private List<Joueur> joueurs = new ArrayList<Joueur> ();
-    private List<Carte> pioche = new ArrayList<Carte> ();
-    private List<Carte> defausse = new ArrayList<Carte> ();
+    private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
+    private LinkedList<Carte> pioche = new LinkedList<Carte> ();
+    private LinkedList<Carte> defausse = new LinkedList<Carte> ();
    
-    
     
     private static Jeu instance;
    
@@ -53,10 +52,7 @@ public class Jeu {
     	return joueurs;
     }
     
-    public void setJoueurs(List<Joueur> joueurs) {
-    	this.joueurs = joueurs;
-    }
-    
+
     public List<Carte> getDefausse(){
     	return defausse;
     }
@@ -138,7 +134,7 @@ public class Jeu {
     
     public Joueur getJoueurCourant() {
     	Joueur joueurCourant = joueurs.get(0);
-    	joueurs.add(joueurs.remove(0));
+    	joueurs.add(joueurs.removeFirst());
     	return joueurCourant;
     }
     
@@ -151,12 +147,12 @@ public class Jeu {
     	Collections.reverse(joueurs);
     	
     	//OBLIGATOIRE Sinon le joueur rejoue.
-    	joueurs.add(joueurs.remove(0));
+    	joueurs.add(joueurs.removeFirst());
     }
     
     public void faireRejouer(Joueur joueurCourant) {
     	while(!joueurCourant.equals(joueurs.get(0))) {
-    		joueurs.add(joueurs.remove(0));
+    		joueurs.add(joueurs.removeFirst());
     	}
     }
     
@@ -177,7 +173,7 @@ public class Jeu {
     		for(int i=0 ; i < defausse.size()-1 ; i++){
     			pioche.add(defausse.get(i));
     		}
-    		Carte carteDefausse = defausse.get(defausse.size()-1);
+    		Carte carteDefausse = defausse.getLast();
     		defausse.clear();
     		defausse.add(carteDefausse);
     		
@@ -185,10 +181,8 @@ public class Jeu {
     	}
     	
     	for(int i = 0; i< nb; i++) {
-    		joueur.getMain().add(pioche.get(pioche.size()-1));
-    		pioche.remove(pioche.size()-1);
+    		joueur.getMain().add(pioche.removeLast());
     	}
-    	
     }
 
     
@@ -203,7 +197,7 @@ public class Jeu {
     		}
     	}else {
     		
-    		Carte carteTapis = defausse.get(defausse.size()-1);
+    		Carte carteTapis = defausse.getLast();
     		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getEffet() == carte.getEffet()) {
     			return true;
     		}
@@ -239,7 +233,6 @@ public class Jeu {
     }
 
     public boolean isPartieOver() {
-    	
     	
     	return true;
     }
