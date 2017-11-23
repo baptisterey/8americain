@@ -22,5 +22,6 @@ public abstract class IHM implements Observateur{
 
 	public abstract void initJoueurs();
 	
+	 
 	
 }

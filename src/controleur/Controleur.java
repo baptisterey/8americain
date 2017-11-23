@@ -93,13 +93,32 @@ public class Controleur {
 				}
 				
 			}else { // On joue la carte
+				
+				getJeu().defausserCarte(joueurCourant, carte);
 				String messagePoserCarte = joueurCourant.getPseudo()+" pose un(e) "+ carte.toString()+"!";
 				getObservateur().notifier(messagePoserCarte);
+				
+				
+				if(carte.getEffet() instanceof EffetAvecInput){ // On doit d'abord init l'effet avec les données nécessaires
+					
+					if(carte.getEffet() instanceof EffetDonner){
+						int [] data;
+						if (joueurCourant instanceof JoueurArtificiel){
+							data = ((JoueurArtificiel) joueurCourant).choisirDataDonner();
+						}else {
+							data = getObservateur().choixIndexDonner(joueurCourant);
+						}
+						
+						((EffetAvecInput) carte.getEffet()).setData(data);
+					}
+					
+					
+				}
 				
 				String messageEffet = carte.getEffet().action(joueurCourant);
 				getObservateur().notifier(messageEffet);
 				
-				getJeu().defausserCarte(joueurCourant, carte);
+				
 			}
 			
 		}else {

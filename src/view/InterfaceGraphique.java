@@ -31,5 +31,13 @@ public class InterfaceGraphique extends IHM {
 		
 	}
 
+	@Override
+	public int [] choixIndexDonner(Joueur joueurCourant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	
 }

@@ -86,5 +86,33 @@ public class InterfaceConsole extends IHM {
 		this.getControleur().commencerPartie();
 	}
 
+	@Override
+	public int[] choixIndexDonner(Joueur joueurCourant) {
+		int [] data = new int [2];
+		System.out.println("-- CHOIX EFFET DONNER --");
+		
+		System.out.println("-- MAIN DE "+joueurCourant.getPseudo()+" --");
+		for(Carte carte : joueurCourant.getMain()){
+			System.out.println("("+joueurCourant.getMain().indexOf(carte)+")"+carte.toString());
+		}
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Choisir index Carte : ");
+		data[0] = sc.nextInt();
+		
+		System.out.println("-- CHOIX DU JOUEUR A QUI DONNER LA CARTE --");
+		for(int i =0; i < Jeu.getInstance().getJoueurs().size()-1; i++){
+			if(!joueurCourant.equals(Jeu.getInstance().getJoueurs().get(i))){
+				System.out.println("("+i+")"+Jeu.getInstance().getJoueurs().get(i).getPseudo());
+			}	
+		}
+		
+		
+		System.out.print("Choisir index Joueur : ");
+		data[1] = sc.nextInt();
+		
+		return data;
+	}
+
 	
 }

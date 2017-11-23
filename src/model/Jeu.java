@@ -67,7 +67,7 @@ public class Jeu {
     	defausse.clear();
     	
     	//Création des 32 cartes (TODO faire avec 52)
-    	for (int valeur = 5; valeur < 13; valeur++) {
+    	for (int valeur = 3; valeur < 13; valeur++) {
     		for (int couleur = 0; couleur < 4; couleur++) {
     			Carte carte = new Carte(valeur,couleur);
     			gererVariante(carte); // Application des effets en fonction de la variante
@@ -97,7 +97,7 @@ public class Jeu {
 				carte.setEffet(new EffetSauterTour());
 				break;
 			case Carte.HUIT:
-				carte.setEffet(new EffetContrerChangerValeur());
+				carte.setEffet(new EffetContrerChangerCouleur());
 				break;
 			case Carte.DIX:
 				carte.setEffet(new EffetRejouer());
@@ -192,7 +192,7 @@ public class Jeu {
 		}
     	
     	if(modeAttaque) {
-    		if(carte.getEffet() instanceof EffetAttaque || carte.getEffet() instanceof EffetContrerChangerValeur) {
+    		if(carte.getEffet() instanceof EffetAttaque || carte.getEffet() instanceof EffetContrerChangerCouleur) {
     			return true;
     		}
     	}else {
