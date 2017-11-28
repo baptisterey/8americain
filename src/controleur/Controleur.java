@@ -40,9 +40,9 @@ public class Controleur {
 
 	
 	public void commencerPartie(){
-		
-		while(true){
-				int nbManche = 1;
+		int nbManche = 1;
+		while(nbManche<3){
+				
 				getJeu().initCarteManche();
 				jouerManche(nbManche);
 				
@@ -100,19 +100,27 @@ public class Controleur {
 				
 				
 				if(carte.getEffet() instanceof EffetAvecInput){ // On doit d'abord init l'effet avec les données nécessaires
+					int [] data;
 					
 					if(carte.getEffet() instanceof EffetDonner){
-						int [] data;
+						
 						if (joueurCourant instanceof JoueurArtificiel){
 							data = ((JoueurArtificiel) joueurCourant).choisirDataDonner();
 						}else {
 							data = getObservateur().choixIndexDonner(joueurCourant);
 						}
-						
-						((EffetAvecInput) carte.getEffet()).setData(data);
+							
+					}else { // Effet EffetChangerCouleur
+						if (joueurCourant instanceof JoueurArtificiel){
+							data = ((JoueurArtificiel) joueurCourant).choisirDataChangerCouleur();
+						}else {
+							data = getObservateur().choixChangerCouleur(joueurCourant);
+						}
+							
 					}
 					
 					
+					((EffetAvecInput) carte.getEffet()).setData(data);
 				}
 				
 				String messageEffet = carte.getEffet().action(joueurCourant);

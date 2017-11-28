@@ -114,5 +114,22 @@ public class InterfaceConsole extends IHM {
 		return data;
 	}
 
+	@Override
+	public int[] choixChangerCouleur(Joueur joueurCourant) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("-- CHOIX CHANGER COULEUR --");
+		for (int i = 0; i < Carte.COULEURS.length; i++) {
+			System.out.println("("+i+")"+Carte.COULEURS[i]);
+		}
+		
+		System.out.print("Choisir couleur : ");
+		int couleur = sc.nextInt();
+		
+		int [] data = new int [1];
+		data[0] = couleur;
+		return data;
+	}
+
 	
 }

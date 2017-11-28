@@ -5,14 +5,18 @@ public class Agressif implements Strategie {
 
 	@Override
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {
-		for(Carte carte : joueurCourant.getMain()) {
-			if (Jeu.getInstance().isCartePosable(carte)) {
-				return carte;
+		
+		Carte carteChoisie = null;
+		for (int i = 0 ; i <= joueurCourant.getMain().size()-1 ; i++) {
+			if (Jeu.getInstance().isCartePosable(joueurCourant.getMain().get(i))) {	
+				if (carteChoisie == null || !(carteChoisie.getEffet() instanceof EffetAttaque)) {
+					carteChoisie = joueurCourant.getMain().get(i);
+				}	
 			}
 		}
-		return null; // TODO Faire une vraie strategy
+		
+		return carteChoisie;
 	}
-
 	
 	
 	@Override
@@ -20,6 +24,14 @@ public class Agressif implements Strategie {
 		int [] data = new int [2];
 		data[0] = 0;
 		data[1] = 0;
+		return data;
+	}
+
+
+	@Override
+	public int[] choisirDataChangerCouleur(Joueur joueurCourant) {
+		int [] data = new int [1];
+		data[0] = Carte.COEUR;
 		return data;
 	}
  

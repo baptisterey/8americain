@@ -14,8 +14,9 @@ public class EffetDonner extends EffetAvecInput {
 		joueurADonner.getMain().add(carteADonner);
 		joueurCourant.getMain().remove(carteADonner);
 		
+		String message = getMessage(joueurCourant, joueurADonner, carteADonner);
 		resetData();
-		return getMessage(joueurCourant, joueurADonner, carteADonner);
+		return message;
     }
 
 	@Override
@@ -34,4 +35,5 @@ public class EffetDonner extends EffetAvecInput {
 		indexJoueurADonner = -1;
 		indexCarteADonner = -1;
 	}
+	
 }
