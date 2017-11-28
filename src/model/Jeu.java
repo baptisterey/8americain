@@ -210,17 +210,27 @@ public class Jeu {
     	
 		return false;
     }
+    
+    public int getNombreJoueursActifs() {
+    	int nombreJoueursActifs = 0;
+    	for (int i = 0 ; i < joueurs.size() - 1 ; i++) {
+    		if (!joueurs.get(i).getMain().isEmpty()) {
+    			nombreJoueursActifs++;
+    		}
+    	}
+    	return nombreJoueursActifs;
+    }
 
    
     public boolean isMancheOver() {
-	    if (this.methodeCompte == 1) {	
+	    if (this.methodeCompte == COMPTENEGATIF) {	
     		for(Joueur joueur : joueurs) {
 	    		if(joueur.getMain().isEmpty()) {
 	    			return true;
 	    		}
     		}
-    	} else if (this.methodeCompte == 0) {
-    		if (this.gagnants.size() > 2) {
+    	} else if (this.methodeCompte == COMPTEPOSITIF) {
+    		if ( (this.gagnants.size() > 2) && (getNombreJoueursActifs() < 2) ) {
     			return true;
     		}
     	}
@@ -236,7 +246,18 @@ public class Jeu {
 	
 			default:
 				// COMPTEPOSITIF
+				if (gagnants.size() == 2) {
 				
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					
+				} else {
+					
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					gagnants.get(2).addScore(10);
+					
+				}
 				break;
 		
     	}
