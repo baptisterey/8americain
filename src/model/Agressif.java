@@ -17,6 +17,7 @@ public class Agressif implements Strategie {
 	
 	@Override
 	public int[] choisirDataDonner(Joueur joueurCourant) {
+		
 		int [] data = new int [2];
 		data[0] = 0;
 		data[1] = 0;

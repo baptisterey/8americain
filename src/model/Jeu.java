@@ -28,9 +28,14 @@ public class Jeu {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
     private LinkedList<Carte> pioche = new LinkedList<Carte> ();
     private LinkedList<Carte> defausse = new LinkedList<Carte> ();
+    private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
    
     
-    private static Jeu instance;
+    public LinkedList<Joueur> getGagnants() {
+		return gagnants;
+	}
+
+	private static Jeu instance;
    
     private Jeu() {
     	
@@ -208,8 +213,14 @@ public class Jeu {
 
    
     public boolean isMancheOver() {
-    	for(Joueur joueur : joueurs) {
-    		if(joueur.getMain().isEmpty()) {
+	    if (this.methodeCompte == 1) {	
+    		for(Joueur joueur : joueurs) {
+	    		if(joueur.getMain().isEmpty()) {
+	    			return true;
+	    		}
+    		}
+    	} else if (this.methodeCompte == 0) {
+    		if (this.gagnants.size() > 2) {
     			return true;
     		}
     	}
