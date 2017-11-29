@@ -244,7 +244,7 @@ public class Jeu {
 	    		
 	    		for (int i = 0 ; i < joueurs.size() ; i++) {
 	    			for (int j = 0 ; j < joueurs.get(i).getMain().size() ; j++) {
-	    				
+	    				joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
 	    			}
 	    		}
 	    		

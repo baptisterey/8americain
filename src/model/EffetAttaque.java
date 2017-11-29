@@ -5,6 +5,7 @@ public class EffetAttaque extends Effet {
 
 	private boolean isContrable = true;
     private int valeurAttaque;
+    private int scoreValue = 50;
     
     public EffetAttaque(int valeurAttaque,boolean isContrable) {
     	this.isContrable = isContrable;

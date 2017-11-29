@@ -1,7 +1,7 @@
 package model;
 
 public class EffetContrerChangerCouleur extends EffetChangerCouleur {
-
+	private int scoreValue = 50;
    
 	public String action(Joueur joueurCourant) {
 		//On arrête les attaques
