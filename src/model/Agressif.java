@@ -5,12 +5,15 @@ public class Agressif implements Strategie {
 
 	@Override
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {
+		Carte carteChoisie = null;
 		for(Carte carte : joueurCourant.getMain()) {
 			if (Jeu.getInstance().isCartePosable(carte)) {
-				return carte;
+				if ( !(carteChoisie.getEffet() instanceof EffetAttaque) || carteChoisie == null ) {
+					carteChoisie = carte;
+				}
 			}
 		}
-		return null; // TODO Faire une vraie strategy
+		return carteChoisie; // TODO Faire une vraie strategy
 	}
 
 	

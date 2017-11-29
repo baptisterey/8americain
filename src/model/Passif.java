@@ -1,15 +1,17 @@
 package model;
 
 public class Passif implements Strategie {
-	
+	Carte carteChoisie = null;
 	@Override
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {
 		for(Carte carte : joueurCourant.getMain()) {
 			if (Jeu.getInstance().isCartePosable(carte)) {
-				return carte;
+				if ( (carteChoisie.getEffet() instanceof EffetAttaque) || carteChoisie == null ) {
+					carteChoisie = carte;
+				}
 			}
 		}
-		return null; // TODO Faire une vraie strategy
+		return carteChoisie; // TODO Faire une vraie strategy
 	}
 
 	@Override
