@@ -36,4 +36,41 @@ public class Passif implements Strategie {
 		data[1] = indexJoueurChoisi;
 		return data;
 	}
+	
+	public int[] choisirDataChangerCouleur(Joueur joueurCourant) {
+		int pic = 0;
+		int coeur = 0;
+		int carreau = 0;
+		int trefle = 0;
+		
+		for (int i = 0 ; i < joueurCourant.getMain().size() ; i++) {
+			if (joueurCourant.getMain().get(i).getCouleur() == Carte.PIC) {
+				pic++;
+			} else if (joueurCourant.getMain().get(i).getCouleur() == Carte.COEUR) {
+				coeur++;
+			}else if (joueurCourant.getMain().get(i).getCouleur() == Carte.CARREAU) {
+				carreau++;
+			} else if (joueurCourant.getMain().get(i).getCouleur() == Carte.TREFLE) {
+				trefle++;
+			}
+		}
+		
+		int max = Math.max(pic, coeur);
+		max = Math.max(max, carreau);
+		max = Math.max(max, trefle);
+		
+		int [] data = new int [1];
+
+		if (max == pic) {
+			data[0] = Carte.PIC;
+		} else if (max == coeur) {
+			data[0] = Carte.COEUR;
+		} else if (max == carreau) {
+			data[0] = Carte.CARREAU;
+		}else if (max == trefle) {
+			data[0] = Carte.TREFLE;
+		}
+		
+		return data;
+	}
 }
