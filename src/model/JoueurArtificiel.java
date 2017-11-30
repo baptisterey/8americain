@@ -37,4 +37,8 @@ public class JoueurArtificiel extends Joueur {
 		return this.strategie.choisirDataDonner(this);
 	}
 	
+	public int[] choisirDataChangerCouleur() {
+		return this.strategie.choisirDataChangerCouleur(this);
+	}
+	
 }

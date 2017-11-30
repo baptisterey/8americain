@@ -8,4 +8,5 @@ public interface Observateur {
 	
 	public int[] choixIndexDonner(Joueur joueurCourant);
 	
+	public int[] choixChangerCouleur(Joueur joueurCourant);
 }

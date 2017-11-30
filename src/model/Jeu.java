@@ -53,12 +53,12 @@ public class Jeu {
 		}
     }
     
-    public List<Joueur> getJoueurs(){
+    public LinkedList<Joueur> getJoueurs(){
     	return joueurs;
     }
     
 
-    public List<Carte> getDefausse(){
+    public LinkedList<Carte> getDefausse(){
     	return defausse;
     }
     
@@ -71,8 +71,8 @@ public class Jeu {
     	pioche.clear();
     	defausse.clear();
     	
-    	//Création des 32 cartes (TODO faire avec 52)
-    	for (int valeur = 3; valeur < 13; valeur++) {
+    	//CrÃ©ation des 32 cartes (TODO faire avec 52)
+    	for (int valeur = 5; valeur < 13; valeur++) {
     		for (int couleur = 0; couleur < 4; couleur++) {
     			Carte carte = new Carte(valeur,couleur);
     			gererVariante(carte); // Application des effets en fonction de la variante
@@ -89,11 +89,13 @@ public class Jeu {
         		piocherCarte(joueur, 1);
         	}
     	}
+    	
+    	defausse.add(pioche.removeLast());
     }
     
     private void gererVariante(Carte carte) {
     	int valeur = carte.getValeur();
-    	// TODO Gérer les variantes
+    	// TODO GÃ©rer les variantes
     	switch (valeur) {
 			case Carte.CINQ:
 				carte.setEffet(new EffetDonner());
@@ -122,6 +124,11 @@ public class Jeu {
     }
     
     public void setModeAttaque(boolean bool) {
+    	
+    	if(!bool) {
+    		nbCarteModeAttaque=0;
+    	}
+    	
     	this.modeAttaque = bool;
     }
     
@@ -203,10 +210,12 @@ public class Jeu {
     	}else {
     		
     		Carte carteTapis = defausse.getLast();
-    		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getEffet() == carte.getEffet()) {
+    		
+    		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getValeur() == carte.getValeur()) {
     			return true;
     		}
     	}
+    	
     	
 		return false;
     }
@@ -223,6 +232,7 @@ public class Jeu {
 
    
     public boolean isMancheOver() {
+
 	    if (this.methodeCompte == COMPTENEGATIF) {	
     		for(Joueur joueur : joueurs) {
 	    		if(joueur.getMain().isEmpty()) {

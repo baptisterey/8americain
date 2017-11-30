@@ -5,17 +5,18 @@ public class Agressif implements Strategie {
 
 	@Override
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {
+
 		Carte carteChoisie = null;
-		for(Carte carte : joueurCourant.getMain()) {
-			if (Jeu.getInstance().isCartePosable(carte)) {
-				if ( !(carteChoisie.getEffet() instanceof EffetAttaque) || carteChoisie == null ) {
-					carteChoisie = carte;
-				}
+		for (int i = 0 ; i <= joueurCourant.getMain().size()-1 ; i++) {
+			if (Jeu.getInstance().isCartePosable(joueurCourant.getMain().get(i))) {	
+				if (carteChoisie == null || !(carteChoisie.getEffet() instanceof EffetAttaque)) {
+					carteChoisie = joueurCourant.getMain().get(i);
+				}	
 			}
 		}
-		return carteChoisie; // TODO Faire une vraie strategy
+		
+		return carteChoisie;
 	}
-
 	
 	
 	@Override
@@ -28,7 +29,7 @@ public class Agressif implements Strategie {
 		}
 		
 		int indexJoueurChoisi = 0;
-		for (int j = 1 ; j < Jeu.getInstance().getJoueurs().size() - 1 ; j++) { //le joueur courant est en dernière position de cette linkedList
+		for (int j = 1 ; j < Jeu.getInstance().getJoueurs().size() - 1 ; j++) { //le joueur courant est en derniï¿½re position de cette linkedList
 			if (Jeu.getInstance().getJoueurs().get(indexJoueurChoisi).getMain().size() > Jeu.getInstance().getJoueurs().get(j).getMain().size()) {
 				indexJoueurChoisi = j;
 			}
@@ -74,6 +75,14 @@ public class Agressif implements Strategie {
 			data[0] = Carte.TREFLE;
 		}
 		
+		return data;
+	}
+
+
+	@Override
+	public int[] choisirDataChangerCouleur(Joueur joueurCourant) {
+		int [] data = new int [1];
+		data[0] = Carte.COEUR;
 		return data;
 	}
  

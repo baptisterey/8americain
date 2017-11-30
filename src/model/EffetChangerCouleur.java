@@ -1,23 +1,37 @@
 package model;
 
 public class EffetChangerCouleur extends EffetAvecInput {
-
+	
+	protected int nouvelleCouleur = -1;
+	
 	@Override
 	public String action(Joueur joueurCourant) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Carte carte = Jeu.getInstance().getDefausse().getLast();
+		
+		carte.setCouleur(nouvelleCouleur);
+		
+		String message = getMessage(joueurCourant);
+		resetData();
+		
+		return message;
 	}
 
+	protected String getMessage(Joueur joueurCourant) {
+		String str = joueurCourant.getPseudo()+" a choisi la couleur "+ Carte.COULEURS[nouvelleCouleur] + "!";
+		return str;
+	}
+	
+	
 	@Override
 	public void setData(int[] data) {
-		// TODO Auto-generated method stub
-		
+		this.nouvelleCouleur = data[0];
 	}
 
 	@Override
 	public void resetData() {
-		// TODO Auto-generated method stub
-		
+		this.nouvelleCouleur = -1;
 	}
 
+	
 }
