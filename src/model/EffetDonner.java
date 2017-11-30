@@ -5,7 +5,12 @@ public class EffetDonner extends EffetAvecInput {
 	
 	int indexJoueurADonner;
 	int indexCarteADonner;
-	private int scoreValue = 20;
+	
+	private static final int score = 20;
+	
+	public EffetDonner(){
+		super(EffetDonner.score);
+	}
 	
 	public String action(Joueur joueurCourant) {
 		Joueur joueurADonner = Jeu.getInstance().getJoueurs().get(indexJoueurADonner);

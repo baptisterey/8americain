@@ -68,6 +68,7 @@ public class Jeu {
     		joueur.getMain().clear();
     	}
     	
+    	gagnants.clear();
     	pioche.clear();
     	defausse.clear();
     	

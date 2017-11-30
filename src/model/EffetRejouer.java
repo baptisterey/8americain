@@ -1,8 +1,15 @@
 package model;
 
 public class EffetRejouer extends Effet {
-	private int scoreValue = 20;
+	
+	private static final int score = 20;
     
+	
+	public EffetRejouer(){
+		super(EffetRejouer.score);
+	}
+	
+	
 	public String action(Joueur joueurCourant) {
 		
 		Jeu.getInstance().faireRejouer(joueurCourant);

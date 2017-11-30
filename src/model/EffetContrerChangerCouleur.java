@@ -1,8 +1,12 @@
 package model;
 
 public class EffetContrerChangerCouleur extends EffetChangerCouleur {
-	private int scoreValue = 50;
-   
+	private static final int score = 50;
+	
+	public EffetContrerChangerCouleur() {
+		this.valeurScore = EffetContrerChangerCouleur.score;
+	}
+	
 	public String action(Joueur joueurCourant) {
 		String message;
 		

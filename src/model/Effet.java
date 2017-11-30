@@ -3,10 +3,15 @@ package model;
 public abstract class Effet {
 
 	private boolean isAgressif = false;
-	private int scoreValue;
+	protected int valeurScore;
 	public abstract String action(Joueur joueurCourant);
 	
-	public int getScoreValue() {
-		return scoreValue;
+	public Effet(int scoreValue){
+		this.valeurScore = scoreValue;
 	}
+	
+	public int getScoreValue() {
+		return valeurScore;
+	}
+		
 }

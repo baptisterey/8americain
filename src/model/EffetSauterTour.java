@@ -1,8 +1,15 @@
 package model;
 
 public class EffetSauterTour extends Effet {
-	private int scoreValue = 20;
+	
+	private static final int score = 20;
+	
+	public EffetSauterTour(){
+		super(EffetSauterTour.score);
+	}
     
+	
+	
 	public String action(Joueur joueurCourant) {
 		
 		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJouer(false);

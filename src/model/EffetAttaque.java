@@ -5,9 +5,13 @@ public class EffetAttaque extends Effet {
 
 	private boolean isContrable = true;
     private int valeurAttaque;
-    private int scoreValue = 50;
+    
+    private static final int score = 50;
+    
+    
     
     public EffetAttaque(int valeurAttaque,boolean isContrable) {
+    	super(EffetAttaque.score);
     	this.isContrable = isContrable;
     	this.valeurAttaque = valeurAttaque;
     }

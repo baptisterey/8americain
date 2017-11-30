@@ -4,6 +4,15 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	
 	protected int nouvelleCouleur = -1;
 	
+	private static final int score = 50;
+	
+	
+	public EffetChangerCouleur(){
+		super(EffetChangerCouleur.score);
+	}
+	
+	
+	
 	@Override
 	public String action(Joueur joueurCourant) {
 		
