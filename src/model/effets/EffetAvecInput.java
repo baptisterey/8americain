@@ -1,4 +1,4 @@
-package model;
+package model.effets;
 
 public abstract class EffetAvecInput extends Effet {
 	

@@ -7,6 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
+import model.effets.EffetAttaque;
+import model.effets.EffetChangerCouleur;
+import model.effets.EffetChangerSensJeu;
+import model.effets.EffetContrerChangerCouleur;
+import model.effets.EffetDonner;
+import model.effets.EffetRejouer;
+import model.effets.EffetSauterTour;
+
 public class Jeu {
 	
     //DEFINITION DES VARIABLES REPRESENTANTS CHAQUE VARIANTE
@@ -96,7 +104,6 @@ public class Jeu {
     
     private void gererVariante(Carte carte) {
     	int valeur = carte.getValeur();
-    	// TODO Gérer les variantes
     	switch (valeur) {
 			case Carte.CINQ:
 				switch (variante) {

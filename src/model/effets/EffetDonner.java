@@ -1,5 +1,8 @@
-package model;
+package model.effets;
 
+import model.Carte;
+import model.Jeu;
+import model.Joueur;
 
 public class EffetDonner extends EffetAvecInput {
 	

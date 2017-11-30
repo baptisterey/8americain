@@ -1,5 +1,8 @@
 package model;
 
+import model.effets.EffetAttaque;
+import model.effets.EffetContrerChangerCouleur;
+
 public class Passif implements Strategie {
 
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {

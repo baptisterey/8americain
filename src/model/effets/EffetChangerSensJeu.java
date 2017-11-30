@@ -1,7 +1,10 @@
-package model;
+package model.effets;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Jeu;
+import model.Joueur;
 
 public class EffetChangerSensJeu extends Effet {
 	private static final int score = 20;

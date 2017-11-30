@@ -1,4 +1,6 @@
-package model;
+package model.effets;
+
+import model.Joueur;
 
 public class EffetClassique extends Effet {
 	

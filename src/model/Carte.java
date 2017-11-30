@@ -1,5 +1,8 @@
 package model;
 
+import model.effets.Effet;
+import model.effets.EffetClassique;
+
 public class Carte {
 	
     public final static int PIC = 0;

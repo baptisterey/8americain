@@ -1,6 +1,8 @@
 package controleur;
 
 import model.*;
+import model.effets.EffetAvecInput;
+import model.effets.EffetDonner;
 import view.IHM;
 import view.InterfaceConsole;
 import view.Observateur;

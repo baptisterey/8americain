@@ -1,4 +1,7 @@
-package model;
+package model.effets;
+
+import model.Jeu;
+import model.Joueur;
 
 public class EffetRejouer extends Effet {
 	

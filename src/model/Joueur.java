@@ -10,7 +10,7 @@ public class Joueur {
 	private int score = 0;
     private boolean peutJouer = true;
     private boolean aFini = false;
-
+    
     
     public void setAFini(boolean aFini) {
 		this.aFini = aFini;
@@ -46,6 +46,7 @@ public class Joueur {
 		return score;
 	}
 	
+
 	public void addScore(int add) {
 		score += add;
 	}

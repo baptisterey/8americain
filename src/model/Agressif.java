@@ -1,5 +1,7 @@
 package model;
 
+import model.effets.EffetAttaque;
+import model.effets.EffetContrerChangerCouleur;
 
 public class Agressif implements Strategie {
 
