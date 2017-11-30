@@ -5,7 +5,7 @@ public class EffetDonner extends EffetAvecInput {
 	
 	int indexJoueurADonner;
 	int indexCarteADonner;
-	
+	private int scoreValue = 20;
 	
 	public String action(Joueur joueurCourant) {
 		Joueur joueurADonner = Jeu.getInstance().getJoueurs().get(indexJoueurADonner);

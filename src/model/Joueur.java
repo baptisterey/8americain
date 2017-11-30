@@ -7,11 +7,20 @@ import java.util.List;
 public class Joueur {
     
     private String pseudo;
-    private int score = 0;
+	private int score = 0;
     private boolean peutJouer = true;
+    private boolean aFini = false;
 
     
-    public Joueur(String pseudo) {
+    public void setAFini(boolean aFini) {
+		this.aFini = aFini;
+	}
+
+	public boolean isAFini() {
+		return aFini;
+	}
+
+	public Joueur(String pseudo) {
     	this.pseudo = pseudo;
     }
     
@@ -33,7 +42,15 @@ public class Joueur {
 		return pseudo;
 	}
 
+	public int getScore() {
+		return score;
+	}
 	
-	
+	public void addScore(int add) {
+		score += add;
+	}
 
+	public void resetScore() {
+		score = 0;
+	}
 }

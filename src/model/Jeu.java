@@ -28,9 +28,14 @@ public class Jeu {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
     private LinkedList<Carte> pioche = new LinkedList<Carte> ();
     private LinkedList<Carte> defausse = new LinkedList<Carte> ();
+    private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
    
     
-    private static Jeu instance;
+    public LinkedList<Joueur> getGagnants() {
+		return gagnants;
+	}
+
+	private static Jeu instance;
    
     private Jeu() {
     	
@@ -66,7 +71,7 @@ public class Jeu {
     	pioche.clear();
     	defausse.clear();
     	
-    	//Création des 32 cartes (TODO faire avec 52)
+    	//CrÃ©ation des 32 cartes (TODO faire avec 52)
     	for (int valeur = 5; valeur < 13; valeur++) {
     		for (int couleur = 0; couleur < 4; couleur++) {
     			Carte carte = new Carte(valeur,couleur);
@@ -90,7 +95,7 @@ public class Jeu {
     
     private void gererVariante(Carte carte) {
     	int valeur = carte.getValeur();
-    	// TODO Gérer les variantes
+    	// TODO GÃ©rer les variantes
     	switch (valeur) {
 			case Carte.CINQ:
 				carte.setEffet(new EffetDonner());
@@ -214,13 +219,28 @@ public class Jeu {
     	
 		return false;
     }
+    
+    public int getNombreJoueursActifs() {
+    	int nombreJoueursActifs = 0;
+    	for (int i = 0 ; i < joueurs.size() - 1 ; i++) {
+    		if (!joueurs.get(i).getMain().isEmpty()) {
+    			nombreJoueursActifs++;
+    		}
+    	}
+    	return nombreJoueursActifs;
+    }
 
    
     public boolean isMancheOver() {
-    	
-    	
-    	for(Joueur joueur : joueurs) {
-    		if(joueur.getMain().isEmpty()) {
+
+	    if (this.methodeCompte == COMPTENEGATIF) {	
+    		for(Joueur joueur : joueurs) {
+	    		if(joueur.getMain().isEmpty()) {
+	    			return true;
+	    		}
+    		}
+    	} else if (this.methodeCompte == COMPTEPOSITIF) {
+    		if ( (this.gagnants.size() > 2) && (getNombreJoueursActifs() < 2) ) {
     			return true;
     		}
     	}
@@ -232,11 +252,28 @@ public class Jeu {
 	    	case COMPTENEGATIF:
 	    		// COMPTENEGATIF 
 	    		
+	    		for (int i = 0 ; i < joueurs.size() ; i++) {
+	    			for (int j = 0 ; j < joueurs.get(i).getMain().size() ; j++) {
+	    				joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
+	    			}
+	    		}
+	    		
 				break;
 	
 			default:
 				// COMPTEPOSITIF
+				if (gagnants.size() == 2) {
 				
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					
+				} else {
+					
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					gagnants.get(2).addScore(10);
+					
+				}
 				break;
 		
     	}

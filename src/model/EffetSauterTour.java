@@ -1,7 +1,7 @@
 package model;
 
 public class EffetSauterTour extends Effet {
-
+	private int scoreValue = 20;
     
 	public String action(Joueur joueurCourant) {
 		

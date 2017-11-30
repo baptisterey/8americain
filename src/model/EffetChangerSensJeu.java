@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EffetChangerSensJeu extends Effet {
-
+	private int scoreValue = 20;
+	
 	@Override
 	public String action(Joueur joueurCourant) {
 		Jeu.getInstance().changerSensJeu();

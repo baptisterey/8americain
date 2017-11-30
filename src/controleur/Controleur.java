@@ -64,7 +64,7 @@ public class Controleur {
 	
 	public void jouerTour(Joueur joueurCourant) {
 		getObservateur().notifier("-- TOUR DE "+joueurCourant.getPseudo()+" --");
-		if(joueurCourant.isPeutJouer()) {
+		if(joueurCourant.isPeutJouer() && !joueurCourant.isAFini() ) {
 			Carte carte;
 			 do {
 					if(joueurCourant instanceof JoueurArtificiel){
@@ -133,6 +133,11 @@ public class Controleur {
 			String messageSauterTour = joueurCourant.getPseudo()+ " ne peut pas jouer!";
 			getObservateur().notifier(messageSauterTour);
 			joueurCourant.setPeutJouer(true);
+		}
+		
+		if (joueurCourant.getMain().isEmpty()) {
+			Jeu.getInstance().getGagnants().add(joueurCourant);
+			joueurCourant.setAFini(true);
 		}
 	}
 	
