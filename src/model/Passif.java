@@ -75,10 +75,4 @@ public class Passif implements Strategie {
 	}
 
 
-	@Override
-	public int[] choisirDataChangerCouleur(Joueur joueurCourant) {
-		int [] data = new int [1];
-		data[0] = Carte.COEUR;
-		return data;
-	}
 }
