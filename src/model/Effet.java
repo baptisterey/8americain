@@ -2,9 +2,10 @@ package model;
 
 public abstract class Effet {
 
-	private boolean isAgressif = false;
 	protected int valeurScore;
 	public abstract String action(Joueur joueurCourant);
+	
+	private boolean alwaysPosable = false;
 	
 	public Effet(int scoreValue){
 		this.valeurScore = scoreValue;
@@ -12,6 +13,14 @@ public abstract class Effet {
 	
 	public int getScoreValue() {
 		return valeurScore;
+	}
+	
+	public boolean isAlwaysPosable(){
+		return alwaysPosable;
+	}
+	
+	public void setAlwaysPosable(boolean bool){
+		alwaysPosable = bool;
 	}
 		
 }

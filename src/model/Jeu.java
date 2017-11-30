@@ -99,23 +99,81 @@ public class Jeu {
     	// TODO Gérer les variantes
     	switch (valeur) {
 			case Carte.CINQ:
-				carte.setEffet(new EffetDonner());
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetDonner());
+						break;	
+				}
 				break;
+				
 			case Carte.SEPT:
-				carte.setEffet(new EffetSauterTour());
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetSauterTour());
+						break;
+					case MONCLAR:
+						carte.setEffet(new EffetSauterTour());
+						break;
+				}
 				break;
+				
 			case Carte.HUIT:
-				carte.setEffet(new EffetContrerChangerCouleur());
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetContrerChangerCouleur());
+						break;
+					case MINIMALE:
+						carte.setEffet(new EffetChangerCouleur());
+						carte.getEffet().setAlwaysPosable(true);
+						break;
+					case MONCLAR:
+						carte.setEffet(new EffetContrerChangerCouleur());
+						break;
+				}
 				break;
+				
+			case Carte.NEUF:
+				switch (variante) {
+					
+					case MONCLAR:
+						carte.setEffet(new EffetAttaque(1, false));
+						break;
+				}
+				break;
+				
 			case Carte.DIX:
-				carte.setEffet(new EffetRejouer());
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetRejouer());
+						break;
+					case MONCLAR:
+						carte.setEffet(new EffetRejouer());
+						break;
+				}
 				break;
+				
 			case Carte.VALET:
-				carte.setEffet(new EffetChangerSensJeu());
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetChangerSensJeu());
+						break;	
+					case MONCLAR:
+						carte.setEffet(new EffetChangerSensJeu());
+						break;
+				}
 				break;
+				
 			case Carte.AS:
-				carte.setEffet(new EffetAttaque(2, true));
-				break;	
+				switch (variante) {
+					case BASIQUE:
+						carte.setEffet(new EffetAttaque(2, true));
+						break;
+					case MONCLAR:
+						carte.setEffet(new EffetAttaque(3, true));
+						break;
+				}
+				break;
+			
     	}
     }
     
@@ -209,12 +267,16 @@ public class Jeu {
     			return true;
     		}
     	}else {
-    		
-    		Carte carteTapis = defausse.getLast();
-    		
-    		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getValeur() == carte.getValeur()) {
+    		if(carte.getEffet().isAlwaysPosable()){
     			return true;
+    		}else {
+    			Carte carteTapis = defausse.getLast();
+        		
+        		if(carteTapis.getCouleur() == carte.getCouleur() || carteTapis.getValeur() == carte.getValeur()) {
+        			return true;
+        		}
     		}
+    		
     	}
     	
     	
