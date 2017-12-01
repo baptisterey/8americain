@@ -34,10 +34,9 @@ public class Jeu {
     
     private boolean modeAttaque = false;
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
-    private LinkedList<Carte> pioche = new LinkedList<Carte> ();
+	private LinkedList<Carte> pioche = new LinkedList<Carte> ();
     private LinkedList<Carte> defausse = new LinkedList<Carte> ();
     private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
-   
     
     public LinkedList<Joueur> getGagnants() {
 		return gagnants;
@@ -351,7 +350,23 @@ public class Jeu {
     }
 
     public boolean isPartieOver() {
-    	
-    	return true;
+    	switch (methodeCompte) {
+    		case COMPTENEGATIF :
+    			for (int i = 0 ; i < joueurs.size() ; i++) {
+    				if (joueurs.get(i).getScore() >= 100) {
+    					return true;
+    				}
+    			}
+    			return false;
+    			
+    			default:
+    				for (int i = 0 ; i < joueurs.size(); i++) {
+    					if (joueurs.get(i).getScore() >= 200) {
+    						return true;
+    					}
+    				}
+    				return false;
+    				
+    	}
     }
 }

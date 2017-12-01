@@ -43,13 +43,14 @@ public class Controleur {
 	
 	public void commencerPartie(){
 		int nbManche = 1;
-		while(nbManche<3){
+		while(getJeu().isPartieOver()){
 				
 				getJeu().initCarteManche();
 				jouerManche(nbManche);
 				
 				getJeu().compterScore();
-				nbManche++;		
+				nbManche++;	
+				getJeu().isPartieOver();
 		}
 		
 	}
