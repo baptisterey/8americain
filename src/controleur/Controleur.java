@@ -43,7 +43,7 @@ public class Controleur {
 	
 	public void commencerPartie(){
 		int nbManche = 1;
-		while(getJeu().isPartieOver()){
+		while(!getJeu().isPartieOver()){
 				
 				getJeu().initCarteManche();
 				jouerManche(nbManche);
