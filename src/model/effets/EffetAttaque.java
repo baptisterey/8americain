@@ -8,6 +8,7 @@ public class EffetAttaque extends Effet {
 	private boolean isContrable = true;
     private int valeurAttaque;
     
+    
     private static final int score = 50;
     
     
