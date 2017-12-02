@@ -9,16 +9,6 @@ public class Joueur {
     private String pseudo;
 	private int score = 0;
     private boolean peutJouer = true;
-    private boolean aFini = false;
-    
-    
-    public void setAFini(boolean aFini) {
-		this.aFini = aFini;
-	}
-
-	public boolean isAFini() {
-		return aFini;
-	}
 
 	public Joueur(String pseudo) {
     	this.pseudo = pseudo;
