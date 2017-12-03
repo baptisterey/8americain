@@ -265,19 +265,17 @@ public class Jeu {
     }
 
     public void piocherCarte(Joueur joueur, int nb) {
-    	
-    	if(pioche.isEmpty()) {
-    		for(int i=0 ; i < defausse.size()-1 ; i++){
-    			pioche.add(defausse.get(i));
-    		}
-    		Carte carteDefausse = defausse.getLast();
-    		defausse.clear();
-    		defausse.add(carteDefausse);
-    		
-    		Collections.shuffle(pioche);
-    	}
-    	
     	for(int i = 0; i< nb; i++) {
+	    	if(pioche.isEmpty()) {
+	    		for(int j=0 ; i < defausse.size()-1 ; j++){
+	    			pioche.add(defausse.get(j));
+	    		}
+	    		Carte carteDefausse = defausse.getLast();
+	    		defausse.clear();
+	    		defausse.add(carteDefausse);
+	    		
+	    		Collections.shuffle(pioche);
+	    	}
     		joueur.getMain().add(pioche.removeLast());
     	}
     }
