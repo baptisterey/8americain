@@ -36,6 +36,7 @@ public class Controleur {
 	public static void main(String [] args) {
 		
 		Controleur controleur = new Controleur();
+		
         IHM ihm = new InterfaceConsole(controleur);
         
 	}
@@ -53,7 +54,7 @@ public class Controleur {
 				nbManche++;	
 				
 				for (int i = 0 ; i < getJeu().getJoueursInitiation().size() ; i++) {
-					System.out.println(getJeu().getJoueursInitiation().get(i).getPseudo() + " a " + getJeu().getJoueursInitiation().get(i).getScore() + " points.");
+					getObservateur().notifier(getJeu().getJoueursInitiation().get(i).getPseudo() + " a " + getJeu().getJoueursInitiation().get(i).getScore() + " points.");
 				}
 		}
 		for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
@@ -62,7 +63,8 @@ public class Controleur {
 			}
 		}
 		
-		System.out.println(gagnant.getPseudo() + "gagne la partie !!");
+		getObservateur().notifier(gagnant.getPseudo() + " gagne la partie !!");
+		
 	}
 	
 	public void jouerManche(int nbManche) {
@@ -79,7 +81,9 @@ public class Controleur {
 		getObservateur().notifier("-- TOUR DE "+joueurCourant.getPseudo()+" --");
 		if(joueurCourant.isPeutJouer()) {
 			Carte carte;
+			boolean carteok;
 			 do {
+				 	carteok = true;
 					if(joueurCourant instanceof JoueurArtificiel){
 						carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
 					}else {
@@ -87,10 +91,17 @@ public class Controleur {
 						if(indexCarte==-1) {
 							carte = null;
 						}else {
-							carte = joueurCourant.getMain().get(indexCarte); 
-						}
+							try {
+								carte = joueurCourant.getMain().get(indexCarte); 
+							}catch(IndexOutOfBoundsException e) {
+								
+								carteok = false;
+								carte = null;
 							}
-			} while (!getJeu().isCartePosable(carte));
+	
+						}
+					}
+			} while (!carteok || !getJeu().isCartePosable(carte));
 			 
 			if(carte == null) {
 				if(getJeu().isModeAttaque()) {
@@ -155,7 +166,6 @@ public class Controleur {
 			Jeu.getInstance().getGagnants().add(joueurCourant);
 			Jeu.getInstance().getJoueurs().remove(joueurCourant);
 			
-			//TODO REMOVE DE LA LISTE JOUEURS DANS JEU (FAUT CREER UNE AUTRE LISTE QUI CONTIENT TOUT LE TEMPS TOUT LES JOUEURS)
 		}
 	}
 	

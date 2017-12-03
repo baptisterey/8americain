@@ -77,13 +77,18 @@ public class Jeu {
     
     public void initCarteManche() {
     	
-    	for(Joueur joueur : joueurs) {
-    		joueur.getMain().clear();
-    	}
-    	
+		joueurs.clear();
     	gagnants.clear();
     	pioche.clear();
     	defausse.clear();
+    	
+    	for(Joueur joueur : joueursInitiation) {
+    		joueur.getMain().clear();
+    	}
+    	
+    	for (int i = 0 ; i < getJoueursInitiation().size() ; i++) {
+			getJoueurs().add(getJoueursInitiation().get(i));
+		}
     	
     	//Création des 32 cartes (TODO faire avec 52)
     	for (int valeur = 5; valeur < 13; valeur++) {
@@ -108,13 +113,7 @@ public class Jeu {
     }
     
     private void gererVariante(Carte carte) {
-    	getGagnants().clear();
-		getJoueurs().clear();
-		for (int i = 0 ; i < getJoueursInitiation().size() ; i++) {
-			getJoueurs().add(getJoueursInitiation().get(i));
-		}
-		
-		
+    	
     	int valeur = carte.getValeur();
     	switch (valeur) {
 			case Carte.CINQ:
