@@ -38,8 +38,8 @@ public class Jeu {
 	private LinkedList<Carte> pioche = new LinkedList<Carte> ();
 	private LinkedList<Carte> defausse = new LinkedList<Carte> ();
     private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
-    
-    public int getMethodeCompte() {
+
+	public int getMethodeCompte() {
 		return methodeCompte;
 	}
     
@@ -351,12 +351,16 @@ public class Jeu {
 					gagnants.getFirst().addScore(50);
 					joueurs.getFirst().addScore(20);
 					
-				} else {
+				} else if (gagnants.size() == 2){
 					
 					gagnants.getFirst().addScore(50);
 					gagnants.get(1).addScore(20);
-					gagnants.get(2).addScore(10);
+					joueurs.getFirst().addScore(10);
 					
+				} else {
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					gagnants.get(2).addScore(10);
 				}
 				break;
 		

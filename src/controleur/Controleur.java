@@ -73,7 +73,6 @@ public class Controleur {
 	}
 	
 	public void jouerManche(int nbManche) {
-		
 		getObservateur().notifier("--- MANCHE N°"+nbManche+" ---");
 		while(!getJeu().isMancheOver()){
 			Joueur joueurCourant = getJeu().getJoueurCourant();
