@@ -32,7 +32,7 @@ public class Controleur {
 		return obs;
 	}
 
-	// MÃ©thode MAIN du logiciel.
+	// Methode MAIN du logiciel.
 	public static void main(String[] args) {
 
 		Controleur controleur = new Controleur();
@@ -79,7 +79,7 @@ public class Controleur {
 
 	public void jouerManche(int nbManche) {
     
-		getObservateur().notifier("--- MANCHE N°" + nbManche + " ---");
+		getObservateur().notifier("--- MANCHE N�" + nbManche + " ---");
 		while (!getJeu().isMancheOver()) {
 			Joueur joueurCourant = getJeu().getJoueurCourant();
 			jouerTour(joueurCourant);
@@ -205,7 +205,7 @@ public class Controleur {
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
 			getJeu().piocherCarte(joueurCourant, 2);
-			getObservateur().notifier(joueurCourant.getPseudo() + " pioche 2 cartes pour avoir annoncer Carte trop tôt!");
+			getObservateur().notifier(joueurCourant.getPseudo() + " pioche 2 cartes pour avoir annoncer Carte trop t�t!");
 		}
 
 		if (joueurCourant.getMain().isEmpty()) {

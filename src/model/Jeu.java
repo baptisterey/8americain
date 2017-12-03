@@ -92,29 +92,10 @@ public class Jeu {
 
 		for (Joueur joueur : joueursInitiation) {
 			joueur.getMain().clear();
+			joueurs.add(joueur);
 		}
 
-    	
-    	Collections.shuffle(pioche);
-    		
-    	int nbpiocher = 0;
-    	if (joueurs.size() == 2) {
-   			nbpiocher = 10;
-    	} else if (joueurs.size() == 3) {
-    		nbpiocher = 8;
-   		} else {
-   			nbpiocher = 6;
-    	}
-    	for(Joueur joueur : getJoueurs()){
-       		piocherCarte(joueur, nbpiocher);
-       	}
-    	
-    	defausse.add(pioche.removeLast());
-    }
-    
-    private void gererVariante(Carte carte) {
-   
-
+		
 		// Création des 32 cartes (TODO faire avec 52)
 		for (int valeur = 5; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
@@ -127,15 +108,23 @@ public class Jeu {
 
 		Collections.shuffle(pioche);
 
-		for (int i = 0; i < 1; i++) {
-			for (Joueur joueur : getJoueurs()) {
-				piocherCarte(joueur, 2);
-			}
-		}
-
-		defausse.add(pioche.removeLast());
+		int nbpiocher = 0;
+    	if (joueurs.size() == 2) {
+   			nbpiocher = 10;
+    	} else if (joueurs.size() == 3) {
+    		nbpiocher = 8;
+   		} else {
+   			nbpiocher = 6;
+    	}
+    	for(Joueur joueur : getJoueurs()){
+       		piocherCarte(joueur, nbpiocher);
+       	}
+    	
+    	defausse.add(pioche.removeLast());
 	}
 
+    
+    
 	private void gererVariante(Carte carte) {
 
 		int valeur = carte.getValeur();
@@ -333,7 +322,6 @@ public class Jeu {
 	    		}
     		}
     	} else if (this.methodeCompte == COMPTE_POSITIF) {
-    		System.out.println(getNombreJoueursActifs());
     		if ( (this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2) ) {
     			return true;
     		}
