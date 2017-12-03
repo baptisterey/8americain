@@ -23,12 +23,12 @@ public class Jeu {
     public final static int MONCLAR = 2;
     
     //DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
-    public final static int COMPTEPOSITIF = 0;
-    public final static int COMPTENEGATIF = 1;
+    public final static int COMPTE_POSITIF = 0;
+    public final static int COMPTE_NEGATIF = 1;
 	
     
     private int variante = BASIQUE;
-    private int methodeCompte = COMPTEPOSITIF;
+    private int methodeCompte = COMPTE_POSITIF;
     private int nbCarteModeAttaque = 0;
     private int carteAPiocher = 5;
     
@@ -104,12 +104,18 @@ public class Jeu {
 		}
     	
     	Collections.shuffle(pioche);
-    	
-    	for (int i = 0; i < 1 ; i++){
-    		for(Joueur joueur : getJoueurs()){
-        		piocherCarte(joueur, 1);
-        	}
+    		
+    	int nbpiocher = 0;
+    	if (joueurs.size() == 2) {
+   			nbpiocher = 10;
+    	} else if (joueurs.size() == 3) {
+    		nbpiocher = 8;
+   		} else {
+   			nbpiocher = 6;
     	}
+    	for(Joueur joueur : getJoueurs()){
+       		piocherCarte(joueur, nbpiocher);
+       	}
     	
     	defausse.add(pioche.removeLast());
     }
@@ -314,13 +320,13 @@ public class Jeu {
    
     public boolean isMancheOver() {
 
-	    if (this.methodeCompte == COMPTENEGATIF) {	
+	    if (this.methodeCompte == COMPTE_NEGATIF) {	
     		for(Joueur joueur : joueursInitiation) {
 	    		if(joueur.getMain().isEmpty()) {
 	    			return true;
 	    		}
     		}
-    	} else if (this.methodeCompte == COMPTEPOSITIF) {
+    	} else if (this.methodeCompte == COMPTE_POSITIF) {
     		System.out.println(getNombreJoueursActifs());
     		if ( (this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2) ) {
     			return true;
@@ -331,7 +337,7 @@ public class Jeu {
     
     public void compterScore() {
     	switch (methodeCompte) {
-	    	case COMPTENEGATIF:
+	    	case COMPTE_NEGATIF:
 	    		// COMPTENEGATIF 
 	    		
 	    		for (int i = 0 ; i < joueurs.size() ; i++) {
@@ -368,13 +374,13 @@ public class Jeu {
 
     public boolean isPartieOver() {
     	boolean b = false;
-    	if (methodeCompte == COMPTENEGATIF) {
+    	if (methodeCompte == COMPTE_NEGATIF) {
     		for (int i = 0 ; i < joueursInitiation.size() ; i++) {
     			if (joueursInitiation.get(i).getScore() >= 100) {
    				b = true;
    				}
    			}
-    	} else if (methodeCompte == COMPTEPOSITIF) {
+    	} else if (methodeCompte == COMPTE_POSITIF) {
     		for (int i = 0 ; i < joueursInitiation.size(); i++) {
     			if (joueursInitiation.get(i).getScore() >= 100) {
     				b = true;

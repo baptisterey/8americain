@@ -56,13 +56,13 @@ public class Controleur {
 					System.out.println(getJeu().getJoueursInitiation().get(i).getPseudo() + " a " + getJeu().getJoueursInitiation().get(i).getScore() + " points.");
 				}
 		}
-		if (getJeu().getMethodeCompte() == Jeu.COMPTEPOSITIF) {
+		if (getJeu().getMethodeCompte() == Jeu.COMPTE_POSITIF) {
 			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
 				if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
 					gagnant = getJeu().getJoueursInitiation().get(i);
 				}
 			}
-		} else if (getJeu().getMethodeCompte() == Jeu.COMPTENEGATIF) {
+		} else if (getJeu().getMethodeCompte() == Jeu.COMPTE_NEGATIF) {
 			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
 				if (getJeu().getJoueursInitiation().get(i).getScore() < gagnant.getScore()) {
 					gagnant = getJeu().getJoueursInitiation().get(i);
@@ -89,6 +89,9 @@ public class Controleur {
 					if(joueurCourant instanceof JoueurArtificiel){
 						carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
 					}else {
+						for (int i = 0 ; i < getJeu().getJoueurs().size()-1 ; i++) {
+							getObservateur().notifier(getJeu().getJoueurs().get(i).getPseudo()+" a "+getJeu().getJoueurs().get(i).getMain().size()+" cartes.");
+						}
 						int indexCarte = obs.choixIndexCarte(joueurCourant);
 						if(indexCarte==-1) {
 							carte = null;
