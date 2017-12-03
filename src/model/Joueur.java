@@ -9,7 +9,8 @@ public class Joueur {
     private String pseudo;
 	private int score = 0;
     private boolean peutJouer = true;
-
+    private boolean peutFinir = false;
+    
 	public Joueur(String pseudo) {
     	this.pseudo = pseudo;
     }
@@ -44,4 +45,14 @@ public class Joueur {
 	public void resetScore() {
 		score = 0;
 	}
+
+	public boolean isPeutFinir() {
+		return peutFinir;
+	}
+
+	public void setPeutFinir(boolean peutFinir) {
+		this.peutFinir = peutFinir;
+	}
+	
+	
 }

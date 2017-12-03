@@ -9,4 +9,8 @@ public interface Observateur {
 	public int[] choixIndexDonner(Joueur joueurCourant);
 	
 	public int[] choixChangerCouleur(Joueur joueurCourant);
+	
+	public int getChoixAction(Joueur joueurCourant);
+	
+	public String getAnnonce(Joueur joueurCourant);
 }

@@ -81,5 +81,29 @@ public class Agressif implements Strategie {
 	}
 
 
+	@Override
+	public String choisirAnnonce(Joueur joueurCourant) {
+		String annonce = null;
+		
+		if(joueurCourant.getMain().size() == 2 && !joueurCourant.isPeutFinir()) {
+			for(Carte carte : joueurCourant.getMain()) {
+				if(Jeu.getInstance().isCartePosable(carte)) {
+					annonce = Jeu.ANNONCE_CARTE;
+				}
+			}	
+		}
+		
+		for(Joueur joueur : Jeu.getInstance().getJoueurs()) {
+			
+			if(joueur.getMain().size()==1 && !joueur.isPeutFinir() && joueur != joueurCourant) {
+				annonce = Jeu.ANNONCE_CONTRE_CARTE;
+			}	
+		}
+		
+		
+		return annonce;
+	}
+
+
  
 }

@@ -142,4 +142,25 @@ public class InterfaceConsole extends IHM {
 		return num;
 	}
 
+	@Override
+	public int getChoixAction(Joueur joueurCourant) {
+		System.out.println("(0) Annoncer");
+		System.out.println("(1) Jouer carte");
+		System.out.println("=====================");
+		return readInt("Choisir action : ");
+	}
+
+	@Override
+	public String getAnnonce(Joueur joueurCourant) {
+		System.out.println("Carte sommet défausse : "+Jeu.getInstance().getDefausse().getLast());
+		System.out.println("--- MAIN DE "+joueurCourant.getPseudo()+" ---");
+		for(Carte carte : joueurCourant.getMain()) {
+			System.out.println(carte.toString());
+		}
+		System.out.println("======");
+		System.out.print("Annonce : ");
+		Scanner sc = new Scanner(System.in);
+		return sc.nextLine();
+	}
+
 }
