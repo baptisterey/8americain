@@ -40,7 +40,16 @@ public class Jeu {
 	private LinkedList<Carte> defausse = new LinkedList<Carte>();
 	private LinkedList<Joueur> gagnants = new LinkedList<Joueur>();
 
+  public int getMethodeCompte() {
+		return methodeCompte;
+	}
+    
+   public void setMethodeCompte(int methodeCompte) {
+		this.methodeCompte = methodeCompte;
+	}
+      
 	public LinkedList<Joueur> getJoueursInitiation() {
+
 		return joueursInitiation;
 	}
 
@@ -85,9 +94,26 @@ public class Jeu {
 			joueur.getMain().clear();
 		}
 
-		for (int i = 0; i < getJoueursInitiation().size(); i++) {
-			getJoueurs().add(getJoueursInitiation().get(i));
-		}
+    	
+    	Collections.shuffle(pioche);
+    		
+    	int nbpiocher = 0;
+    	if (joueurs.size() == 2) {
+   			nbpiocher = 10;
+    	} else if (joueurs.size() == 3) {
+    		nbpiocher = 8;
+   		} else {
+   			nbpiocher = 6;
+    	}
+    	for(Joueur joueur : getJoueurs()){
+       		piocherCarte(joueur, nbpiocher);
+       	}
+    	
+    	defausse.add(pioche.removeLast());
+    }
+    
+    private void gererVariante(Carte carte) {
+   
 
 		// Création des 32 cartes (TODO faire avec 52)
 		for (int valeur = 5; valeur < 13; valeur++) {
@@ -251,26 +277,25 @@ public class Jeu {
 		joueurCourant.getMain().remove(indexCarte);
 	}
 
-	public void piocherCarte(Joueur joueur, int nb) {
-
-		if (pioche.isEmpty()) {
-			for (int i = 0; i < defausse.size() - 1; i++) {
-				pioche.add(defausse.get(i));
-			}
-			Carte carteDefausse = defausse.getLast();
-			defausse.clear();
-			defausse.add(carteDefausse);
-
-			Collections.shuffle(pioche);
-		}
-
-		for (int i = 0; i < nb; i++) {
-			joueur.getMain().add(pioche.removeLast());
-		}
-	}
+	  public void piocherCarte(Joueur joueur, int nb) {
+    	for(int i = 0; i< nb; i++) {
+	    	if(pioche.isEmpty()) {
+	    		for(int j=0 ; i < defausse.size()-1 ; j++){
+	    			pioche.add(defausse.get(j));
+	    		}
+	    		Carte carteDefausse = defausse.getLast();
+	    		defausse.clear();
+	    		defausse.add(carteDefausse);
+	    		
+	    		Collections.shuffle(pioche);
+	    	}
+    		joueur.getMain().add(pioche.removeLast());
+    	}
+    }
 
 	public boolean isCartePosable(Carte carte) {
 		if (defausse.isEmpty() || carte == null) {
+
 			return true;
 		}
 
@@ -292,77 +317,85 @@ public class Jeu {
 		}
 
 		return false;
-	}
+    }
+    
+    public int getNombreJoueursActifs() {
+    	return getJoueurs().size();
+    }
 
-	public int getNombreJoueursActifs() {
-		return getJoueurs().size();
-	}
+   
+    public boolean isMancheOver() {
 
-	public boolean isMancheOver() {
-
-		if (this.methodeCompte == COMPTE_NEGATIF) {
-			for (Joueur joueur : joueurs) {
-				if (joueur.getMain().isEmpty()) {
-					return true;
-				}
-			}
-		} else if (this.methodeCompte == COMPTE_POSITIF) {
-			
-			if ((this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2)) {
-				return true;
-			}
-		}
+	    if (this.methodeCompte == COMPTE_NEGATIF) {	
+    		for(Joueur joueur : joueursInitiation) {
+	    		if(joueur.getMain().isEmpty()) {
+	    			return true;
+	    		}
+    		}
+    	} else if (this.methodeCompte == COMPTE_POSITIF) {
+    		System.out.println(getNombreJoueursActifs());
+    		if ( (this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2) ) {
+    			return true;
+    		}
+    	}
 		return false;
-	}
-
-	public void compterScore() {
-		switch (methodeCompte) {
-		case COMPTE_NEGATIF:
-			// COMPTENEGATIF
-
-			for (int i = 0; i < joueurs.size(); i++) {
-				for (int j = 0; j < joueurs.get(i).getMain().size(); j++) {
-					joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
+    }
+    
+    public void compterScore() {
+    	switch (methodeCompte) {
+	    	case COMPTE_NEGATIF:
+	    		// COMPTENEGATIF 
+	    		
+	    		for (int i = 0 ; i < joueurs.size() ; i++) {
+	    			for (int j = 0 ; j < joueurs.get(i).getMain().size() ; j++) {
+	    				joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
+	    			}
+	    		}
+	    		
+				break;
+	
+			default:
+				// COMPTEPOSITIF
+				if (gagnants.size() == 1) {
+				
+					gagnants.getFirst().addScore(50);
+					joueurs.getFirst().addScore(20);
+					
+				} else if (gagnants.size() == 2){
+					
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					joueurs.getFirst().addScore(10);
+					
+				} else {
+					gagnants.getFirst().addScore(50);
+					gagnants.get(1).addScore(20);
+					gagnants.get(2).addScore(10);
 				}
-			}
+				break;
+		
+    	}
+    	
+    }
 
-			break;
+    public boolean isPartieOver() {
+    	boolean b = false;
+    	if (methodeCompte == COMPTE_NEGATIF) {
+    		for (int i = 0 ; i < joueursInitiation.size() ; i++) {
+    			if (joueursInitiation.get(i).getScore() >= 100) {
+   				b = true;
+   				}
+   			}
+    	} else if (methodeCompte == COMPTE_POSITIF) {
+    		for (int i = 0 ; i < joueursInitiation.size(); i++) {
+    			if (joueursInitiation.get(i).getScore() >= 100) {
+    				b = true;
+   				}
+ 			}
+    	}
+    	return b;
+    }
 
-		default:
-			// COMPTEPOSITIF
-			if (gagnants.size() == 2) {
+	
 
-				gagnants.getFirst().addScore(50);
-				gagnants.get(1).addScore(20);
-
-			} else {
-
-				gagnants.getFirst().addScore(50);
-				gagnants.get(1).addScore(20);
-				gagnants.get(2).addScore(10);
-
-			}
-			break;
-
-		}
-
-	}
-
-	public boolean isPartieOver() {
-		boolean b = false;
-		if (methodeCompte == COMPTE_NEGATIF) {
-			for (int i = 0; i < joueursInitiation.size(); i++) {
-				if (joueursInitiation.get(i).getScore() >= 50) {
-					b = true;
-				}
-			}
-		} else if (methodeCompte == COMPTE_POSITIF) {
-			for (int i = 0; i < joueursInitiation.size(); i++) {
-				if (joueursInitiation.get(i).getScore() >= 50) {
-					b = true;
-				}
-			}
-		}
-		return b;
-	}
 }

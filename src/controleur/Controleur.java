@@ -32,7 +32,7 @@ public class Controleur {
 		return obs;
 	}
 
-	// MÃ©thode MAIN du logiciel.
+	// MÃƒÂ©thode MAIN du logiciel.
 	public static void main(String[] args) {
 
 		Controleur controleur = new Controleur();
@@ -57,24 +57,35 @@ public class Controleur {
 				getObservateur().notifier(getJeu().getJoueursInitiation().get(i).getPseudo() + " a "+ getJeu().getJoueursInitiation().get(i).getScore() + " points.");
 			}
 		}
-		for (int i = 1; i < getJeu().getJoueursInitiation().size(); i++) {
-			if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
-				gagnant = getJeu().getJoueursInitiation().get(i);
+
+		if (getJeu().getMethodeCompte() == Jeu.COMPTE_POSITIF) {
+			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+				if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
+					gagnant = getJeu().getJoueursInitiation().get(i);
+				}
+			}
+		} else if (getJeu().getMethodeCompte() == Jeu.COMPTE_NEGATIF) {
+			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+				if (getJeu().getJoueursInitiation().get(i).getScore() < gagnant.getScore()) {
+					gagnant = getJeu().getJoueursInitiation().get(i);
+				}
 			}
 		}
+
 
 		getObservateur().notifier(gagnant.getPseudo() + " gagne la partie !!");
 
 	}
 
 	public void jouerManche(int nbManche) {
-
-		getObservateur().notifier("--- MANCHE N°" + nbManche + " ---");
+    
+		getObservateur().notifier("--- MANCHE NÂ°" + nbManche + " ---");
 		while (!getJeu().isMancheOver()) {
 			Joueur joueurCourant = getJeu().getJoueurCourant();
 			jouerTour(joueurCourant);
 		}
 	}
+
 
 	public void jouerCarte(Joueur joueurCourant) {
 		Carte carte;
@@ -85,6 +96,9 @@ public class Controleur {
 			if (joueurCourant instanceof JoueurArtificiel) {
 				carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
 			} else {
+        for (int i = 0 ; i < getJeu().getJoueurs().size()-1 ; i++) {
+						getObservateur().notifier(getJeu().getJoueurs().get(i).getPseudo()+" a "+getJeu().getJoueurs().get(i).getMain().size()+" cartes.");
+				}
 				int indexCarte = obs.choixIndexCarte(joueurCourant);
 				if (indexCarte == -1) {
 					carte = null;
@@ -120,8 +134,8 @@ public class Controleur {
 			String messagePoserCarte = joueurCourant.getPseudo() + " pose un(e) " + carte.toString() + "!";
 			getObservateur().notifier(messagePoserCarte);
 
-			if (carte.getEffet() instanceof EffetAvecInput) { // On doit d'abord init l'effet avec les données
-																// nécessaires
+			if (carte.getEffet() instanceof EffetAvecInput) { // On doit d'abord init l'effet avec les donnÃ©es
+																// nÃ©cessaires
 				int[] data;
 
 				if (carte.getEffet() instanceof EffetDonner) {
@@ -191,7 +205,7 @@ public class Controleur {
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
 			getJeu().piocherCarte(joueurCourant, 2);
-			getObservateur().notifier(joueurCourant.getPseudo() + " pioche 2 cartes pour avoir annoncer Carte trop tôt!");
+			getObservateur().notifier(joueurCourant.getPseudo() + " pioche 2 cartes pour avoir annoncer Carte trop tÃ´t!");
 		}
 
 		if (joueurCourant.getMain().isEmpty()) {
