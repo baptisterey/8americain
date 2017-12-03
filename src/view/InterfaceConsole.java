@@ -51,7 +51,7 @@ public class InterfaceConsole extends IHM {
 	public void initJoueurs() {
 		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
 		this.getControleur().getJeu().getJoueurs().clear();
-		this.getControleur().getJeu().getJoueurs().add(new Joueur("Civetdelapin"));
+		//this.getControleur().getJeu().getJoueurs().add(new Joueur("Civetdelapin"));
 		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_1",0));
 		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_2",1));
 		this.getControleur().getJeu().getJoueursInitiation().clear();

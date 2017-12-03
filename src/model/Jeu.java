@@ -36,9 +36,16 @@ public class Jeu {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
     private LinkedList<Joueur> joueursInitiation = new LinkedList<Joueur> ();
 	private LinkedList<Carte> pioche = new LinkedList<Carte> ();
-    private LinkedList<Carte> defausse = new LinkedList<Carte> ();
+	private LinkedList<Carte> defausse = new LinkedList<Carte> ();
     private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
     
+    public int getMethodeCompte() {
+		return methodeCompte;
+	}
+    
+    public void setMethodeCompte(int methodeCompte) {
+		this.methodeCompte = methodeCompte;
+	}
     
     public LinkedList<Joueur> getJoueursInitiation() {
 		return joueursInitiation;
@@ -310,7 +317,7 @@ public class Jeu {
     public boolean isMancheOver() {
 
 	    if (this.methodeCompte == COMPTENEGATIF) {	
-    		for(Joueur joueur : joueurs) {
+    		for(Joueur joueur : joueursInitiation) {
 	    		if(joueur.getMain().isEmpty()) {
 	    			return true;
 	    		}
@@ -339,10 +346,10 @@ public class Jeu {
 	
 			default:
 				// COMPTEPOSITIF
-				if (gagnants.size() == 2) {
+				if (gagnants.size() == 1) {
 				
 					gagnants.getFirst().addScore(50);
-					gagnants.get(1).addScore(20);
+					joueurs.getFirst().addScore(20);
 					
 				} else {
 					
@@ -361,17 +368,19 @@ public class Jeu {
     	boolean b = false;
     	if (methodeCompte == COMPTENEGATIF) {
     		for (int i = 0 ; i < joueursInitiation.size() ; i++) {
-    			if (joueursInitiation.get(i).getScore() >= 50) {
+    			if (joueursInitiation.get(i).getScore() >= 100) {
    				b = true;
    				}
    			}
     	} else if (methodeCompte == COMPTEPOSITIF) {
     		for (int i = 0 ; i < joueursInitiation.size(); i++) {
-    			if (joueursInitiation.get(i).getScore() >= 50) {
+    			if (joueursInitiation.get(i).getScore() >= 100) {
     				b = true;
    				}
  			}
     	}
     	return b;
     }
+
+	
 }

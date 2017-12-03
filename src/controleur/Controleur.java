@@ -56,12 +56,19 @@ public class Controleur {
 					System.out.println(getJeu().getJoueursInitiation().get(i).getPseudo() + " a " + getJeu().getJoueursInitiation().get(i).getScore() + " points.");
 				}
 		}
-		for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
-			if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
-				gagnant = getJeu().getJoueursInitiation().get(i);
+		if (getJeu().getMethodeCompte() == Jeu.COMPTEPOSITIF) {
+			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+				if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
+					gagnant = getJeu().getJoueursInitiation().get(i);
+				}
+			}
+		} else if (getJeu().getMethodeCompte() == Jeu.COMPTENEGATIF) {
+			for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+				if (getJeu().getJoueursInitiation().get(i).getScore() < gagnant.getScore()) {
+					gagnant = getJeu().getJoueursInitiation().get(i);
+				}
 			}
 		}
-		
 		System.out.println(gagnant.getPseudo() + "gagne la partie !!");
 	}
 	
