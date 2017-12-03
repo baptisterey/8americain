@@ -43,6 +43,18 @@ public class InterfaceGraphique extends IHM {
 		return null;
 	}
 
+	@Override
+	public int getChoixAction(Joueur joueurCourant) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getAnnonce(Joueur joueurCourant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	
