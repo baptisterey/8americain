@@ -54,7 +54,10 @@ public class InterfaceConsole extends IHM {
 		this.getControleur().getJeu().getJoueurs().add(new Joueur("Civetdelapin"));
 		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_1",0));
 		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_2",1));
-		
+		this.getControleur().getJeu().getJoueursInitiation().clear();
+		for (int i = 0 ; i < this.getControleur().getJeu().getJoueurs().size() ; i++) {
+			this.getControleur().getJeu().getJoueursInitiation().add(this.getControleur().getJeu().getJoueurs().get(i));
+		}
 		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---- CREATION DU JOUEUR ----");
@@ -81,6 +84,9 @@ public class InterfaceConsole extends IHM {
 			
 			this.getControleur().getJeu().getJoueurs().add(j);
 		}	
+		for (int i = 0 ; i < this.getControleur().getJeu().getJoueurs().size() ; i++) {
+			this.getControleur().getJeu().getJoueursInitiation().add(this.getControleur().getJeu().getJoueurs().get(i));
+		}
 			*/
 		
 		this.getControleur().commencerPartie();

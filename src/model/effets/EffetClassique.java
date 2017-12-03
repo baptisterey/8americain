@@ -4,10 +4,8 @@ import model.Joueur;
 
 public class EffetClassique extends Effet {
 	
-	private static final int score = 0;
-	
-	public EffetClassique(){
-		super(EffetClassique.score);
+	public EffetClassique(int valeur){
+		super(valeur);
 	}
 	
 	public String action(Joueur joueurCourant) {

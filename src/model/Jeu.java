@@ -34,12 +34,17 @@ public class Jeu {
     
     private boolean modeAttaque = false;
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur> ();
-    private LinkedList<Carte> pioche = new LinkedList<Carte> ();
+    private LinkedList<Joueur> joueursInitiation = new LinkedList<Joueur> ();
+	private LinkedList<Carte> pioche = new LinkedList<Carte> ();
     private LinkedList<Carte> defausse = new LinkedList<Carte> ();
     private LinkedList<Joueur> gagnants = new LinkedList<Joueur> ();
-   
     
-    public LinkedList<Joueur> getGagnants() {
+    
+    public LinkedList<Joueur> getJoueursInitiation() {
+		return joueursInitiation;
+	}
+
+	public LinkedList<Joueur> getGagnants() {
 		return gagnants;
 	}
 
@@ -93,7 +98,7 @@ public class Jeu {
     	
     	Collections.shuffle(pioche);
     	
-    	for (int i = 0; i <this.carteAPiocher ; i++){
+    	for (int i = 0; i < 1 ; i++){
     		for(Joueur joueur : getJoueurs()){
         		piocherCarte(joueur, 1);
         	}
@@ -103,6 +108,13 @@ public class Jeu {
     }
     
     private void gererVariante(Carte carte) {
+    	getGagnants().clear();
+		getJoueurs().clear();
+		for (int i = 0 ; i < getJoueursInitiation().size() ; i++) {
+			getJoueurs().add(getJoueursInitiation().get(i));
+		}
+		
+		
     	int valeur = carte.getValeur();
     	switch (valeur) {
 			case Carte.CINQ:
@@ -291,13 +303,7 @@ public class Jeu {
     }
     
     public int getNombreJoueursActifs() {
-    	int nombreJoueursActifs = 0;
-    	for (int i = 0 ; i < joueurs.size() - 1 ; i++) {
-    		if (!joueurs.get(i).getMain().isEmpty()) {
-    			nombreJoueursActifs++;
-    		}
-    	}
-    	return nombreJoueursActifs;
+    	return getJoueurs().size();
     }
 
    
@@ -310,7 +316,8 @@ public class Jeu {
 	    		}
     		}
     	} else if (this.methodeCompte == COMPTEPOSITIF) {
-    		if ( (this.gagnants.size() > 2) && (getNombreJoueursActifs() < 2) ) {
+    		System.out.println(getNombreJoueursActifs());
+    		if ( (this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2) ) {
     			return true;
     		}
     	}
@@ -351,7 +358,20 @@ public class Jeu {
     }
 
     public boolean isPartieOver() {
-    	
-    	return true;
+    	boolean b = false;
+    	if (methodeCompte == COMPTENEGATIF) {
+    		for (int i = 0 ; i < joueursInitiation.size() ; i++) {
+    			if (joueursInitiation.get(i).getScore() >= 50) {
+   				b = true;
+   				}
+   			}
+    	} else if (methodeCompte == COMPTEPOSITIF) {
+    		for (int i = 0 ; i < joueursInitiation.size(); i++) {
+    			if (joueursInitiation.get(i).getScore() >= 50) {
+    				b = true;
+   				}
+ 			}
+    	}
+    	return b;
     }
 }

@@ -32,12 +32,13 @@ public class Carte {
     private int couleur;
     private int valeur;
 
-    private Effet effet = new EffetClassique();
+    private Effet effet;
     
     
     public Carte (int valeur, int couleur) {
 		this.setCouleur(couleur);
 		this.setValeur(valeur);
+		this.effet = new EffetClassique(valeur+2);
     }
 
     public Carte (String valeur, String couleur) {

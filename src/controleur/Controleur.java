@@ -43,15 +43,26 @@ public class Controleur {
 	
 	public void commencerPartie(){
 		int nbManche = 1;
-		while(nbManche<3){
+		Joueur gagnant = getJeu().getJoueursInitiation().get(0);
+		while(!getJeu().isPartieOver()){
 				
 				getJeu().initCarteManche();
 				jouerManche(nbManche);
 				
 				getJeu().compterScore();
-				nbManche++;		
+				nbManche++;	
+				
+				for (int i = 0 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+					System.out.println(getJeu().getJoueursInitiation().get(i).getPseudo() + " a " + getJeu().getJoueursInitiation().get(i).getScore() + " points.");
+				}
+		}
+		for (int i = 1 ; i < getJeu().getJoueursInitiation().size() ; i++) {
+			if (getJeu().getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
+				gagnant = getJeu().getJoueursInitiation().get(i);
+			}
 		}
 		
+		System.out.println(gagnant.getPseudo() + "gagne la partie !!");
 	}
 	
 	public void jouerManche(int nbManche) {
@@ -66,7 +77,7 @@ public class Controleur {
 	
 	public void jouerTour(Joueur joueurCourant) {
 		getObservateur().notifier("-- TOUR DE "+joueurCourant.getPseudo()+" --");
-		if(joueurCourant.isPeutJouer() && !joueurCourant.isAFini() ) {
+		if(joueurCourant.isPeutJouer()) {
 			Carte carte;
 			 do {
 					if(joueurCourant instanceof JoueurArtificiel){
@@ -76,7 +87,7 @@ public class Controleur {
 						if(indexCarte==-1) {
 							carte = null;
 						}else {
-							carte = getJeu().getJoueurs().get(getJeu().getJoueurs().indexOf(joueurCourant)).getMain().get(indexCarte); 
+							carte = joueurCourant.getMain().get(indexCarte); 
 						}
 							}
 			} while (!getJeu().isCartePosable(carte));
@@ -138,8 +149,13 @@ public class Controleur {
 		}
 		
 		if (joueurCourant.getMain().isEmpty()) {
+			
+			getObservateur().notifier(joueurCourant.getPseudo()+ " a fini !");
+			
 			Jeu.getInstance().getGagnants().add(joueurCourant);
-			joueurCourant.setAFini(true);
+			Jeu.getInstance().getJoueurs().remove(joueurCourant);
+			
+			//TODO REMOVE DE LA LISTE JOUEURS DANS JEU (FAUT CREER UNE AUTRE LISTE QUI CONTIENT TOUT LE TEMPS TOUT LES JOUEURS)
 		}
 	}
 	
