@@ -1,32 +1,23 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Observable;
+
 
 import model.effets.EffetAttaque;
-import model.effets.EffetChangerCouleur;
-import model.effets.EffetChangerSensJeu;
 import model.effets.EffetContrerChangerCouleur;
-import model.effets.EffetDonner;
-import model.effets.EffetRejouer;
-import model.effets.EffetSauterTour;
+import model.variantes.Basique;
+import model.variantes.Variante;
 
 public class Jeu {
 
-	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE VARIANTE
-	public final static int BASIQUE = 0;
-	public final static int MINIMALE = 1;
-	public final static int MONCLAR = 2;
-
+	
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
 	public final static int COMPTE_POSITIF = 0;
 	public final static int COMPTE_NEGATIF = 1;
 
-	private int variante = BASIQUE;
+	private Variante variante = new Basique();
 	private int methodeCompte = COMPTE_POSITIF;
 	private int nbCarteModeAttaque = 0;
 
@@ -100,7 +91,7 @@ public class Jeu {
 		for (int valeur = 5; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
-				gererVariante(carte); // Application des effets en fonction de la variante
+				this.variante.gererVariante(carte); // Application des effets en fonction de la variante
 
 				pioche.add(carte);
 			}
@@ -125,88 +116,7 @@ public class Jeu {
 
     
     
-	private void gererVariante(Carte carte) {
-
-		int valeur = carte.getValeur();
-		switch (valeur) {
-		case Carte.CINQ:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetDonner());
-				break;
-			}
-			break;
-
-		case Carte.SEPT:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetSauterTour());
-				break;
-			case MONCLAR:
-				carte.setEffet(new EffetSauterTour());
-				break;
-			}
-			break;
-
-		case Carte.HUIT:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetContrerChangerCouleur());
-				break;
-			case MINIMALE:
-				carte.setEffet(new EffetChangerCouleur());
-				carte.getEffet().setAlwaysPosable(true);
-				break;
-			case MONCLAR:
-				carte.setEffet(new EffetContrerChangerCouleur());
-				break;
-			}
-			break;
-
-		case Carte.NEUF:
-			switch (variante) {
-
-			case MONCLAR:
-				carte.setEffet(new EffetAttaque(1, false));
-				break;
-			}
-			break;
-
-		case Carte.DIX:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetRejouer());
-				break;
-			case MONCLAR:
-				carte.setEffet(new EffetRejouer());
-				break;
-			}
-			break;
-
-		case Carte.VALET:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetChangerSensJeu());
-				break;
-			case MONCLAR:
-				carte.setEffet(new EffetChangerSensJeu());
-				break;
-			}
-			break;
-
-		case Carte.AS:
-			switch (variante) {
-			case BASIQUE:
-				carte.setEffet(new EffetAttaque(2, true));
-				break;
-			case MONCLAR:
-				carte.setEffet(new EffetAttaque(3, true));
-				break;
-			}
-			break;
-
-		}
-	}
+	
 
 	public boolean isModeAttaque() {
 		return this.modeAttaque;

@@ -1,7 +1,5 @@
 package model.effets;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import model.Jeu;
 import model.Joueur;
