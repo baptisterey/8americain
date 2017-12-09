@@ -3,6 +3,7 @@ package model.effets;
 import model.Carte;
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetChangerCouleur extends EffetAvecInput {
 
@@ -15,16 +16,16 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	}
 
 	@Override
-	public String action(Joueur joueurCourant) {
-
+	public Message action(Joueur joueurCourant) {
 		Carte carte = Jeu.getInstance().getDefausse().getLast();
-
 		carte.setCouleur(nouvelleCouleur);
-
-		String message = getMessage(joueurCourant);
+		
+		Message msg = new Message(Message.Types.effetChangerCouleur);
+		msg.setJoueurCourant(joueurCourant);
+		msg.setNouvelleCouleur(nouvelleCouleur);
+		
 		resetData();
-
-		return message;
+		return msg;
 	}
 
 	protected String getMessage(Joueur joueurCourant) {

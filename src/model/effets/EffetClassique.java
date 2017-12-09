@@ -1,6 +1,7 @@
 package model.effets;
 
 import model.Joueur;
+import model.Message;
 
 public class EffetClassique extends Effet {
 	
@@ -8,9 +9,9 @@ public class EffetClassique extends Effet {
 		super(valeur);
 	}
 	
-	public String action(Joueur joueurCourant) {
-		// Aucune action
-		return "";
+	public Message action(Joueur joueurCourant) {
+		
+		return new Message(Message.Types.effetClassique);
 	}
 
 }

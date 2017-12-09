@@ -2,6 +2,7 @@ package model.effets;
 
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetSauterTour extends Effet {
 	
@@ -11,19 +12,13 @@ public class EffetSauterTour extends Effet {
 		super(EffetSauterTour.score);
 	}
     
-	
-	
-	public String action(Joueur joueurCourant) {
-		
+	public Message action(Joueur joueurCourant) {
 		Jeu.getInstance().getJoueurSuivant(joueurCourant).setPeutJouer(false);
 		
-    	return getMessage(joueurCourant);
-	}
-
-	
-	private String getMessage(Joueur joueurCourant) {
-		String str = joueurCourant.getPseudo()+" empêche "+Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo()+" de jouer!";
-		return str;
+		Message msg = new Message(Message.Types.effetSauterTour);
+		msg.setJoueurCourant(joueurCourant);
+		msg.setJoueurVictime(Jeu.getInstance().getJoueurSuivant(joueurCourant));
+    	return msg;
 	}
 
 }

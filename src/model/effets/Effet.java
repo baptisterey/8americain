@@ -1,11 +1,12 @@
 package model.effets;
 
 import model.Joueur;
+import model.Message;
 
 public abstract class Effet {
 
 	protected int valeurScore;
-	public abstract String action(Joueur joueurCourant);
+	public abstract Message action(Joueur joueurCourant);
 	
 	private boolean alwaysPosable = false;
 	

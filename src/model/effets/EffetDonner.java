@@ -3,6 +3,7 @@ package model.effets;
 import model.Carte;
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetDonner extends EffetAvecInput {
 	
@@ -15,27 +16,26 @@ public class EffetDonner extends EffetAvecInput {
 		super(EffetDonner.score);
 	}
 	
-	public String action(Joueur joueurCourant) {
+	public Message action(Joueur joueurCourant) {
 		Joueur joueurADonner = Jeu.getInstance().getJoueurs().get(indexJoueurADonner);
 		Carte carteADonner = joueurCourant.getMain().get(indexCarteADonner);
 		
 		joueurADonner.getMain().add(carteADonner);
 		joueurCourant.getMain().remove(carteADonner);
 		
-		String message = getMessage(joueurCourant, joueurADonner, carteADonner);
+		Message msg = new Message(Message.Types.effetDonner);
+		msg.setJoueurCourant(joueurCourant);
+		msg.setJoueurVictime(joueurADonner);
+		msg.setCarteADonner(carteADonner);
+		
 		resetData();
-		return message;
+		return msg;
     }
 
 	@Override
 	public void setData(int [] data) {
 		indexCarteADonner = data[0];
 		indexJoueurADonner = data[1];
-	}
-
-	private String getMessage(Joueur joueurCourant, Joueur jouerADonner, Carte carteADonner){
-		String str = joueurCourant.getPseudo()+" ajoute un(e) "+ carteADonner.toString() + " dans la main de "+ jouerADonner.getPseudo();
-		return str;
 	}
 
 	@Override

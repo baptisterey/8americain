@@ -1,14 +1,16 @@
 package view;
 
+import java.util.Observer;
+
 import controleur.Controleur;
 
-public abstract class IHM implements Observateur{
+public abstract class IHM implements Observer{
 
 	private Controleur controleur;
 	
 	public IHM(Controleur ctrl) {
 		this.setControleur(ctrl);
-		ctrl.setObservateur(this);
+		//ctrl.setObservateur(this);
 		this.initJoueurs();
 	}
 	
@@ -21,6 +23,7 @@ public abstract class IHM implements Observateur{
 	}
 
 	public abstract void initJoueurs();
+	
 	
 	 
 	

@@ -4,13 +4,14 @@ package model;
 import java.util.Collections;
 import java.util.LinkedList;
 
-
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import model.effets.EffetAttaque;
 import model.effets.EffetContrerChangerCouleur;
 import model.variantes.Basique;
 import model.variantes.Variante;
 
-public class Jeu {
+public class Jeu extends java.util.Observable{
 
 	
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
@@ -294,6 +295,7 @@ public class Jeu {
     	return b;
     }
 
-	
+
+
 
 }

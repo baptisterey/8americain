@@ -1,8 +1,11 @@
 package model.effets;
 
 
+import com.sun.xml.internal.bind.v2.Messages;
+
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetChangerSensJeu extends Effet {
 	private static final int score = 20;
@@ -12,9 +15,12 @@ public class EffetChangerSensJeu extends Effet {
 	}
 	
 	@Override
-	public String action(Joueur joueurCourant) {
+	public Message action(Joueur joueurCourant) {
 		Jeu.getInstance().changerSensJeu();
-		return getMessage(joueurCourant);
+		
+		Message msg = new Message(Message.Types.effetChangerSensJeu);
+		msg.setJoueurCourant(joueurCourant);
+		return msg;
 	}
 
 	private String getMessage(Joueur joueurCourant) {

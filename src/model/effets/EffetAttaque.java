@@ -2,6 +2,7 @@ package model.effets;
 
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetAttaque extends Effet {
 
@@ -16,28 +17,24 @@ public class EffetAttaque extends Effet {
 		this.valeurAttaque = valeurAttaque;
 	}
 
-	public String action(Joueur joueurCourant) {
+	public Message action(Joueur joueurCourant) {
+		Message msg;
 		if (isContrable) {
 			Jeu.getInstance().setModeAttaque(true);
 			Jeu.getInstance().addCarteAttaque(valeurAttaque);
+			
+			msg = new Message(Message.Types.effetModeAttaque);
 		} else {
 			Jeu.getInstance().piocherCarte(Jeu.getInstance().getJoueurSuivant(joueurCourant), valeurAttaque);
-
+			
+			msg = new Message(Message.Types.effetAttaque);
+			msg.setJoueurVictime(Jeu.getInstance().getJoueurSuivant(joueurCourant));
 		}
-
-		return getMessage(joueurCourant);
-	}
-
-	private String getMessage(Joueur joueurCourant) {
-		String str = "";
-		if (isContrable) {
-			str += joueurCourant.getPseudo() + " ajoute " + this.valeurAttaque + " carte(s) au tas attaque!";
-		} else {
-			str += joueurCourant.getPseudo() + " oblige "
-					+ Jeu.getInstance().getJoueurSuivant(joueurCourant).getPseudo() + " à piocher " + this.valeurAttaque
-					+ " carte(s)!";
-		}
-		return str;
+		
+		msg.setJoueurCourant(joueurCourant);
+		msg.setNbCartesAttaque(valeurAttaque);
+		
+		return msg;
 	}
 
 }

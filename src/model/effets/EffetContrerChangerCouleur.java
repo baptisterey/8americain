@@ -3,6 +3,7 @@ package model.effets;
 import model.Carte;
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetContrerChangerCouleur extends EffetChangerCouleur {
 	private static final int score = 50;
@@ -11,30 +12,28 @@ public class EffetContrerChangerCouleur extends EffetChangerCouleur {
 		this.valeurScore = EffetContrerChangerCouleur.score;
 	}
 	
-	public String action(Joueur joueurCourant) {
-		String message;
+	public Message action(Joueur joueurCourant) {
+		Message msg;
 		
 		//On arrête les attaques
 		if(Jeu.getInstance().isModeAttaque()){
 			Jeu.getInstance().setModeAttaque(false);
 			Jeu.getInstance().setNbCarteModeAttaque(0);
-			message = getMessageStopAttaque(joueurCourant);
+			
+			msg = new Message(Message.Types.effetContrerChangerCouleur);
+			msg.setJoueurCourant(joueurCourant);
+			msg.setNouvelleCouleur(nouvelleCouleur);
 			
 			//On réalise l'action ChangerCouleur
 			super.action(joueurCourant);
 		}else {
 			//On réalise l'action ChangerCouleur
-			message = super.action(joueurCourant);
+			msg = super.action(joueurCourant);
 		}
 		
 
-		return message;	
+		return msg;	
     }
-	
-	private String getMessageStopAttaque(Joueur joueurCourant) {
-		String str = joueurCourant.getPseudo()+" a arreter une attaque et a choisi la couleur "+ Carte.COULEURS[nouvelleCouleur]+"!";
-		
-		return str;
-	}
+
 	
 }

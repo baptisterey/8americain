@@ -2,6 +2,7 @@ package model.effets;
 
 import model.Jeu;
 import model.Joueur;
+import model.Message;
 
 public class EffetRejouer extends Effet {
 	
@@ -13,18 +14,12 @@ public class EffetRejouer extends Effet {
 	}
 	
 	
-	public String action(Joueur joueurCourant) {
-		
+	public Message action(Joueur joueurCourant) {
 		Jeu.getInstance().faireRejouer(joueurCourant);
 		
-		return getMessage(joueurCourant);
+		Message msg = new Message(Message.Types.effetRejouer);
+		msg.setJoueurCourant(joueurCourant);
+		return msg;
     }
 	
-	private String getMessage(Joueur joueurCourant){
-		String str = joueurCourant.getPseudo()+ " rejoue!";
-		
-		return str;
-	}
-
-
 }

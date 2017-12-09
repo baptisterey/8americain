@@ -6,24 +6,28 @@ import java.util.Scanner;
 
 import controleur.Controleur;
 import model.JoueurArtificiel;
+import model.Message;
 import model.Carte;
 import model.Jeu;
 import model.Joueur;
 
 public class InterfaceConsole extends IHM {
 
+	private Scanner sc;
+
+
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
 
-	@Override
+	
 	public void notifier(String msg) {
 		if (msg != "") {
 			System.out.println(msg);
 		}
 	}
 
-	@Override
+	
 	public int choixIndexCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";
 		if (Jeu.getInstance().getDefausse().isEmpty()) {
@@ -44,7 +48,7 @@ public class InterfaceConsole extends IHM {
 		return readInt("Choisir index Carte : ");
 	}
 
-	@Override
+	
 	public void initJoueurs() {
 		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
 		this.getControleur().getJeu().getJoueurs().clear();
@@ -85,7 +89,7 @@ public class InterfaceConsole extends IHM {
 		this.getControleur().commencerPartie();
 	}
 
-	@Override
+	
 	public int[] choixIndexDonner(Joueur joueurCourant) {
 		int[] data = new int[2];
 		System.out.println("-- CHOIX EFFET DONNER --");
@@ -110,7 +114,7 @@ public class InterfaceConsole extends IHM {
 		return data;
 	}
 
-	@Override
+	
 	public int[] choixChangerCouleur(Joueur joueurCourant) {
 
 		System.out.println("-- CHOIX CHANGER COULEUR --");
@@ -142,7 +146,7 @@ public class InterfaceConsole extends IHM {
 		return num;
 	}
 
-	@Override
+	
 	public int getChoixAction(Joueur joueurCourant) {
 		System.out.println("(0) Annoncer");
 		System.out.println("(1) Jouer carte");
@@ -150,7 +154,7 @@ public class InterfaceConsole extends IHM {
 		return readInt("Choisir action : ");
 	}
 
-	@Override
+	
 	public String getAnnonce(Joueur joueurCourant) {
 		System.out.println("Carte sommet défausse : "+Jeu.getInstance().getDefausse().getLast());
 		System.out.println("--- MAIN DE "+joueurCourant.getPseudo()+" ---");
@@ -159,8 +163,57 @@ public class InterfaceConsole extends IHM {
 		}
 		System.out.println("======");
 		System.out.print("Annonce : ");
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		return sc.nextLine();
+	}
+
+
+	@Override
+	public void update(Observable jeu, Object msg) {
+		if(msg instanceof Message) {
+			switch (((Message) msg).getType()) {
+				case effetAttaque:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+ " oblige "+ ((Message) msg).getJoueurVictime().getPseudo() + " à piocher " + ((Message) msg).getNbCartesAttaque() + " carte(s)!");
+					break;
+					
+				case effetClassique:
+					break;
+				
+				case effetRejouer:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+ " rejoue!");
+					break;
+					
+				case effetSauterTour:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+ " empéche "+ ((Message) msg).getJoueurVictime() + " de jouer!");
+					break;
+					
+				case effetContrerChangerCouleur:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+" a arreté une attaque et a choisi la couleur "+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()]+"!");
+					break;
+					
+				case effetChangerCouleur:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " a choisi la couleur " + Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
+					break;
+					
+				case effetDonner:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+" ajoute un(e) "+ ((Message) msg).getCarteADonner().toString() + " dans la main de "+ ((Message) msg).getJoueurVictime());
+					break;
+					
+				case effetModeAttaque:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo()+ " ajoute "+ ((Message) msg).getNbCartesAttaque() + " carte(s) au tas d'attaque!");
+					break;
+					
+				case effetChangerSensJeu:
+					System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " inverse le sens de jeu!");
+					break;
+					
+				default:
+					System.out.println("MESSAGE NON PRIS EN CHARGE : "+msg.toString());
+					break;
+			}
+		}
+		
+		
 	}
 
 }
