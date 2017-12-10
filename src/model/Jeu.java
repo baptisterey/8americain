@@ -85,21 +85,30 @@ public class Jeu extends java.util.Observable {
 
 	public void jouerManche() {
 		if (!isMancheOver()) {
-			jouerTourJoueursArtificiels(); // On fait jouer tous les joueurs Artificiels
+			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait jouer tous les joueurs Artificiels
+			
+			if (isMancheOver()) {
+				finirManche();
+			}
 			
 			Message msg = new Message (Message.Types.tourJoueurHumain);
 			msg.setJoueurCourant(joueurCourant);
+			
+			setChanged();
+			notifyObservers(msg);
 		}else {
 			finirManche();
 		}
 	}
 
-	private void jouerTourJoueursArtificiels() {
+	private Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
 
 			Message msg = new Message(Message.Types.afficherTour);
 			msg.setJoueurCourant(joueurCourant);
+			
+			setChanged();
 			notifyObservers(msg);
 
 			if (joueurCourant.isPeutJouer()) {
@@ -126,10 +135,8 @@ public class Jeu extends java.util.Observable {
 
 			joueurCourant = getJoueurCourant();
 		}
-
-		if (isMancheOver()) {
-			finirManche();
-		}
+		
+		return joueurCourant;
 	}
 
 	public void commencerNouvelleManche() {
@@ -145,6 +152,8 @@ public class Jeu extends java.util.Observable {
 
 			Message msg = new Message(Message.Types.annonceCarteTropTot);
 			msg.setJoueurCourant(joueurCourant);
+			
+			setChanged();
 			notifyObservers(msg);
 		}
 
@@ -155,6 +164,8 @@ public class Jeu extends java.util.Observable {
 
 			Message msg = new Message(Message.Types.joueurAFiniManche);
 			msg.setJoueurCourant(joueurCourant);
+			
+			setChanged();
 			notifyObservers(msg);
 		}
 		
@@ -189,7 +200,8 @@ public class Jeu extends java.util.Observable {
 					Message msg = new Message(Message.Types.piocherCarte);
 					msg.setJoueurCourant(joueurCourant);
 					msg.setNbCartesAttaque(nbCarteAttaque);
-
+					
+					setChanged();
 					notifyObservers(msg);
 				} else {
 					piocherCarte(joueurCourant, 1);
@@ -197,7 +209,8 @@ public class Jeu extends java.util.Observable {
 					Message msg = new Message(Message.Types.piocherCarte);
 					msg.setJoueurCourant(joueurCourant);
 					msg.setNbCartesAttaque(1);
-
+					
+					setChanged();
 					notifyObservers(msg);
 				}
 
@@ -208,7 +221,8 @@ public class Jeu extends java.util.Observable {
 				Message msg = new Message(Message.Types.cartePosee);
 				msg.setJoueurCourant(joueurCourant);
 				msg.setCarteADonner(carte);
-
+				
+				setChanged();
 				notifyObservers(msg);
 
 				if (carte.getEffet() instanceof EffetAvecInput) { // On doit d'abord init l'effet avec les donnees
@@ -221,6 +235,7 @@ public class Jeu extends java.util.Observable {
 							data = ((JoueurArtificiel) joueurCourant).choisirDataDonner();
 							((EffetAvecInput) carte.getEffet()).setData(data);
 						} else {
+							setChanged();
 							notifyObservers(new Message(Message.Types.choixDonnerCarte));
 							effetJouableDirectement = false;
 						}
@@ -230,6 +245,7 @@ public class Jeu extends java.util.Observable {
 							data = ((JoueurArtificiel) joueurCourant).choisirDataChangerCouleur();
 							((EffetAvecInput) carte.getEffet()).setData(data);
 						} else {
+							setChanged();
 							notifyObservers(new Message(Message.Types.choixChangerCouleur));
 							effetJouableDirectement = false;
 						}
@@ -237,6 +253,7 @@ public class Jeu extends java.util.Observable {
 
 				}
 				if (effetJouableDirectement) {
+					setChanged();
 					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son
 																				// action
 				}
@@ -266,6 +283,8 @@ public class Jeu extends java.util.Observable {
 					msg = new Message(Message.Types.annonceContreCarteReussi);
 					msg.setJoueurVictime(joueur);
 					msg.setJoueurCourant(joueurCourant);
+					
+					setChanged();
 					notifyObservers(msg);
 
 					fausseAnnonce = false;
@@ -276,17 +295,25 @@ public class Jeu extends java.util.Observable {
 
 				msg = new Message(Message.Types.annonceContreCarteEchoue);
 				msg.setJoueurCourant(joueurCourant);
+				
+				setChanged();
 				notifyObservers(msg);
 			}
 
 			break;
 
 		default:
+			setChanged();
 			notifyObservers(new Message(Message.Types.annonceInconnue));
 			break;
 		}
 	}
 
+	public void initJoueurs() {
+		setChanged();
+		notifyObservers(new Message(Message.Types.initJoueurs));
+	}
+	
 	public void initCarteManche() {
 
 		joueurs.clear();

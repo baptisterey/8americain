@@ -1,15 +1,11 @@
 package controleur;
 
 import model.*;
-import model.effets.EffetAvecInput;
-import model.effets.EffetDonner;
 import view.IHM;
 import view.InterfaceConsole;
-import view.Observateur;
 
 public class Controleur {
 
-	private Observateur obs;
 	private Jeu jeu;
 
 	public Controleur() {
@@ -24,13 +20,6 @@ public class Controleur {
 		this.jeu = jeu;
 	}
 
-	public void setObservateur(Observateur obs) {
-		this.obs = obs;
-	}
-
-	public Observateur getObservateur() {
-		return obs;
-	}
 
 	// Methode MAIN du logiciel.
 	public static void main(String[] args) {
@@ -38,10 +27,14 @@ public class Controleur {
 		Controleur controleur = new Controleur();
 
 		IHM ihm = new InterfaceConsole(controleur);
-
+		Thread t = new Thread((Runnable) ihm);
+		t.start();
 		
+		controleur.getJeu().addObserver(ihm);
+		
+		controleur.getJeu().initJoueurs();
 	}
-
+/*
 	public void commencerPartie() {
 		int nbManche = 1;
 		Joueur gagnant = getJeu().getJoueursInitiation().get(0);
@@ -247,5 +240,5 @@ public class Controleur {
 			break;
 		}
 	}
-
+*/
 }

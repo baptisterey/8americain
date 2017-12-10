@@ -11,7 +11,6 @@ public abstract class IHM implements Observer{
 	public IHM(Controleur ctrl) {
 		this.setControleur(ctrl);
 		//ctrl.setObservateur(this);
-		this.initJoueurs();
 	}
 	
 	public Controleur getControleur() {
