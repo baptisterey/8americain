@@ -8,9 +8,10 @@ public class Message {
 	private Joueur joueurVictime;
 	private Carte carteADonner;
 	private int nouvelleCouleur;
+	private String annonce;
 	
 	public static enum Types {
-		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu
+		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain
 	}
 	
 	public Message (Types type) {
@@ -63,6 +64,14 @@ public class Message {
 
 	public void setNouvelleCouleur(int nouvelleCouleur) {
 		this.nouvelleCouleur = nouvelleCouleur;
+	}
+
+	public String getAnnonce() {
+		return annonce;
+	}
+
+	public void setAnnonce(String annonce) {
+		this.annonce = annonce;
 	};
 	
 	

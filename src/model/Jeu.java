@@ -1,19 +1,21 @@
 package model;
 
-
 import java.util.Collections;
 import java.util.LinkedList;
+
+import com.sun.xml.internal.bind.v2.Messages;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import model.effets.EffetAttaque;
+import model.effets.EffetAvecInput;
 import model.effets.EffetContrerChangerCouleur;
+import model.effets.EffetDonner;
 import model.variantes.Basique;
 import model.variantes.Variante;
 
-public class Jeu extends java.util.Observable{
+public class Jeu extends java.util.Observable {
 
-	
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
 	public final static int COMPTE_POSITIF = 0;
 	public final static int COMPTE_NEGATIF = 1;
@@ -21,6 +23,7 @@ public class Jeu extends java.util.Observable{
 	private Variante variante = new Basique();
 	private int methodeCompte = COMPTE_POSITIF;
 	private int nbCarteModeAttaque = 0;
+	private int numManche = 1;
 
 	public final static String ANNONCE_CARTE = "Carte";
 	public final static String ANNONCE_CONTRE_CARTE = "Contre Carte";
@@ -32,14 +35,14 @@ public class Jeu extends java.util.Observable{
 	private LinkedList<Carte> defausse = new LinkedList<Carte>();
 	private LinkedList<Joueur> gagnants = new LinkedList<Joueur>();
 
-  public int getMethodeCompte() {
+	public int getMethodeCompte() {
 		return methodeCompte;
 	}
-    
-   public void setMethodeCompte(int methodeCompte) {
+
+	public void setMethodeCompte(int methodeCompte) {
 		this.methodeCompte = methodeCompte;
 	}
-      
+
 	public LinkedList<Joueur> getJoueursInitiation() {
 
 		return joueursInitiation;
@@ -75,6 +78,215 @@ public class Jeu extends java.util.Observable{
 		return defausse;
 	}
 
+	public void commencerPartie() {
+		numManche = 1;
+		commencerNouvelleManche();
+	}
+
+	public void jouerManche() {
+		if (!isMancheOver()) {
+			jouerTourJoueursArtificiels(); // On fait jouer tous les joueurs Artificiels
+			
+			Message msg = new Message (Message.Types.tourJoueurHumain);
+			msg.setJoueurCourant(joueurCourant);
+		}else {
+			finirManche();
+		}
+	}
+
+	private void jouerTourJoueursArtificiels() {
+		Joueur joueurCourant = getJoueurCourant();
+		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
+
+			Message msg = new Message(Message.Types.afficherTour);
+			msg.setJoueurCourant(joueurCourant);
+			notifyObservers(msg);
+
+			if (joueurCourant.isPeutJouer()) {
+				joueurCourant.setPeutFinir(false);
+
+				boolean actionrequise = true;
+				while (actionrequise) {
+					String annonce = ((JoueurArtificiel) joueurCourant).choisirAnnonce();
+					if (annonce != null) {
+						annoncer(joueurCourant, annonce);
+					} else {
+						Carte carte = ((JoueurArtificiel) joueurCourant).choisirCarte();
+						jouerCarte(joueurCourant, carte);
+						actionrequise = false;
+					}
+				}
+
+			} else {
+				notifyObservers(new Message(Message.Types.nePeutPasJouer));
+				joueurCourant.setPeutJouer(true);
+			}
+
+			finirTour(joueurCourant);
+
+			joueurCourant = getJoueurCourant();
+		}
+
+		if (isMancheOver()) {
+			finirManche();
+		}
+	}
+
+	public void commencerNouvelleManche() {
+		initCarteManche();
+		jouerManche();
+	}
+	
+	public void finirTour(Joueur joueurCourant) {
+
+		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
+			joueurCourant.setPeutFinir(false);
+			piocherCarte(joueurCourant, 2);
+
+			Message msg = new Message(Message.Types.annonceCarteTropTot);
+			msg.setJoueurCourant(joueurCourant);
+			notifyObservers(msg);
+		}
+
+		if (joueurCourant.getMain().isEmpty()) {
+
+			Jeu.getInstance().getGagnants().add(joueurCourant);
+			Jeu.getInstance().getJoueurs().remove(joueurCourant);
+
+			Message msg = new Message(Message.Types.joueurAFiniManche);
+			msg.setJoueurCourant(joueurCourant);
+			notifyObservers(msg);
+		}
+		
+		if( joueurCourant instanceof Joueur) {
+			jouerManche();
+		}
+
+	}
+
+	public void finirManche() {
+		if (!isPartieOver()) {
+			numManche++;
+			commencerNouvelleManche();
+		} else {
+			finirPartie();
+		}
+	}
+
+	public void finirPartie() {
+
+	}
+
+	public void jouerCarte(Joueur joueurCourant, Carte carte) {
+
+		if (isCartePosable(carte)) {
+			if (carte == null) {
+				if (isModeAttaque()) {
+					int nbCarteAttaque = getNbCarteAttaque();
+					piocherCarte(joueurCourant, nbCarteAttaque);
+					setModeAttaque(false);
+
+					Message msg = new Message(Message.Types.piocherCarte);
+					msg.setJoueurCourant(joueurCourant);
+					msg.setNbCartesAttaque(nbCarteAttaque);
+
+					notifyObservers(msg);
+				} else {
+					piocherCarte(joueurCourant, 1);
+
+					Message msg = new Message(Message.Types.piocherCarte);
+					msg.setJoueurCourant(joueurCourant);
+					msg.setNbCartesAttaque(1);
+
+					notifyObservers(msg);
+				}
+
+			} else { // On joue la carte
+				defausserCarte(joueurCourant, carte);
+				boolean effetJouableDirectement = true;
+
+				Message msg = new Message(Message.Types.cartePosee);
+				msg.setJoueurCourant(joueurCourant);
+				msg.setCarteADonner(carte);
+
+				notifyObservers(msg);
+
+				if (carte.getEffet() instanceof EffetAvecInput) { // On doit d'abord init l'effet avec les donnees
+																	// nécessaires
+
+					int[] data;
+					if (carte.getEffet() instanceof EffetDonner) {
+
+						if (joueurCourant instanceof JoueurArtificiel) {
+							data = ((JoueurArtificiel) joueurCourant).choisirDataDonner();
+							((EffetAvecInput) carte.getEffet()).setData(data);
+						} else {
+							notifyObservers(new Message(Message.Types.choixDonnerCarte));
+							effetJouableDirectement = false;
+						}
+
+					} else { // Effet EffetChangerCouleur
+						if (joueurCourant instanceof JoueurArtificiel) {
+							data = ((JoueurArtificiel) joueurCourant).choisirDataChangerCouleur();
+							((EffetAvecInput) carte.getEffet()).setData(data);
+						} else {
+							notifyObservers(new Message(Message.Types.choixChangerCouleur));
+							effetJouableDirectement = false;
+						}
+					}
+
+				}
+				if (effetJouableDirectement) {
+					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son
+																				// action
+				}
+			}
+		} else {
+			throw new Error();
+		}
+	}
+
+	public void annoncer(Joueur joueurCourant, String annonce) {
+		Message msg = new Message(Message.Types.joueurAnnonce);
+		msg.setJoueurCourant(joueurCourant);
+		msg.setAnnonce(annonce);
+		notifyObservers(msg);
+
+		switch (annonce) {
+		case Jeu.ANNONCE_CARTE:
+			joueurCourant.setPeutFinir(true);
+			break;
+
+		case Jeu.ANNONCE_CONTRE_CARTE:
+			boolean fausseAnnonce = true;
+			for (Joueur joueur : getJoueurs()) {
+				if (!joueur.isPeutFinir() && joueur.getMain().size() == 1 && joueur != joueurCourant) {
+					piocherCarte(joueur, 2);
+
+					msg = new Message(Message.Types.annonceContreCarteReussi);
+					msg.setJoueurVictime(joueur);
+					msg.setJoueurCourant(joueurCourant);
+					notifyObservers(msg);
+
+					fausseAnnonce = false;
+				}
+			}
+			if (fausseAnnonce) {
+				piocherCarte(joueurCourant, 2);
+
+				msg = new Message(Message.Types.annonceContreCarteEchoue);
+				msg.setJoueurCourant(joueurCourant);
+				notifyObservers(msg);
+			}
+
+			break;
+
+		default:
+			notifyObservers(new Message(Message.Types.annonceInconnue));
+			break;
+		}
+	}
+
 	public void initCarteManche() {
 
 		joueurs.clear();
@@ -87,7 +299,6 @@ public class Jeu extends java.util.Observable{
 			joueurs.add(joueur);
 		}
 
-		
 		// CrÃ©ation des 32 cartes (TODO faire avec 52)
 		for (int valeur = 5; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
@@ -101,23 +312,19 @@ public class Jeu extends java.util.Observable{
 		Collections.shuffle(pioche);
 
 		int nbpiocher = 0;
-    	if (joueurs.size() == 2) {
-   			nbpiocher = 10;
-    	} else if (joueurs.size() == 3) {
-    		nbpiocher = 8;
-   		} else {
-   			nbpiocher = 6;
-    	}
-    	for(Joueur joueur : getJoueurs()){
-       		piocherCarte(joueur, nbpiocher);
-       	}
-    	
-    	defausse.add(pioche.removeLast());
-	}
+		if (joueurs.size() == 2) {
+			nbpiocher = 10;
+		} else if (joueurs.size() == 3) {
+			nbpiocher = 8;
+		} else {
+			nbpiocher = 6;
+		}
+		for (Joueur joueur : getJoueurs()) {
+			piocherCarte(joueur, nbpiocher);
+		}
 
-    
-    
-	
+		defausse.add(pioche.removeLast());
+	}
 
 	public boolean isModeAttaque() {
 		return this.modeAttaque;
@@ -144,7 +351,7 @@ public class Jeu extends java.util.Observable{
 		this.nbCarteModeAttaque = nbCarte;
 	}
 
-	public Joueur getJoueurCourant() {
+	private Joueur getJoueurCourant() {
 		Joueur joueurCourant = joueurs.get(0);
 		joueurs.add(joueurs.removeFirst());
 		return joueurCourant;
@@ -177,21 +384,21 @@ public class Jeu extends java.util.Observable{
 		joueurCourant.getMain().remove(indexCarte);
 	}
 
-	  public void piocherCarte(Joueur joueur, int nb) {
-    	for(int i = 0; i< nb; i++) {
-	    	if(pioche.isEmpty()) {
-	    		for(int j=0 ; i < defausse.size()-1 ; j++){
-	    			pioche.add(defausse.get(j));
-	    		}
-	    		Carte carteDefausse = defausse.getLast();
-	    		defausse.clear();
-	    		defausse.add(carteDefausse);
-	    		
-	    		Collections.shuffle(pioche);
-	    	}
-    		joueur.getMain().add(pioche.removeLast());
-    	}
-    }
+	public void piocherCarte(Joueur joueur, int nb) {
+		for (int i = 0; i < nb; i++) {
+			if (pioche.isEmpty()) {
+				for (int j = 0; i < defausse.size() - 1; j++) {
+					pioche.add(defausse.get(j));
+				}
+				Carte carteDefausse = defausse.getLast();
+				defausse.clear();
+				defausse.add(carteDefausse);
+
+				Collections.shuffle(pioche);
+			}
+			joueur.getMain().add(pioche.removeLast());
+		}
+	}
 
 	public boolean isCartePosable(Carte carte) {
 		if (defausse.isEmpty() || carte == null) {
@@ -217,85 +424,81 @@ public class Jeu extends java.util.Observable{
 		}
 
 		return false;
-    }
-    
-    public int getNombreJoueursActifs() {
-    	return getJoueurs().size();
-    }
+	}
 
-   
-    public boolean isMancheOver() {
+	public int getNombreJoueursActifs() {
+		return getJoueurs().size();
+	}
 
-	    if (this.methodeCompte == COMPTE_NEGATIF) {	
-    		for(Joueur joueur : joueursInitiation) {
-	    		if(joueur.getMain().isEmpty()) {
-	    			return true;
-	    		}
-    		}
-    	} else if (this.methodeCompte == COMPTE_POSITIF) {
-    		if ( (this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2) ) {
-    			return true;
-    		}
-    	}
-		return false;
-    }
-    
-    public void compterScore() {
-    	switch (methodeCompte) {
-	    	case COMPTE_NEGATIF:
-	    		// COMPTENEGATIF 
-	    		
-	    		for (int i = 0 ; i < joueurs.size() ; i++) {
-	    			for (int j = 0 ; j < joueurs.get(i).getMain().size() ; j++) {
-	    				joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
-	    			}
-	    		}
-	    		
-				break;
-	
-			default:
-				// COMPTEPOSITIF
-				if (gagnants.size() == 1) {
-				
-					gagnants.getFirst().addScore(50);
-					joueurs.getFirst().addScore(20);
-					
-				} else if (gagnants.size() == 2){
-					
-					gagnants.getFirst().addScore(50);
-					gagnants.get(1).addScore(20);
-					joueurs.getFirst().addScore(10);
-					
-				} else {
-					gagnants.getFirst().addScore(50);
-					gagnants.get(1).addScore(20);
-					gagnants.get(2).addScore(10);
+	public boolean isMancheOver() {
+
+		if (this.methodeCompte == COMPTE_NEGATIF) {
+			for (Joueur joueur : joueursInitiation) {
+				if (joueur.getMain().isEmpty()) {
+					return true;
 				}
-				break;
-		
-    	}
-    	
-    }
+			}
+		} else if (this.methodeCompte == COMPTE_POSITIF) {
+			if ((this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public boolean isPartieOver() {
-    	boolean b = false;
-    	if (methodeCompte == COMPTE_NEGATIF) {
-    		for (int i = 0 ; i < joueursInitiation.size() ; i++) {
-    			if (joueursInitiation.get(i).getScore() >= 100) {
-   				b = true;
-   				}
-   			}
-    	} else if (methodeCompte == COMPTE_POSITIF) {
-    		for (int i = 0 ; i < joueursInitiation.size(); i++) {
-    			if (joueursInitiation.get(i).getScore() >= 100) {
-    				b = true;
-   				}
- 			}
-    	}
-    	return b;
-    }
+	public void compterScore() {
+		switch (methodeCompte) {
+		case COMPTE_NEGATIF:
+			// COMPTENEGATIF
 
+			for (int i = 0; i < joueurs.size(); i++) {
+				for (int j = 0; j < joueurs.get(i).getMain().size(); j++) {
+					joueurs.get(i).addScore(joueurs.get(i).getMain().get(j).getEffet().getScoreValue());
+				}
+			}
 
+			break;
 
+		default:
+			// COMPTEPOSITIF
+			if (gagnants.size() == 1) {
+
+				gagnants.getFirst().addScore(50);
+				joueurs.getFirst().addScore(20);
+
+			} else if (gagnants.size() == 2) {
+
+				gagnants.getFirst().addScore(50);
+				gagnants.get(1).addScore(20);
+				joueurs.getFirst().addScore(10);
+
+			} else {
+				gagnants.getFirst().addScore(50);
+				gagnants.get(1).addScore(20);
+				gagnants.get(2).addScore(10);
+			}
+			break;
+
+		}
+
+	}
+
+	public boolean isPartieOver() {
+		boolean b = false;
+		if (methodeCompte == COMPTE_NEGATIF) {
+			for (int i = 0; i < joueursInitiation.size(); i++) {
+				if (joueursInitiation.get(i).getScore() >= 100) {
+					b = true;
+				}
+			}
+		} else if (methodeCompte == COMPTE_POSITIF) {
+			for (int i = 0; i < joueursInitiation.size(); i++) {
+				if (joueursInitiation.get(i).getScore() >= 100) {
+					b = true;
+				}
+			}
+		}
+		return b;
+	}
 
 }
