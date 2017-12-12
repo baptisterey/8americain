@@ -8,6 +8,7 @@ import controleur.Controleur;
 import model.JoueurArtificiel;
 import model.Message;
 import model.Carte;
+import model.ErreurCarteInposable;
 import model.Jeu;
 import model.Joueur;
 
@@ -16,12 +17,13 @@ public class InterfaceConsole extends IHM implements Runnable {
 	private Scanner sc;
 
 	private boolean actif = true;
+	private boolean tourDuJoueurHumain = false;
 
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
 
-	public int choixIndexCarte(Joueur joueurCourant) {
+	public void joueurCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";
 		if (Jeu.getInstance().getDefausse().isEmpty()) {
 			carteDefausse += "aucune!";
@@ -33,12 +35,45 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
 		for (Carte carte : joueurCourant.getMain()) {
-			System.out.println("(" + joueurCourant.getMain().indexOf(carte) + ")" + carte.toString());
+			System.out.println(" * (" + joueurCourant.getMain().indexOf(carte) + ") " + carte.toString());
 		}
 		System.out.println("=====================");
 		System.out.println("(-1)Piocher une carte");
 
-		return readInt("Choisir index Carte : ");
+		Carte carte = null;
+		boolean choixok;
+		do {
+			System.out.print("Votre choix :");
+
+			sc = new Scanner(System.in);
+
+			int choix = sc.nextInt();
+			choixok = true;
+
+			switch (choix) {
+			case -1:
+				carte = null;
+				break;
+
+			default:
+				try {
+					carte = joueurCourant.getMain().get(choix);
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("Choix improbable!");
+					choixok = false;
+				}
+			}
+			if (choixok) {
+				try {
+					getControleur().getJeu().jouerCarte(joueurCourant, carte);
+				} catch (ErreurCarteInposable e) {
+					System.out.println(carte.toString() + " n'a pas pu être posé(e)!");
+					choixok = false;
+				}
+			}
+
+		} while (!choixok);
+
 	}
 
 	public void initJoueurs() {
@@ -144,13 +179,15 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 	public void annoncer(Joueur joueurCourant) {
 		System.out.print("Votre annonce :");
-		
+
 		sc = new Scanner(System.in);
 		Jeu.getInstance().annoncer(joueurCourant, sc.nextLine());
-		
+
 	}
 
 	public void jouerTour(Joueur joueurCourant) {
+		tourDuJoueurHumain = true;
+
 		System.out.println("---- A TOI DE JOUER ----");
 		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
 			if (joueur != joueurCourant) {
@@ -164,38 +201,33 @@ public class InterfaceConsole extends IHM implements Runnable {
 		}
 		System.out.println("===== ACTION =====");
 		System.out.println("(0) Annoncer");
-		System.out.println("(1) Jouer une carte");
-		System.out.println("(2) Piocher une carte");
+		System.out.println("(1) Jouer ou piocher une carte");
 		System.out.println("------------------");
-		
-		
 
-		boolean choixok;
-		do {
-			System.out.print("Votre choix :");
-			
-			sc = new Scanner(System.in);
-			int choix = sc.nextInt();
-			choixok = true;
-			
-			switch (choix) {
-			case 0:
-				annoncer(joueurCourant);
-				break;
+		while (tourDuJoueurHumain) {
+			boolean choixok;
+			do {
+				System.out.print("Votre choix :");
 
-			case 1:
-				break;
+				sc = new Scanner(System.in);
+				int choix = sc.nextInt();
+				choixok = true;
 
-			case 2:
-				break;
+				switch (choix) {
+				case 0:
+					annoncer(joueurCourant);
+					break;
 
-			default:
-				choixok = false;
-			}
+				case 1:
+					joueurCarte(joueurCourant);
+					break;
 
-		} while (!choixok);
+				default:
+					choixok = false;
+				}
 
-		
+			} while (!choixok);
+		}
 	}
 
 	@Override
@@ -217,7 +249,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 			case effetSauterTour:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " empéche "
-						+ ((Message) msg).getJoueurVictime() + " de jouer!");
+						+ ((Message) msg).getJoueurVictime().getPseudo() + " de jouer!");
 				break;
 
 			case effetContrerChangerCouleur:
@@ -271,8 +303,8 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case piocherCarte:
-				System.out.println(((Message) msg).getJoueurVictime().getPseudo() + " pioche "
-						+ ((Message) msg).getNbCartesAttaque() + "carte(s)!");
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " pioche "
+						+ ((Message) msg).getNbCartesAttaque() + " carte(s)!");
 				break;
 
 			case choixChangerCouleur:
@@ -284,19 +316,19 @@ public class InterfaceConsole extends IHM implements Runnable {
 				// TODO
 				break;
 			case cartePosee:
-				System.out.println(((Message) msg).getJoueurVictime().getPseudo() + " pose un(e) "
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " pose un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + "!");
 				break;
 			case annonceCarteTropTot:
-				System.out.println(((Message) msg).getJoueurVictime().getPseudo()
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
 						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
 				break;
 			case joueurAFiniManche:
-				System.out.println(((Message) msg).getJoueurVictime().getPseudo()
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
 						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
 				break;
 			case afficherTour:
-				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurVictime().getPseudo() + " -------");
+				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
 				break;
 			case tourJoueurHumain:
 				jouerTour(((Message) msg).getJoueurCourant());
@@ -304,8 +336,13 @@ public class InterfaceConsole extends IHM implements Runnable {
 			case initJoueurs:
 				initJoueurs();
 				break;
+			case finTourJoueurHumain:
+				tourDuJoueurHumain = false;
+				sc.reset();
+				break;
+
 			default:
-				System.out.println("MESSAGE NON PRIS EN CHARGE : " + msg.toString());
+				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;
 			}
 		}

@@ -188,8 +188,9 @@ public class Jeu extends java.util.Observable {
 
 	}
 
-	public void jouerCarte(Joueur joueurCourant, Carte carte) {
-
+	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
+		boolean effetJouableDirectement = true;
+		
 		if (isCartePosable(carte)) {
 			if (carte == null) {
 				if (isModeAttaque()) {
@@ -216,8 +217,7 @@ public class Jeu extends java.util.Observable {
 
 			} else { // On joue la carte
 				defausserCarte(joueurCourant, carte);
-				boolean effetJouableDirectement = true;
-
+				
 				Message msg = new Message(Message.Types.cartePosee);
 				msg.setJoueurCourant(joueurCourant);
 				msg.setCarteADonner(carte);
@@ -254,12 +254,18 @@ public class Jeu extends java.util.Observable {
 				}
 				if (effetJouableDirectement) {
 					setChanged();
-					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son
-																				// action
+					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son action
+					
 				}
 			}
 		} else {
-			throw new Error();
+			throw new ErreurCarteInposable();
+		}
+		
+		if( joueurCourant instanceof Joueur && effetJouableDirectement) {
+			setChanged();
+			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
+			jouerManche();
 		}
 	}
 
