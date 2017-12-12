@@ -1,6 +1,5 @@
 package model.effets;
 
-import model.Carte;
 import model.Jeu;
 import model.Joueur;
 import model.Message;

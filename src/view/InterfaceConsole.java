@@ -160,7 +160,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 		while (loop) {
 			try {
 				System.out.print(msg);
-				Scanner sc = new Scanner(System.in);
 				num = sc.nextInt();
 				loop = false;
 			} catch (InputMismatchException e) {
