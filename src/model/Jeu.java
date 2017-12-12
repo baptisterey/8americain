@@ -417,9 +417,11 @@ public class Jeu extends java.util.Observable {
 	public void piocherCarte(Joueur joueur, int nb) {
 		for (int i = 0; i < nb; i++) {
 			if (pioche.isEmpty()) {
-				for (int j = 0; i < defausse.size() - 1; j++) {
-					pioche.add(defausse.get(j));
+
+				for (Carte carte : defausse) {
+					pioche.add(carte);
 				}
+
 				Carte carteDefausse = defausse.getLast();
 				defausse.clear();
 				defausse.add(carteDefausse);
@@ -432,7 +434,6 @@ public class Jeu extends java.util.Observable {
 
 	public boolean isCartePosable(Carte carte) {
 		if (defausse.isEmpty() || carte == null) {
-
 			return true;
 		}
 

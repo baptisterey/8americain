@@ -3,6 +3,7 @@ package controleur;
 import model.*;
 import view.IHM;
 import view.InterfaceConsole;
+import view.InterfaceGraphique;
 
 public class Controleur {
 
@@ -27,10 +28,10 @@ public class Controleur {
 		Controleur controleur = new Controleur();
 
 		IHM ihm = new InterfaceConsole(controleur);
-		Thread t = new Thread((Runnable) ihm);
-		t.start();
-		
 		controleur.getJeu().addObserver(ihm);
+		
+		IHM ihmGraphique = new InterfaceGraphique(controleur);
+		controleur.getJeu().addObserver(ihmGraphique);
 		
 		controleur.getJeu().initJoueurs();
 	}

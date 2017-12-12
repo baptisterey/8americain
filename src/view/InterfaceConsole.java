@@ -12,7 +12,7 @@ import model.ErreurCarteInposable;
 import model.Jeu;
 import model.Joueur;
 
-public class InterfaceConsole extends IHM implements Runnable {
+public class InterfaceConsole extends IHM {
 
 	private Scanner sc;
 
@@ -206,7 +206,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 		while (tourDuJoueurHumain) {
 			boolean choixok;
 			do {
-				System.out.print("Votre choix :");
+				System.out.print("Choisir action :");
 
 				sc = new Scanner(System.in);
 				int choix = sc.nextInt();
@@ -346,13 +346,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 			}
 		}
 
-	}
-
-	@Override
-	public void run() {
-		while (actif) {
-
-		}
 	}
 
 }
