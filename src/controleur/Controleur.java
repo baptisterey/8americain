@@ -31,7 +31,7 @@ public class Controleur {
 		
 		controleur.getJeu().initJoueurs();
 	}
-/*
+	/*
 	public void commencerPartie() {
 		int nbManche = 1;
 		Joueur gagnant = getJeu().getJoueursInitiation().get(0);

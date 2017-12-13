@@ -309,41 +309,56 @@ public class InterfaceConsole extends IHM {
 				System.out.println("CHOIX CHANGER COULEUR A FAIRE");
 				// TODO
 				break;
+
 			case choixDonnerCarte:
 				System.out.println("CHOIX DONNER CARTE");
 				// TODO
 				break;
+
 			case cartePosee:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " pose un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + "!");
 				break;
+
 			case annonceCarteTropTot:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
 						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
 				break;
+
 			case joueurAFiniManche:
 				System.out.println(
 						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa dernière carte! Bravo!");
 				break;
+
 			case afficherTour:
 				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
 				break;
+
 			case tourJoueurHumain:
 				jouerTour(((Message) msg).getJoueurCourant());
 				break;
+
 			case initJoueurs:
 				initJoueurs();
 				break;
+
 			case finTourJoueurHumain:
 				tourDuJoueurHumain = false;
 				sc.reset();
 				break;
+
 			case annonceCarte:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " a bien annoncé Carte!");
 				break;
+
 			case nouvelleManche:
 				System.out.println("---------- MANCHE N°" + ((Message) msg).getNumeroManche() + " ----------");
 				break;
+
+			case finPartie:
+				System.out.println(((Message) msg).getJoueurCourant() + "gagne la partie!");
+				break;
+
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;

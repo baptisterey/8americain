@@ -200,7 +200,24 @@ public class Jeu extends java.util.Observable {
 	}
 
 	public void finirPartie() {
+		Joueur gagnant = getJoueursInitiation().get(0);
+		if (getMethodeCompte() == Jeu.COMPTE_POSITIF) {
+			for (int i = 1; i < getJoueursInitiation().size(); i++) {
+				if (getJoueursInitiation().get(i).getScore() > gagnant.getScore()) {
+					gagnant = getJoueursInitiation().get(i);
+				}
+			}
+		} else if (getMethodeCompte() == Jeu.COMPTE_NEGATIF) {
+			for (int i = 1; i < getJoueursInitiation().size(); i++) {
+				if (getJoueursInitiation().get(i).getScore() < gagnant.getScore()) {
+					gagnant = getJoueursInitiation().get(i);
+				}
+			}
+		}
 
+		Message msg = new Message(Message.Types.finPartie);
+		msg.setJoueurCourant(gagnant);
+		notifyObservers(msg);
 	}
 
 	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
