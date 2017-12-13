@@ -16,7 +16,6 @@ public class InterfaceConsole extends IHM {
 
 	private Scanner sc;
 
-	private boolean actif = true;
 	private boolean tourDuJoueurHumain = false;
 
 	public InterfaceConsole(Controleur ctrl) {
@@ -324,7 +323,7 @@ public class InterfaceConsole extends IHM {
 				break;
 			case joueurAFiniManche:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
-						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
+						+ " vient de poser sa dernière carte! Bravo!");
 				break;
 			case afficherTour:
 				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
@@ -339,7 +338,9 @@ public class InterfaceConsole extends IHM {
 				tourDuJoueurHumain = false;
 				sc.reset();
 				break;
-
+			case annonceCarte:
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo()+" a bien annoncé Carte!");
+				break;
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;

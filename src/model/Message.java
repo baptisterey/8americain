@@ -9,9 +9,10 @@ public class Message {
 	private Carte carteADonner;
 	private int nouvelleCouleur;
 	private String annonce;
+	private int numeroManche;
 	
 	public static enum Types {
-		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain
+		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain, annonceCarte, nouvelleManche
 	}
 	
 	public Message (Types type) {
@@ -72,6 +73,14 @@ public class Message {
 
 	public void setAnnonce(String annonce) {
 		this.annonce = annonce;
+	}
+
+	public int getNumeroManche() {
+		return numeroManche;
+	}
+
+	public void setNumeroManche(int numeroManche) {
+		this.numeroManche = numeroManche;
 	};
 	
 	

@@ -83,15 +83,25 @@ public class Jeu extends java.util.Observable {
 		if (!isMancheOver()) {
 			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait jouer tous les joueurs Artificiels
 
-			if (isMancheOver()) {
+			if (joueurCourant.isPeutJouer() && !isMancheOver()) {
+				joueurCourant.setPeutFinir(false);
+
+				Message msg = new Message(Message.Types.tourJoueurHumain);
+				msg.setJoueurCourant(joueurCourant);
+
+				setChanged();
+				notifyObservers(msg);
+			} else if (!isMancheOver()){
+				joueurCourant.setPeutJouer(true);
+
+				Message msg = new Message(Message.Types.nePeutPasJouer);
+				msg.setJoueurCourant(joueurCourant);
+				setChanged();
+				notifyObservers(msg);
+			}else {
 				finirManche();
 			}
-
-			Message msg = new Message(Message.Types.tourJoueurHumain);
-			msg.setJoueurCourant(joueurCourant);
-
-			setChanged();
-			notifyObservers(msg);
+			
 		} else {
 			finirManche();
 		}
@@ -100,7 +110,6 @@ public class Jeu extends java.util.Observable {
 	private Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
-
 			Message msg = new Message(Message.Types.afficherTour);
 			msg.setJoueurCourant(joueurCourant);
 
@@ -123,8 +132,13 @@ public class Jeu extends java.util.Observable {
 				}
 
 			} else {
-				notifyObservers(new Message(Message.Types.nePeutPasJouer));
 				joueurCourant.setPeutJouer(true);
+
+				msg = new Message(Message.Types.nePeutPasJouer);
+				msg.setJoueurCourant(joueurCourant);
+				setChanged();
+				notifyObservers(msg);
+
 			}
 
 			finirTour(joueurCourant);
@@ -137,6 +151,11 @@ public class Jeu extends java.util.Observable {
 
 	public void commencerNouvelleManche() {
 		initCarteManche();
+		
+		Message msg =  new Message(Message.Types.nouvelleManche);
+		msg.setNumeroManche(numManche);
+		setChanged();
+		notifyObservers(msg);
 		jouerManche();
 	}
 
@@ -252,7 +271,6 @@ public class Jeu extends java.util.Observable {
 					setChanged();
 					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son
 																				// action
-
 				}
 			}
 		} else {
@@ -260,9 +278,9 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (joueurCourant instanceof Joueur && effetJouableDirectement) {
+			finirTour(joueurCourant);
 			setChanged();
 			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
-			jouerManche();
 		}
 	}
 
@@ -270,11 +288,17 @@ public class Jeu extends java.util.Observable {
 		Message msg = new Message(Message.Types.joueurAnnonce);
 		msg.setJoueurCourant(joueurCourant);
 		msg.setAnnonce(annonce);
+		setChanged();
 		notifyObservers(msg);
 
 		switch (annonce) {
 		case Jeu.ANNONCE_CARTE:
 			joueurCourant.setPeutFinir(true);
+
+			msg = new Message(Message.Types.annonceCarte);
+			msg.setJoueurCourant(joueurCourant);
+			setChanged();
+			notifyObservers(msg);
 			break;
 
 		case Jeu.ANNONCE_CONTRE_CARTE:
@@ -345,7 +369,7 @@ public class Jeu extends java.util.Observable {
 		if (joueurs.size() == 2) {
 			nbpiocher = 10;
 		} else if (joueurs.size() == 3) {
-			nbpiocher = 8;
+			nbpiocher = 1;
 		} else {
 			nbpiocher = 6;
 		}

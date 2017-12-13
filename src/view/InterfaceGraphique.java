@@ -6,11 +6,9 @@ import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import controleur.Controleur;
-import model.Jeu;
 import model.Message;
 
 public class InterfaceGraphique extends IHM {
