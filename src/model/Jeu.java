@@ -85,23 +85,23 @@ public class Jeu extends java.util.Observable {
 
 			if (joueurCourant.isPeutJouer() && !isMancheOver()) {
 				joueurCourant.setPeutFinir(false);
-
 				Message msg = new Message(Message.Types.tourJoueurHumain);
 				msg.setJoueurCourant(joueurCourant);
 
 				setChanged();
 				notifyObservers(msg);
-			} else if (!isMancheOver()){
+
+			} else if (!isMancheOver()) {
 				joueurCourant.setPeutJouer(true);
 
 				Message msg = new Message(Message.Types.nePeutPasJouer);
 				msg.setJoueurCourant(joueurCourant);
 				setChanged();
 				notifyObservers(msg);
-			}else {
+			} else {
 				finirManche();
 			}
-			
+
 		} else {
 			finirManche();
 		}
@@ -151,8 +151,8 @@ public class Jeu extends java.util.Observable {
 
 	public void commencerNouvelleManche() {
 		initCarteManche();
-		
-		Message msg =  new Message(Message.Types.nouvelleManche);
+
+		Message msg = new Message(Message.Types.nouvelleManche);
 		msg.setNumeroManche(numManche);
 		setChanged();
 		notifyObservers(msg);
@@ -299,6 +299,7 @@ public class Jeu extends java.util.Observable {
 			msg.setJoueurCourant(joueurCourant);
 			setChanged();
 			notifyObservers(msg);
+
 			break;
 
 		case Jeu.ANNONCE_CONTRE_CARTE:

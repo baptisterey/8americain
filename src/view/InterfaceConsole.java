@@ -322,8 +322,8 @@ public class InterfaceConsole extends IHM {
 						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
 				break;
 			case joueurAFiniManche:
-				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
-						+ " vient de poser sa dernière carte! Bravo!");
+				System.out.println(
+						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa dernière carte! Bravo!");
 				break;
 			case afficherTour:
 				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
@@ -339,14 +339,16 @@ public class InterfaceConsole extends IHM {
 				sc.reset();
 				break;
 			case annonceCarte:
-				System.out.println(((Message) msg).getJoueurCourant().getPseudo()+" a bien annoncé Carte!");
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " a bien annoncé Carte!");
+				break;
+			case nouvelleManche:
+				System.out.println("---------- MANCHE N°" + ((Message) msg).getNumeroManche() + " ----------");
 				break;
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;
 			}
 		}
-
 	}
 
 }
