@@ -29,7 +29,10 @@ public class Controleur {
 
 		IHM ihm = new InterfaceConsole(controleur);
 		controleur.getJeu().addObserver(ihm);
-				
+		
+		IHM ihm2 = new InterfaceGraphique(controleur);
+		controleur.getJeu().addObserver(ihm2);
+		
 		controleur.getJeu().initJoueurs();
 	}
 	/*
