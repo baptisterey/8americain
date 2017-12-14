@@ -16,7 +16,8 @@ import model.Jeu;
 import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
-
+	BufferedReader br;
+	
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -177,7 +178,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 	}
 
 	private String lireChaine(String msg) {
-		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+		br = new BufferedReader (new InputStreamReader(System.in));
 		String resultat = null;
 		try {
 		System.out.print(msg);
@@ -224,8 +225,12 @@ public class InterfaceConsole extends IHM implements Runnable {
 		while (tourDuJoueurHumain) {
 			boolean choixok;
 			do {
-
-				Integer choix = Integer.parseInt(lireChaine("Choisir Action :"));
+				String chaine = lireChaine("Choisir Action :");
+				Integer choix = null;
+				if(chaine != null) {
+					choix = Integer.parseInt(chaine);
+				}
+				
 				choixok = true;
 				if (choix != null) {
 					switch (choix) {
@@ -353,6 +358,9 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case tourJoueurHumain:
+				//System.out.println("TOUR HUMAIN");
+				
+				
 				Thread th = new Thread(this);
 				th.start();
 				break;
