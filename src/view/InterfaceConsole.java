@@ -1,5 +1,8 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import java.util.Observable;
 import java.util.Scanner;
@@ -14,12 +17,6 @@ import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
 
-	private Scanner sc = new Scanner(System.in);
-
-	private boolean tourDuJoueurHumain = false;
-	
-	private Thread th = new Thread(this);
-	
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -44,30 +41,32 @@ public class InterfaceConsole extends IHM implements Runnable {
 		Carte carte = null;
 		boolean choixok;
 		do {
-			System.out.print("Votre choix :");
-			
-			int choix = sc.nextInt();
 			choixok = true;
 
-			switch (choix) {
-			case -1:
-				carte = null;
-				break;
+			Integer choix = Integer.parseInt(this.lireChaine("Votre choix :"));
+			System.out.println(choix);
+			
+			if (choix != null) {
+				switch (choix) {
+				case -1:
+					carte = null;
+					break;
 
-			default:
-				try {
-					carte = joueurCourant.getMain().get(choix);
-				} catch (IndexOutOfBoundsException e) {
-					System.out.println("Choix improbable!");
-					choixok = false;
+				default:
+					try {
+						carte = joueurCourant.getMain().get(choix);
+					} catch (IndexOutOfBoundsException e) {
+						System.out.println("Choix improbable!");
+						choixok = false;
+					}
 				}
-			}
-			if (choixok) {
-				try {
-					getControleur().getJeu().jouerCarte(joueurCourant, carte);
-				} catch (ErreurCarteInposable e) {
-					System.out.println(carte.toString() + " n'a pas pu être posé(e)!");
-					choixok = false;
+				if (choixok) {
+					try {
+						getControleur().getJeu().jouerCarte(joueurCourant, carte);
+					} catch (ErreurCarteInposable e) {
+						System.out.println(carte.toString() + " n'a pas pu être posé(e)!");
+						choixok = false;
+					}
 				}
 			}
 
@@ -87,9 +86,9 @@ public class InterfaceConsole extends IHM implements Runnable {
 		}
 		/*
 		 * Scanner sc = new Scanner(System.in); System.out.println(
-		 * "---- CREATION DU JOUEUR ----"); System.out.print(
-		 * "Entrer votre nom : "); String nom = sc.nextLine(); Joueur j = new
-		 * Joueur(nom); this.getControleur().getJeu().getJoueurs().add(j);
+		 * "---- CREATION DU JOUEUR ----"); System.out.print( "Entrer votre nom : ");
+		 * String nom = sc.nextLine(); Joueur j = new Joueur(nom);
+		 * this.getControleur().getJeu().getJoueurs().add(j);
 		 * System.out.println("---- CREATION DES JOUEURS ARTIFICELS ----");
 		 * System.out.print("Combien de joueurs artificiels ? "); int nbJoueur =
 		 * sc.nextInt(); int strategie; for (int i = 1 ; i <= nbJoueur ; i++) {
@@ -106,8 +105,8 @@ public class InterfaceConsole extends IHM implements Runnable {
 		 * j = new JoueurArtificiel(nom, strategie);
 		 * 
 		 * 
-		 * this.getControleur().getJeu().getJoueurs().add(j); } for (int i = 0 ;
-		 * i < this.getControleur().getJeu().getJoueurs().size() ; i++) {
+		 * this.getControleur().getJeu().getJoueurs().add(j); } for (int i = 0 ; i <
+		 * this.getControleur().getJeu().getJoueurs().size() ; i++) {
 		 * this.getControleur().getJeu().getJoueursInitiation().add(this.
 		 * getControleur() .getJeu().getJoueurs().get(i)); }
 		 */
@@ -152,20 +151,41 @@ public class InterfaceConsole extends IHM implements Runnable {
 		return data;
 	}
 
-	private int readInt(String msg) {
-		int num = 0;
+	private Integer readInt(String msg) {
+		Integer num = null;
 		boolean loop = true;
-
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (loop) {
 			try {
 				System.out.print(msg);
-				num = sc.nextInt();
-				loop = false;
-			} catch (InputMismatchException e) {
-
+				String numString = br.readLine();
+				if(numString!= null) {
+					try {
+						num = Integer.parseInt(numString);
+						loop = false;
+					}catch (NumberFormatException e) {		
+					}
+				}		
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
 			}
 		}
+		if(num == null) {
+			System.out.println("NULL DANS READINT");
+		}
 		return num;
+	}
+
+	private String lireChaine(String msg) {
+		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+		String resultat = null;
+		try {
+		System.out.print(msg);
+		resultat = br.readLine();
+		} catch (IOException e) {
+		System.err.println(e.getMessage());
+		}
+		return resultat;
 	}
 
 	public int getChoixAction(Joueur joueurCourant) {
@@ -176,15 +196,14 @@ public class InterfaceConsole extends IHM implements Runnable {
 	}
 
 	public void annoncer(Joueur joueurCourant) {
-		System.out.print("Votre annonce :");
-
-		sc = new Scanner(System.in);
-		Jeu.getInstance().annoncer(joueurCourant, sc.nextLine());
-
+		String annonce = lireChaine("Votre annonce :");
+		if (annonce != null) {
+			Jeu.getInstance().annoncer(joueurCourant, annonce);
+		}
 	}
 
 	public void jouerTour(Joueur joueurCourant) {
-		tourDuJoueurHumain = true;
+		boolean tourDuJoueurHumain = true;
 
 		System.out.println("---- A TOI DE JOUER ----");
 		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
@@ -205,25 +224,24 @@ public class InterfaceConsole extends IHM implements Runnable {
 		while (tourDuJoueurHumain) {
 			boolean choixok;
 			do {
-				System.out.print("Choisir action :");
 
-				sc = new Scanner(System.in);
-				int choix = sc.nextInt();
+				Integer choix = Integer.parseInt(lireChaine("Choisir Action :"));
 				choixok = true;
+				if (choix != null) {
+					switch (choix) {
+					case 0:
+						annoncer(joueurCourant);
+						break;
 
-				switch (choix) {
-				case 0:
-					annoncer(joueurCourant);
-					break;
+					case 1:
+						joueurCarte(joueurCourant);
+						break;
 
-				case 1:
-					joueurCarte(joueurCourant);
-					break;
+					default:
+						choixok = false;
+					}
 
-				default:
-					choixok = false;
 				}
-
 			} while (!choixok);
 		}
 	}
@@ -334,8 +352,8 @@ public class InterfaceConsole extends IHM implements Runnable {
 				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
 				break;
 
-			case tourJoueurHumain:			
-				th = new Thread(this);
+			case tourJoueurHumain:
+				Thread th = new Thread(this);
 				th.start();
 				break;
 
@@ -344,8 +362,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case finTourJoueurHumain:
-				tourDuJoueurHumain = false;
-				sc.reset();
 				break;
 
 			case annonceCarte:
@@ -371,12 +387,12 @@ public class InterfaceConsole extends IHM implements Runnable {
 	@Override
 	public void run() {
 
-			Joueur joueurTrouve = null;
-			for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
-				if (joueur instanceof Joueur) {
-					joueurTrouve = joueur;
-				}
+		Joueur joueurTrouve = null;
+		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
+			if (joueur instanceof Joueur) {
+				joueurTrouve = joueur;
 			}
-			jouerTour(joueurTrouve);
 		}
+		jouerTour(joueurTrouve);
+	}
 }
