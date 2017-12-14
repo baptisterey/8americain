@@ -16,8 +16,8 @@ import model.Jeu;
 import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
-	BufferedReader br;
-	
+	Thread th;
+
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -46,7 +46,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 			Integer choix = Integer.parseInt(this.lireChaine("Votre choix :"));
 			System.out.println(choix);
-			
+
 			if (choix != null) {
 				switch (choix) {
 				case -1:
@@ -160,33 +160,38 @@ public class InterfaceConsole extends IHM implements Runnable {
 			try {
 				System.out.print(msg);
 				String numString = br.readLine();
-				if(numString!= null) {
+				if (numString != null) {
 					try {
 						num = Integer.parseInt(numString);
 						loop = false;
-					}catch (NumberFormatException e) {		
+					} catch (NumberFormatException e) {
 					}
-				}		
+				}
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
 		}
-		if(num == null) {
+		if (num == null) {
 			System.out.println("NULL DANS READINT");
 		}
 		return num;
 	}
 
 	private String lireChaine(String msg) {
-		br = new BufferedReader (new InputStreamReader(System.in));
-		String resultat = null;
-		try {
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print(msg);
-		resultat = br.readLine();
-		} catch (IOException e) {
-		System.err.println(e.getMessage());
+		while (!th.isInterrupted()) {
+			try {
+				
+				if (stdin.ready()) {
+					String resultat = stdin.readLine();
+					return resultat;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return resultat;
+		return null;
 	}
 
 	public int getChoixAction(Joueur joueurCourant) {
@@ -227,10 +232,10 @@ public class InterfaceConsole extends IHM implements Runnable {
 			do {
 				String chaine = lireChaine("Choisir Action :");
 				Integer choix = null;
-				if(chaine != null) {
+				if (chaine != null) {
 					choix = Integer.parseInt(chaine);
 				}
-				
+
 				choixok = true;
 				if (choix != null) {
 					switch (choix) {
@@ -358,10 +363,11 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case tourJoueurHumain:
-				//System.out.println("TOUR HUMAIN");
-				
-				
-				Thread th = new Thread(this);
+				// System.out.println("TOUR HUMAIN");
+				if (th != null) {
+					th.interrupt();
+				}
+				th = new Thread(this);
 				th.start();
 				break;
 
@@ -402,5 +408,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 			}
 		}
 		jouerTour(joueurTrouve);
+
 	}
+
 }
