@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import controleur.Controleur;
+import model.Joueur;
 import model.Message;
 
 public class InterfaceGraphique extends IHM {
@@ -32,7 +33,13 @@ public class InterfaceGraphique extends IHM {
             @Override
             public void actionPerformed(ActionEvent e) {
             	System.out.println("BOUTON APPUYEE");
-            	getControleur().getJeu().annoncer(getControleur().getJeu().getJoueurs().getFirst(), "Contre Carte");
+            	Joueur joueurTrouve = null;
+            	for(Joueur joueur : getControleur().getJeu().getJoueurs()){
+            		if(joueur instanceof Joueur){
+            			joueurTrouve = joueur;
+            		}
+            	}
+            	getControleur().getJeu().jouerCarte(joueurTrouve, null);
                         
             }
         }

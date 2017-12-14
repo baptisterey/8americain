@@ -79,9 +79,13 @@ public class Jeu extends java.util.Observable {
 		commencerNouvelleManche();
 	}
 
-	public void jouerManche() {
+	public synchronized void jouerManche() {
 		if (!isMancheOver()) {
-			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait jouer tous les joueurs Artificiels
+			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait
+																	// jouer
+																	// tous les
+																	// joueurs
+																	// Artificiels
 
 			if (joueurCourant.isPeutJouer() && !isMancheOver()) {
 				joueurCourant.setPeutFinir(false);
@@ -98,6 +102,7 @@ public class Jeu extends java.util.Observable {
 				msg.setJoueurCourant(joueurCourant);
 				setChanged();
 				notifyObservers(msg);
+				finirTour(joueurCourant);
 			} else {
 				finirManche();
 			}
@@ -107,7 +112,7 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	private Joueur jouerTourJoueursArtificiels() {
+	private synchronized Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
 			Message msg = new Message(Message.Types.afficherTour);
@@ -149,7 +154,7 @@ public class Jeu extends java.util.Observable {
 		return joueurCourant;
 	}
 
-	public void commencerNouvelleManche() {
+	public synchronized void commencerNouvelleManche() {
 		initCarteManche();
 
 		Message msg = new Message(Message.Types.nouvelleManche);
@@ -159,7 +164,7 @@ public class Jeu extends java.util.Observable {
 		jouerManche();
 	}
 
-	public void finirTour(Joueur joueurCourant) {
+	public synchronized void finirTour(Joueur joueurCourant) {
 
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
@@ -184,13 +189,13 @@ public class Jeu extends java.util.Observable {
 			notifyObservers(msg);
 		}
 
-		if (joueurCourant instanceof Joueur) {
+		if (!(joueurCourant instanceof JoueurArtificiel)) {
 			jouerManche();
 		}
 
 	}
 
-	public void finirManche() {
+	public synchronized void finirManche() {
 		if (!isPartieOver()) {
 			numManche++;
 			commencerNouvelleManche();
@@ -199,7 +204,7 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	public void finirPartie() {
+	public synchronized void finirPartie() {
 		Joueur gagnant = getJoueursInitiation().get(0);
 		if (getMethodeCompte() == Jeu.COMPTE_POSITIF) {
 			for (int i = 1; i < getJoueursInitiation().size(); i++) {
@@ -220,7 +225,7 @@ public class Jeu extends java.util.Observable {
 		notifyObservers(msg);
 	}
 
-	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
+	public synchronized void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
 		boolean effetJouableDirectement = true;
 
 		if (isCartePosable(carte)) {
@@ -257,7 +262,12 @@ public class Jeu extends java.util.Observable {
 				setChanged();
 				notifyObservers(msg);
 
-				if (carte.getEffet() instanceof EffetAvecInput) { // On doit d'abord init l'effet avec les donnees
+				if (carte.getEffet() instanceof EffetAvecInput) { // On doit
+																	// d'abord
+																	// init
+																	// l'effet
+																	// avec les
+																	// donnees
 																	// nécessaires
 
 					int[] data;
@@ -286,7 +296,14 @@ public class Jeu extends java.util.Observable {
 				}
 				if (effetJouableDirectement) {
 					setChanged();
-					notifyObservers(carte.getEffet().action(joueurCourant)); // On joue la carte et on indique son
+					notifyObservers(carte.getEffet().action(joueurCourant)); // On
+																				// joue
+																				// la
+																				// carte
+																				// et
+																				// on
+																				// indique
+																				// son
 																				// action
 				}
 			}
@@ -294,14 +311,15 @@ public class Jeu extends java.util.Observable {
 			throw new ErreurCarteInposable();
 		}
 
-		if (joueurCourant instanceof Joueur && effetJouableDirectement) {
-			finirTour(joueurCourant);
+		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) {
+
 			setChanged();
 			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
+			finirTour(joueurCourant);
 		}
 	}
 
-	public void annoncer(Joueur joueurCourant, String annonce) {
+	public synchronized void annoncer(Joueur joueurCourant, String annonce) {
 		Message msg = new Message(Message.Types.joueurAnnonce);
 		msg.setJoueurCourant(joueurCourant);
 		msg.setAnnonce(annonce);
@@ -316,7 +334,6 @@ public class Jeu extends java.util.Observable {
 			msg.setJoueurCourant(joueurCourant);
 			setChanged();
 			notifyObservers(msg);
-
 			break;
 
 		case Jeu.ANNONCE_CONTRE_CARTE:
@@ -354,12 +371,12 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	public void initJoueurs() {
+	public synchronized void initJoueurs() {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initJoueurs));
 	}
 
-	public void initCarteManche() {
+	public synchronized void initCarteManche() {
 
 		joueurs.clear();
 		gagnants.clear();
@@ -375,7 +392,8 @@ public class Jeu extends java.util.Observable {
 		for (int valeur = 5; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
-				this.variante.gererVariante(carte); // Application des effets en fonction de la variante
+				this.variante.gererVariante(carte); // Application des effets en
+													// fonction de la variante
 
 				pioche.add(carte);
 			}
@@ -387,7 +405,7 @@ public class Jeu extends java.util.Observable {
 		if (joueurs.size() == 2) {
 			nbpiocher = 10;
 		} else if (joueurs.size() == 3) {
-			nbpiocher = 1;
+			nbpiocher = 8;
 		} else {
 			nbpiocher = 6;
 		}

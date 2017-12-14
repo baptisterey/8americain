@@ -12,12 +12,14 @@ import model.ErreurCarteInposable;
 import model.Jeu;
 import model.Joueur;
 
-public class InterfaceConsole extends IHM {
+public class InterfaceConsole extends IHM implements Runnable {
 
-	private Scanner sc;
+	private Scanner sc = new Scanner(System.in);
 
 	private boolean tourDuJoueurHumain = false;
-
+	
+	private Thread th = new Thread(this);
+	
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -43,9 +45,7 @@ public class InterfaceConsole extends IHM {
 		boolean choixok;
 		do {
 			System.out.print("Votre choix :");
-
-			sc = new Scanner(System.in);
-
+			
 			int choix = sc.nextInt();
 			choixok = true;
 
@@ -86,10 +86,10 @@ public class InterfaceConsole extends IHM {
 			this.getControleur().getJeu().getJoueursInitiation().add(this.getControleur().getJeu().getJoueurs().get(i));
 		}
 		/*
-		 * Scanner sc = new Scanner(System.in);
-		 * System.out.println("---- CREATION DU JOUEUR ----");
-		 * System.out.print("Entrer votre nom : "); String nom = sc.nextLine(); Joueur j
-		 * = new Joueur(nom); this.getControleur().getJeu().getJoueurs().add(j);
+		 * Scanner sc = new Scanner(System.in); System.out.println(
+		 * "---- CREATION DU JOUEUR ----"); System.out.print(
+		 * "Entrer votre nom : "); String nom = sc.nextLine(); Joueur j = new
+		 * Joueur(nom); this.getControleur().getJeu().getJoueurs().add(j);
 		 * System.out.println("---- CREATION DES JOUEURS ARTIFICELS ----");
 		 * System.out.print("Combien de joueurs artificiels ? "); int nbJoueur =
 		 * sc.nextInt(); int strategie; for (int i = 1 ; i <= nbJoueur ; i++) {
@@ -98,18 +98,18 @@ public class InterfaceConsole extends IHM {
 		 * 
 		 * nom = sc.next();
 		 * 
-		 * System.out.print("Entrer stratÃ©gie joueur"
-		 * +i+" (taper 0 pour passif, 1 pour agrÃ©ssif) :");
+		 * System.out.print("Entrer stratÃ©gie joueur" +i+
+		 * " (taper 0 pour passif, 1 pour agrÃ©ssif) :");
 		 * 
 		 * strategie = sc.nextInt();
 		 * 
 		 * j = new JoueurArtificiel(nom, strategie);
 		 * 
 		 * 
-		 * this.getControleur().getJeu().getJoueurs().add(j); } for (int i = 0 ; i <
-		 * this.getControleur().getJeu().getJoueurs().size() ; i++) {
-		 * this.getControleur().getJeu().getJoueursInitiation().add(this.getControleur()
-		 * .getJeu().getJoueurs().get(i)); }
+		 * this.getControleur().getJeu().getJoueurs().add(j); } for (int i = 0 ;
+		 * i < this.getControleur().getJeu().getJoueurs().size() ; i++) {
+		 * this.getControleur().getJeu().getJoueursInitiation().add(this.
+		 * getControleur() .getJeu().getJoueurs().get(i)); }
 		 */
 
 		this.getControleur().getJeu().commencerPartie();
@@ -287,8 +287,8 @@ public class InterfaceConsole extends IHM {
 
 			case annonceContreCarteReussi:
 				System.out.println(((Message) msg).getJoueurVictime().getPseudo()
-						+ " pioche deux cartes grâce à un Contre Carte réussi de " + ((Message) msg).getJoueurCourant()
-						+ "!");
+						+ " pioche deux cartes grâce à un Contre Carte réussi de "
+						+ ((Message) msg).getJoueurCourant().getPseudo() + "!");
 				break;
 
 			case annonceContreCarteEchoue:
@@ -334,8 +334,9 @@ public class InterfaceConsole extends IHM {
 				System.out.println("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
 				break;
 
-			case tourJoueurHumain:
-				jouerTour(((Message) msg).getJoueurCourant());
+			case tourJoueurHumain:			
+				th = new Thread(this);
+				th.start();
 				break;
 
 			case initJoueurs:
@@ -356,7 +357,7 @@ public class InterfaceConsole extends IHM {
 				break;
 
 			case finPartie:
-				System.out.println(((Message) msg).getJoueurCourant() + "gagne la partie!");
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + "gagne la partie!");
 				break;
 
 			default:
@@ -364,6 +365,18 @@ public class InterfaceConsole extends IHM {
 				break;
 			}
 		}
+
 	}
 
+	@Override
+	public void run() {
+
+			Joueur joueurTrouve = null;
+			for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
+				if (joueur instanceof Joueur) {
+					joueurTrouve = joueur;
+				}
+			}
+			jouerTour(joueurTrouve);
+		}
 }
