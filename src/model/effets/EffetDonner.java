@@ -36,7 +36,7 @@ public class EffetDonner extends EffetAvecInput {
 		try {
 			joueurADonner = Jeu.getInstance().getJoueurs().get(data[1]);
 			carteADonner = joueurCourant.getMain().get(data[0]);
-		}catch(Error e) {
+		}catch(IndexOutOfBoundsException e) {
 			throw new ErreurDonneesEffet();
 		}
 	}

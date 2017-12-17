@@ -115,44 +115,8 @@ public class InterfaceConsole extends IHM implements Runnable {
 		this.getControleur().getJeu().commencerPartie();
 	}
 
-	public int[] choixIndexDonner(Joueur joueurCourant) {
-		int[] data = new int[2];
-		System.out.println("-- CHOIX EFFET DONNER --");
 
-		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
-		for (Carte carte : joueurCourant.getMain()) {
-			System.out.println("(" + joueurCourant.getMain().indexOf(carte) + ")" + carte.toString());
-		}
-
-		data[0] = lireInteger("Choisir index Carte : ");
-
-		System.out.println("-- CHOIX DU JOUEUR A QUI DONNER LA CARTE --");
-		for (int i = 0; i < Jeu.getInstance().getJoueurs().size() - 1; i++) {
-			if (!joueurCourant.equals(Jeu.getInstance().getJoueurs().get(i))) {
-				System.out.println("(" + i + ")" + Jeu.getInstance().getJoueurs().get(i).getPseudo());
-			}
-		}
-
-		data[1] = lireInteger("Choisir index Joueur : ");
-
-		return data;
-	}
-
-	public int[] choixChangerCouleur(Joueur joueurCourant) {
-
-		System.out.println("-- CHOIX CHANGER COULEUR --");
-		for (int i = 0; i < Carte.COULEURS.length; i++) {
-			System.out.println("(" + i + ")" + Carte.COULEURS[i]);
-		}
-
-		int couleur = lireInteger("Choisir couleur : ");
-
-		int[] data = new int[1];
-		data[0] = couleur;
-		return data;
-	}
-
-	private Integer lireInteger(String msg) {
+	protected Integer lireInteger(String msg) {
 
 		String numString = lireChaine(msg);
 		if (numString != null) {
@@ -174,7 +138,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 		return null;
 	}
 
-	private String lireChaine(String msg) {
+	protected String lireChaine(String msg) {
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print(msg);
 		while (!th.isInterrupted()) {
@@ -275,7 +239,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 			case effetDonner:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " ajoute un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + " dans la main de "
-						+ ((Message) msg).getJoueurVictime());
+						+ ((Message) msg).getJoueurVictime().getPseudo());
 				break;
 
 			case effetModeAttaque:
@@ -317,13 +281,15 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case choixChangerCouleur:
-				System.out.println("CHOIX CHANGER COULEUR A FAIRE");
-				// TODO
+				arreterThread();
+				th = new Thread(new InterfaceConsoleEffetChangerCouleur(this, ((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours()));
+				th.start();
 				break;
 
 			case choixDonnerCarte:
-				System.out.println("CHOIX DONNER CARTE");
-				// TODO
+				arreterThread();
+				th = new Thread(new InterfaceConsoleEffetDonner(this, ((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours()));
+				th.start();
 				break;
 
 			case cartePosee:
@@ -355,13 +321,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case finTourJoueurHumain:
-				if (th != null) {
-					th.interrupt();
-					try {
-						th.join();
-					} catch (InterruptedException e) {
-					}
-				}
+				arreterThread();
 				break;
 
 			case annonceCarte:
@@ -384,6 +344,16 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 	}
 
+	private void arreterThread() {
+		if (th != null) {
+			th.interrupt();
+			try {
+				th.join();
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+	
 	@Override
 	public void run() {
 

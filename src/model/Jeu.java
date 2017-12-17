@@ -191,6 +191,8 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (!(joueurCourant instanceof JoueurArtificiel)) {
+			setChanged();
+			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
 			jouerManche();
 		}
 
@@ -332,9 +334,6 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) {
-
-			setChanged();
-			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
 			finirTour(joueurCourant);
 		}
 	}
