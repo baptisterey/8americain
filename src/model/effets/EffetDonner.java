@@ -6,9 +6,9 @@ import model.Joueur;
 import model.Message;
 
 public class EffetDonner extends EffetAvecInput {
-	
-	int indexJoueurADonner;
-	int indexCarteADonner;
+	Joueur joueurADonner;
+	Carte carteADonner;
+
 	
 	private static final int score = 20;
 	
@@ -17,8 +17,7 @@ public class EffetDonner extends EffetAvecInput {
 	}
 	
 	public Message action(Joueur joueurCourant) {
-		Joueur joueurADonner = Jeu.getInstance().getJoueurs().get(indexJoueurADonner);
-		Carte carteADonner = joueurCourant.getMain().get(indexCarteADonner);
+		
 		
 		joueurADonner.getMain().add(carteADonner);
 		joueurCourant.getMain().remove(carteADonner);
@@ -33,15 +32,19 @@ public class EffetDonner extends EffetAvecInput {
     }
 
 	@Override
-	public void setData(int [] data) {
-		indexCarteADonner = data[0];
-		indexJoueurADonner = data[1];
+	public void setData(int [] data, Joueur joueurCourant) throws ErreurDonneesEffet {
+		try {
+			joueurADonner = Jeu.getInstance().getJoueurs().get(data[1]);
+			carteADonner = joueurCourant.getMain().get(data[0]);
+		}catch(IndexOutOfBoundsException e) {
+			throw new ErreurDonneesEffet();
+		}
 	}
 
 	@Override
 	public void resetData() {
-		indexJoueurADonner = -1;
-		indexCarteADonner = -1;
+		joueurADonner = null;
+		carteADonner = null;
 	}
 	
 }

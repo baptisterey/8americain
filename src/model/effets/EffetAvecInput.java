@@ -1,5 +1,7 @@
 package model.effets;
 
+import model.Joueur;
+
 public abstract class EffetAvecInput extends Effet {
 
 	public EffetAvecInput(int scoreValue) {
@@ -7,7 +9,7 @@ public abstract class EffetAvecInput extends Effet {
 
 	}
 
-	public abstract void setData(int[] data);
+	public abstract void setData(int[] data, Joueur joueurCourant) throws ErreurDonneesEffet;
 
 	public abstract void resetData();
 

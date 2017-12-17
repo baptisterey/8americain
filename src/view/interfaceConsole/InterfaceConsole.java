@@ -1,4 +1,4 @@
-package view;
+package view.interfaceConsole;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.util.Scanner;
 import controleur.Controleur;
 import model.JoueurArtificiel;
 import model.Message;
+import view.IHM;
 import model.Carte;
 import model.ErreurCarteInposable;
 import model.Jeu;
@@ -44,8 +45,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 		do {
 			choixok = true;
 
-			Integer choix = Integer.parseInt(this.lireChaine("Votre choix :"));
-			System.out.println(choix);
+			Integer choix = lireInteger("Votre choix :");
 
 			if (choix != null) {
 				switch (choix) {
@@ -115,74 +115,35 @@ public class InterfaceConsole extends IHM implements Runnable {
 		this.getControleur().getJeu().commencerPartie();
 	}
 
-	public int[] choixIndexDonner(Joueur joueurCourant) {
-		int[] data = new int[2];
-		System.out.println("-- CHOIX EFFET DONNER --");
 
-		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
-		for (Carte carte : joueurCourant.getMain()) {
-			System.out.println("(" + joueurCourant.getMain().indexOf(carte) + ")" + carte.toString());
-		}
+	protected Integer lireInteger(String msg) {
 
-		data[0] = readInt("Choisir index Carte : ");
-
-		System.out.println("-- CHOIX DU JOUEUR A QUI DONNER LA CARTE --");
-		for (int i = 0; i < Jeu.getInstance().getJoueurs().size() - 1; i++) {
-			if (!joueurCourant.equals(Jeu.getInstance().getJoueurs().get(i))) {
-				System.out.println("(" + i + ")" + Jeu.getInstance().getJoueurs().get(i).getPseudo());
-			}
-		}
-
-		data[1] = readInt("Choisir index Joueur : ");
-
-		return data;
-	}
-
-	public int[] choixChangerCouleur(Joueur joueurCourant) {
-
-		System.out.println("-- CHOIX CHANGER COULEUR --");
-		for (int i = 0; i < Carte.COULEURS.length; i++) {
-			System.out.println("(" + i + ")" + Carte.COULEURS[i]);
-		}
-
-		int couleur = readInt("Choisir couleur : ");
-
-		int[] data = new int[1];
-		data[0] = couleur;
-		return data;
-	}
-
-	private Integer readInt(String msg) {
-		Integer num = null;
-		boolean loop = true;
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (loop) {
-			try {
-				System.out.print(msg);
-				String numString = br.readLine();
-				if (numString != null) {
-					try {
-						num = Integer.parseInt(numString);
-						loop = false;
-					} catch (NumberFormatException e) {
+		String numString = lireChaine(msg);
+		if (numString != null) {
+			boolean conversionok;
+			do {
+				conversionok = true;
+				try {
+					return Integer.parseInt(numString);
+				} catch (NumberFormatException e) {
+					numString = lireChaine(msg);
+					if (numString == null) {
+						return null;
 					}
+					conversionok = false;
 				}
-			} catch (IOException e) {
-				System.err.println(e.getMessage());
-			}
+			} while (!conversionok);
 		}
-		if (num == null) {
-			System.out.println("NULL DANS READINT");
-		}
-		return num;
+
+		return null;
 	}
 
-	private String lireChaine(String msg) {
+	protected String lireChaine(String msg) {
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print(msg);
 		while (!th.isInterrupted()) {
 			try {
-				
+
 				if (stdin.ready()) {
 					String resultat = stdin.readLine();
 					return resultat;
@@ -191,14 +152,8 @@ public class InterfaceConsole extends IHM implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("");
 		return null;
-	}
-
-	public int getChoixAction(Joueur joueurCourant) {
-		System.out.println("(0) Annoncer");
-		System.out.println("(1) Jouer carte");
-		System.out.println("=====================");
-		return readInt("Choisir action : ");
 	}
 
 	public void annoncer(Joueur joueurCourant) {
@@ -209,8 +164,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 	}
 
 	public void jouerTour(Joueur joueurCourant) {
-		boolean tourDuJoueurHumain = true;
-
 		System.out.println("---- A TOI DE JOUER ----");
 		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
 			if (joueur != joueurCourant) {
@@ -227,33 +180,27 @@ public class InterfaceConsole extends IHM implements Runnable {
 		System.out.println("(1) Jouer ou piocher une carte");
 		System.out.println("------------------");
 
-		while (tourDuJoueurHumain) {
-			boolean choixok;
-			do {
-				String chaine = lireChaine("Choisir Action :");
-				Integer choix = null;
-				if (chaine != null) {
-					choix = Integer.parseInt(chaine);
+		boolean choixok;
+		do {
+			Integer choix = lireInteger("Choisir action :");
+
+			choixok = true;
+			if (choix != null) {
+				switch (choix) {
+				case 0:
+					annoncer(joueurCourant);
+					break;
+
+				case 1:
+					joueurCarte(joueurCourant);
+					break;
+
+				default:
+					choixok = false;
 				}
 
-				choixok = true;
-				if (choix != null) {
-					switch (choix) {
-					case 0:
-						annoncer(joueurCourant);
-						break;
-
-					case 1:
-						joueurCarte(joueurCourant);
-						break;
-
-					default:
-						choixok = false;
-					}
-
-				}
-			} while (!choixok);
-		}
+			}
+		} while (!choixok);
 	}
 
 	@Override
@@ -292,7 +239,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 			case effetDonner:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " ajoute un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + " dans la main de "
-						+ ((Message) msg).getJoueurVictime());
+						+ ((Message) msg).getJoueurVictime().getPseudo());
 				break;
 
 			case effetModeAttaque:
@@ -334,13 +281,15 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case choixChangerCouleur:
-				System.out.println("CHOIX CHANGER COULEUR A FAIRE");
-				// TODO
+				arreterThread();
+				th = new Thread(new InterfaceConsoleEffetChangerCouleur(this, ((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours()));
+				th.start();
 				break;
 
 			case choixDonnerCarte:
-				System.out.println("CHOIX DONNER CARTE");
-				// TODO
+				arreterThread();
+				th = new Thread(new InterfaceConsoleEffetDonner(this, ((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours()));
+				th.start();
 				break;
 
 			case cartePosee:
@@ -363,10 +312,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case tourJoueurHumain:
-				// System.out.println("TOUR HUMAIN");
-				if (th != null) {
-					th.interrupt();
-				}
 				th = new Thread(this);
 				th.start();
 				break;
@@ -376,6 +321,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case finTourJoueurHumain:
+				arreterThread();
 				break;
 
 			case annonceCarte:
@@ -398,6 +344,16 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 	}
 
+	private void arreterThread() {
+		if (th != null) {
+			th.interrupt();
+			try {
+				th.join();
+			} catch (InterruptedException e) {
+			}
+		}
+	}
+	
 	@Override
 	public void run() {
 
