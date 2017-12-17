@@ -7,6 +7,7 @@ import model.effets.EffetAttaque;
 import model.effets.EffetAvecInput;
 import model.effets.EffetContrerChangerCouleur;
 import model.effets.EffetDonner;
+import model.effets.ErreurDonneesEffet;
 import model.variantes.Basique;
 import model.variantes.Variante;
 
@@ -275,21 +276,40 @@ public class Jeu extends java.util.Observable {
 
 						if (joueurCourant instanceof JoueurArtificiel) {
 							data = ((JoueurArtificiel) joueurCourant).choisirDataDonner();
-							((EffetAvecInput) carte.getEffet()).setData(data);
+							try {
+								((EffetAvecInput) carte.getEffet()).setData(data, joueurCourant);
+							} catch (ErreurDonneesEffet e) {
+								e.printStackTrace();
+							}
 						} else {
-							setChanged();
-							notifyObservers(new Message(Message.Types.choixDonnerCarte));
 							effetJouableDirectement = false;
+
+							msg = new Message(Message.Types.choixDonnerCarte);
+							msg.setEffetAvecInputEnCours((EffetAvecInput) carte.getEffet());
+							msg.setJoueurCourant(joueurCourant);
+							setChanged();
+
+							notifyObservers(msg);
 						}
 
 					} else { // Effet EffetChangerCouleur
+
 						if (joueurCourant instanceof JoueurArtificiel) {
 							data = ((JoueurArtificiel) joueurCourant).choisirDataChangerCouleur();
-							((EffetAvecInput) carte.getEffet()).setData(data);
+							try {
+								((EffetAvecInput) carte.getEffet()).setData(data, joueurCourant);
+							} catch (ErreurDonneesEffet e) {
+								e.printStackTrace();
+							}
 						} else {
-							setChanged();
-							notifyObservers(new Message(Message.Types.choixChangerCouleur));
 							effetJouableDirectement = false;
+
+							msg = new Message(Message.Types.choixChangerCouleur);
+							msg.setEffetAvecInputEnCours((EffetAvecInput) carte.getEffet());
+							msg.setJoueurCourant(joueurCourant);
+							setChanged();
+
+							notifyObservers(msg);
 						}
 					}
 
@@ -375,7 +395,21 @@ public class Jeu extends java.util.Observable {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initJoueurs));
 	}
-
+	
+	/**
+	 * Methode a appeler une fois setData() réaliser dans effet. Elle permet de jouer l'effet et de finir le tour du joueur humain.
+	 * @param effet Effet qui va être jouer, doit être déja initialiser avec un appel de sa méthode setData().
+	 * @param joueurCourant Joueur utilisant cet Effet, après cela son tour est terminé.
+	 */
+	public void jouerEffetAvecInputEnCours(EffetAvecInput effet, Joueur joueurCourant) {
+		setChanged();
+		notifyObservers(effet.action(joueurCourant)); 
+		
+		setChanged();
+		notifyObservers(new Message(Message.Types.finTourJoueurHumain));
+		finirTour(joueurCourant);
+	}
+	
 	public synchronized void initCarteManche() {
 
 		joueurs.clear();
@@ -591,5 +625,7 @@ public class Jeu extends java.util.Observable {
 		}
 		return b;
 	}
+	
+
 
 }

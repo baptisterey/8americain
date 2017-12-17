@@ -20,7 +20,7 @@ public class InterfaceGraphique extends IHM {
 		super(ctrl);
 		
 		JFrame fenetre = new JFrame();
-		fenetre.setSize(500,850);
+		fenetre.setSize(200,200);
 		
 		fenetre.add(textArea);
 		
@@ -32,7 +32,6 @@ public class InterfaceGraphique extends IHM {
         bouton.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("BOUTON APPUYEE");
             	Joueur joueurTrouve = null;
             	for(Joueur joueur : getControleur().getJeu().getJoueurs()){
             		if(joueur instanceof Joueur){

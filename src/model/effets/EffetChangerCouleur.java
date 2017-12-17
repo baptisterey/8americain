@@ -19,11 +19,11 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	public Message action(Joueur joueurCourant) {
 		Carte carte = Jeu.getInstance().getDefausse().getLast();
 		carte.setCouleur(nouvelleCouleur);
-		
+
 		Message msg = new Message(Message.Types.effetChangerCouleur);
 		msg.setJoueurCourant(joueurCourant);
 		msg.setNouvelleCouleur(nouvelleCouleur);
-		
+
 		resetData();
 		return msg;
 	}
@@ -34,8 +34,13 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	}
 
 	@Override
-	public void setData(int[] data) {
-		this.nouvelleCouleur = data[0];
+	public void setData(int[] data, Joueur joueurCourant) throws ErreurDonneesEffet {
+		if (data[0] >= Carte.PIC && data[0] <= Carte.TREFLE) {
+			nouvelleCouleur = data[0];
+		} else {
+			throw new ErreurDonneesEffet();
+		}
+
 	}
 
 	@Override
