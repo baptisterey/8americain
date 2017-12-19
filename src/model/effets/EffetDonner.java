@@ -32,7 +32,7 @@ public class EffetDonner extends EffetAvecInput {
     }
 
 	@Override
-	public void setData(int [] data, Joueur joueurCourant) throws ErreurDonneesEffet {
+	public void setData(Integer [] data, Joueur joueurCourant) throws ErreurDonneesEffet {
 		try {
 			joueurADonner = Jeu.getInstance().getJoueurs().get(data[1]);
 			carteADonner = joueurCourant.getMain().get(data[0]);

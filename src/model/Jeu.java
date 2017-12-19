@@ -273,7 +273,7 @@ public class Jeu extends java.util.Observable {
 																	// donnees
 																	// nécessaires
 
-					int[] data;
+					Integer[] data;
 					if (carte.getEffet() instanceof EffetDonner) {
 
 						if (joueurCourant instanceof JoueurArtificiel) {
@@ -422,7 +422,7 @@ public class Jeu extends java.util.Observable {
 		}
 
 		// CrÃ©ation des 32 cartes (TODO faire avec 52)
-		for (int valeur = 5; valeur < 13; valeur++) {
+		for (int valeur = 3; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
 				this.variante.gererVariante(carte); // Application des effets en

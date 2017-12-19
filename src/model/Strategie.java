@@ -4,9 +4,9 @@ public interface Strategie {
   
     Carte choisirCarteStrategie(Joueur joueurCourant);
     
-    int[] choisirDataDonner(Joueur joueurCourant);
+    Integer[] choisirDataDonner(Joueur joueurCourant);
     
-    int[] choisirDataChangerCouleur(Joueur joueurCourant);
+    Integer[] choisirDataChangerCouleur(Joueur joueurCourant);
     
     String choisirAnnonce(Joueur joueurCourant);
 }

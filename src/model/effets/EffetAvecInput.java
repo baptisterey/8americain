@@ -9,7 +9,7 @@ public abstract class EffetAvecInput extends Effet {
 
 	}
 
-	public abstract void setData(int[] data, Joueur joueurCourant) throws ErreurDonneesEffet;
+	public abstract void setData(Integer[] data, Joueur joueurCourant) throws ErreurDonneesEffet;
 
 	public abstract void resetData();
 

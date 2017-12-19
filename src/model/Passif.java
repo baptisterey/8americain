@@ -18,7 +18,7 @@ public class Passif implements Strategie {
 	}
 
 	@Override
-	public int[] choisirDataDonner(Joueur joueurCourant) {
+	public Integer[] choisirDataDonner(Joueur joueurCourant) {
 
 		int indexCarteChoisie = 0;
 		for (int i = 1; i < joueurCourant.getMain().size(); i++) {
@@ -38,13 +38,13 @@ public class Passif implements Strategie {
 			}
 		}
 
-		int[] data = new int[2];
+		Integer[] data = new Integer[2];
 		data[0] = indexCarteChoisie;
 		data[1] = indexJoueurChoisi;
 		return data;
 	}
 
-	public int[] choisirDataChangerCouleur(Joueur joueurCourant) {
+	public Integer[] choisirDataChangerCouleur(Joueur joueurCourant) {
 		int pic = 0;
 		int coeur = 0;
 		int carreau = 0;
@@ -66,7 +66,7 @@ public class Passif implements Strategie {
 		max = Math.max(max, carreau);
 		max = Math.max(max, trefle);
 
-		int[] data = new int[1];
+		Integer[] data = new Integer[1];
 
 		if (max == pic) {
 			data[0] = Carte.PIC;

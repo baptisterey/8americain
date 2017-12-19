@@ -34,7 +34,7 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	}
 
 	@Override
-	public void setData(int[] data, Joueur joueurCourant) throws ErreurDonneesEffet {
+	public void setData(Integer[] data, Joueur joueurCourant) throws ErreurDonneesEffet {
 		if (data[0] >= Carte.PIC && data[0] <= Carte.TREFLE) {
 			nouvelleCouleur = data[0];
 		} else {
