@@ -1,20 +1,20 @@
 package view.interfaceConsole;
 
+import controleur.Controleur;
 import model.Carte;
 import model.Jeu;
 import model.Joueur;
 import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
-public class InterfaceConsoleEffetDonner implements Runnable {
+public class InterfaceConsoleEffetDonner extends InterfaceConsole {
 	private Joueur joueurCourant;
 	private EffetAvecInput effet;
-	InterfaceConsole interfaceConsole;
 
-	public InterfaceConsoleEffetDonner(InterfaceConsole interfaceConsole, Joueur joueurCourant, EffetAvecInput effet) {
+	public InterfaceConsoleEffetDonner(Controleur ctrl, Joueur joueurCourant, EffetAvecInput effet) {
+		super(ctrl);
 		this.joueurCourant = joueurCourant;
 		this.effet = effet;
-		this.interfaceConsole = interfaceConsole;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class InterfaceConsoleEffetDonner implements Runnable {
 				System.out.println("(" + joueurCourant.getMain().indexOf(carte) + ")" + carte.toString());
 			}
 
-			data[0] = interfaceConsole.lireInteger("Quelle carte donner ? ");
+			data[0] = super.lireInteger("Quelle carte donner ? ");
 			if (data[0] != null) {
 				System.out.println("-- CHOIX DU JOUEUR A QUI DONNER LA CARTE --");
 				for (int i = 0; i < Jeu.getInstance().getJoueurs().size() - 1; i++) {
@@ -40,7 +40,7 @@ public class InterfaceConsoleEffetDonner implements Runnable {
 					}
 				}
 
-				data[1] = interfaceConsole.lireInteger("A quel joueur ? ");
+				data[1] = super.lireInteger("A quel joueur ? ");
 				if (data[1] != null) {
 					try {
 						effet.setData(data, joueurCourant);
@@ -53,7 +53,7 @@ public class InterfaceConsoleEffetDonner implements Runnable {
 
 		} while (!setDataOk);
 		if (data[0] != null && data[1] != null) {
-			interfaceConsole.getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
 		}
 
 	}

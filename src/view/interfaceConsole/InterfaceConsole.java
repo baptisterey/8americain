@@ -283,14 +283,14 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 			case choixChangerCouleur:
 				arreterThread();
-				th = new Thread(new InterfaceConsoleEffetChangerCouleur(this, ((Message) msg).getJoueurCourant(),
+				th = new Thread(new InterfaceConsoleEffetChangerCouleur(getControleur(), ((Message) msg).getJoueurCourant(),
 						((Message) msg).getEffetAvecInputEnCours()));
 				th.start();
 				break;
 
 			case choixDonnerCarte:
 				arreterThread();
-				th = new Thread(new InterfaceConsoleEffetDonner(this, ((Message) msg).getJoueurCourant(),
+				th = new Thread(new InterfaceConsoleEffetDonner(getControleur(), ((Message) msg).getJoueurCourant(),
 						((Message) msg).getEffetAvecInputEnCours()));
 				th.start();
 				break;

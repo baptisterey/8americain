@@ -1,20 +1,20 @@
 package view.interfaceConsole;
 
+import controleur.Controleur;
 import model.Carte;
 import model.Joueur;
 import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
-public class InterfaceConsoleEffetChangerCouleur implements Runnable {
+public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
 	private Joueur joueurCourant;
 	private EffetAvecInput effet;
-	InterfaceConsole interfaceConsole;
 
-	public InterfaceConsoleEffetChangerCouleur(InterfaceConsole interfaceConsole, Joueur joueurCourant,
+	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant,
 			EffetAvecInput effet) {
+		super(ctrl);
 		this.joueurCourant = joueurCourant;
 		this.effet = effet;
-		this.interfaceConsole = interfaceConsole;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class InterfaceConsoleEffetChangerCouleur implements Runnable {
 				System.out.println("(" + i + ")" + Carte.COULEURS[i]);
 			}
 
-			data[0] = interfaceConsole.lireInteger("Choisir couleur : ");
+			data[0] = super.lireInteger("Choisir couleur : ");
 			if (data[0] != null) {
 
 				try {
@@ -41,7 +41,7 @@ public class InterfaceConsoleEffetChangerCouleur implements Runnable {
 		} while (!setDataOk);
 
 		if (data[0] != null) {
-			interfaceConsole.getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
 		}
 	}
 

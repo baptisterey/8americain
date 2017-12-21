@@ -94,7 +94,6 @@ public class Agressif implements Strategie {
 		}
 		
 		for(Joueur joueur : Jeu.getInstance().getJoueurs()) {
-			
 			if(joueur.getMain().size()==1 && !joueur.isPeutFinir() && joueur != joueurCourant) {
 				annonce = Jeu.ANNONCE_CONTRE_CARTE;
 			}	
