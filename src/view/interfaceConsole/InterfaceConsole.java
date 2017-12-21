@@ -3,9 +3,7 @@ package view.interfaceConsole;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.InputMismatchException;
 import java.util.Observable;
-import java.util.Scanner;
 
 import controleur.Controleur;
 import model.JoueurArtificiel;
@@ -19,7 +17,8 @@ import model.Joueur;
 public class InterfaceConsole extends IHM implements Runnable {
 	
 	private Thread th;
-
+	private Joueur joueurCourant;
+	
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -117,7 +116,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 	}
 
 	protected Integer lireInteger(String msg) {
-
+		
 		String numString = lireChaine(msg);
 		if (numString != null) {
 			boolean conversionok;
@@ -316,6 +315,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case tourJoueurHumain:
+				this.joueurCourant = ((Message) msg).getJoueurCourant();
 				th = new Thread(this);
 				th.start();
 				break;
@@ -360,15 +360,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 	@Override
 	public void run() {
-
-		Joueur joueurTrouve = null;
-		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
-			if (joueur instanceof Joueur) {
-				joueurTrouve = joueur;// TODO REFAIRE CE CACA
-			}
-		}
-		jouerTour(joueurTrouve);
-
+		jouerTour(joueurCourant);
 	}
 
 }
