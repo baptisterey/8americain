@@ -17,7 +17,8 @@ import model.Jeu;
 import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
-	Thread th;
+	
+	private Thread th;
 
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);

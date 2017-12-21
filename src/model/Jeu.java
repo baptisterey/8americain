@@ -396,7 +396,7 @@ public class Jeu extends java.util.Observable {
 	}
 	
 	/**
-	 * Methode a appeler une fois setData() réaliser dans effet. Elle permet de jouer l'effet et de finir le tour du joueur humain.
+	 * Methode à appeler une fois setData() réaliser dans effet. Elle permet de jouer l'effet et de finir le tour du joueur humain.
 	 * @param effet Effet qui va être jouer, doit être déja initialiser avec un appel de sa méthode setData().
 	 * @param joueurCourant Joueur utilisant cet Effet, après cela son tour est terminé.
 	 */
@@ -427,7 +427,6 @@ public class Jeu extends java.util.Observable {
 				Carte carte = new Carte(valeur, couleur);
 				this.variante.gererVariante(carte); // Application des effets en
 													// fonction de la variante
-
 				pioche.add(carte);
 			}
 		}
