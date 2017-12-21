@@ -7,13 +7,12 @@ import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
 public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
-	private Joueur joueurCourant;
 	private EffetAvecInput effet;
 
 	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant,
 			EffetAvecInput effet) {
 		super(ctrl);
-		this.joueurCourant = joueurCourant;
+		setJoueurCourant(joueurCourant);
 		this.effet = effet;
 	}
 
@@ -33,7 +32,7 @@ public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
 			if (data[0] != null) {
 
 				try {
-					effet.setData(data, joueurCourant);
+					effet.setData(data, getJoueurCourant());
 				} catch (ErreurDonneesEffet e) {
 					setDataOk = false;
 				}
@@ -41,7 +40,7 @@ public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
 		} while (!setDataOk);
 
 		if (data[0] != null) {
-			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, getJoueurCourant());
 		}
 	}
 

@@ -22,6 +22,14 @@ public class InterfaceConsole extends IHM implements Runnable {
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
+	
+	public void setJoueurCourant(Joueur joueurCourant){
+		this.joueurCourant = joueurCourant;
+	}
+	
+	public Joueur getJoueurCourant(){
+		return this.joueurCourant;
+	}
 
 	public void joueurCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";

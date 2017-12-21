@@ -8,12 +8,11 @@ import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
 public class InterfaceConsoleEffetDonner extends InterfaceConsole {
-	private Joueur joueurCourant;
 	private EffetAvecInput effet;
 
 	public InterfaceConsoleEffetDonner(Controleur ctrl, Joueur joueurCourant, EffetAvecInput effet) {
 		super(ctrl);
-		this.joueurCourant = joueurCourant;
+		setJoueurCourant(joueurCourant);
 		this.effet = effet;
 	}
 
@@ -26,16 +25,16 @@ public class InterfaceConsoleEffetDonner extends InterfaceConsole {
 
 			System.out.println("-- CHOIX EFFET DONNER --");
 
-			System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
-			for (Carte carte : joueurCourant.getMain()) {
-				System.out.println("(" + joueurCourant.getMain().indexOf(carte) + ")" + carte.toString());
+			System.out.println("-- MAIN DE " + getJoueurCourant().getPseudo() + " --");
+			for (Carte carte : getJoueurCourant().getMain()) {
+				System.out.println("(" + getJoueurCourant().getMain().indexOf(carte) + ")" + carte.toString());
 			}
 
 			data[0] = super.lireInteger("Quelle carte donner ? ");
 			if (data[0] != null) {
 				System.out.println("-- CHOIX DU JOUEUR A QUI DONNER LA CARTE --");
 				for (int i = 0; i < Jeu.getInstance().getJoueurs().size() - 1; i++) {
-					if (!joueurCourant.equals(Jeu.getInstance().getJoueurs().get(i))) {
+					if (!getJoueurCourant().equals(Jeu.getInstance().getJoueurs().get(i))) {
 						System.out.println("(" + i + ")" + Jeu.getInstance().getJoueurs().get(i).getPseudo());
 					}
 				}
@@ -43,7 +42,7 @@ public class InterfaceConsoleEffetDonner extends InterfaceConsole {
 				data[1] = super.lireInteger("A quel joueur ? ");
 				if (data[1] != null) {
 					try {
-						effet.setData(data, joueurCourant);
+						effet.setData(data, getJoueurCourant());
 					} catch (ErreurDonneesEffet e) {
 						setDataOk = false;
 					}
@@ -53,7 +52,7 @@ public class InterfaceConsoleEffetDonner extends InterfaceConsole {
 
 		} while (!setDataOk);
 		if (data[0] != null && data[1] != null) {
-			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+			getControleur().getJeu().jouerEffetAvecInputEnCours(effet, getJoueurCourant());
 		}
 
 	}
