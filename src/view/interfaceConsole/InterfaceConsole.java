@@ -30,6 +30,14 @@ public class InterfaceConsole extends IHM implements Runnable {
 	public Joueur getJoueurCourant(){
 		return this.joueurCourant;
 	}
+	
+	protected Thread getThread() {
+		return th;
+	}
+	
+	protected void setThread(Thread th) {
+		this.th = th;
+	}
 
 	public void joueurCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";
@@ -292,14 +300,14 @@ public class InterfaceConsole extends IHM implements Runnable {
 			case choixChangerCouleur:
 				arreterThread();
 				th = new Thread(new InterfaceConsoleEffetChangerCouleur(getControleur(), ((Message) msg).getJoueurCourant(),
-						((Message) msg).getEffetAvecInputEnCours()));
+						((Message) msg).getEffetAvecInputEnCours(), th));
 				th.start();
 				break;
 
 			case choixDonnerCarte:
 				arreterThread();
 				th = new Thread(new InterfaceConsoleEffetDonner(getControleur(), ((Message) msg).getJoueurCourant(),
-						((Message) msg).getEffetAvecInputEnCours()));
+						((Message) msg).getEffetAvecInputEnCours(), th));
 				th.start();
 				break;
 

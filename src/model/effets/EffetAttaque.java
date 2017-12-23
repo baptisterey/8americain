@@ -36,5 +36,9 @@ public class EffetAttaque extends Effet {
 		
 		return msg;
 	}
+	
+	public boolean isContrable() {
+		return this.isContrable;
+	}
 
 }

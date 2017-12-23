@@ -10,10 +10,11 @@ public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
 	private EffetAvecInput effet;
 
 	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant,
-			EffetAvecInput effet) {
+			EffetAvecInput effet, Thread th) {
 		super(ctrl);
 		setJoueurCourant(joueurCourant);
 		this.effet = effet;
+		setThread(th);
 	}
 
 	@Override

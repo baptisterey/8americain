@@ -10,10 +10,11 @@ import model.effets.ErreurDonneesEffet;
 public class InterfaceConsoleEffetDonner extends InterfaceConsole {
 	private EffetAvecInput effet;
 
-	public InterfaceConsoleEffetDonner(Controleur ctrl, Joueur joueurCourant, EffetAvecInput effet) {
+	public InterfaceConsoleEffetDonner(Controleur ctrl, Joueur joueurCourant, EffetAvecInput effet, Thread th) {
 		super(ctrl);
 		setJoueurCourant(joueurCourant);
 		this.effet = effet;
+		setThread(th);
 	}
 
 	@Override

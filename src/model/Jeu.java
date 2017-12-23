@@ -530,7 +530,7 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (modeAttaque) {
-			if (carte.getEffet() instanceof EffetAttaque || carte.getEffet() instanceof EffetContrerChangerCouleur) {
+			if ((carte.getEffet() instanceof EffetAttaque && !(((EffetAttaque) carte.getEffet()).isContrable())) || carte.getEffet() instanceof EffetContrerChangerCouleur) {
 				return true;
 			}
 		} else {
