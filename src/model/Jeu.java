@@ -41,8 +41,11 @@ public class Jeu extends java.util.Observable {
 	}
 
 	public LinkedList<Joueur> getJoueursInitiation() {
-
 		return joueursInitiation;
+	}
+	
+	public void setJoueursInitiation(LinkedList<Joueur> joueursInitiation) {
+		this.joueursInitiation = joueursInitiation;
 	}
 
 	public LinkedList<Joueur> getGagnants() {

@@ -15,26 +15,26 @@ import model.Jeu;
 import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
-	
+
 	private Thread th;
 	private Joueur joueurCourant;
-	
+
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
-	
-	public void setJoueurCourant(Joueur joueurCourant){
+
+	public void setJoueurCourant(Joueur joueurCourant) {
 		this.joueurCourant = joueurCourant;
 	}
-	
-	public Joueur getJoueurCourant(){
+
+	public Joueur getJoueurCourant() {
 		return this.joueurCourant;
 	}
-	
+
 	protected Thread getThread() {
 		return th;
 	}
-	
+
 	protected void setThread(Thread th) {
 		this.th = th;
 	}
@@ -91,48 +91,10 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 	}
 
-	public void initJoueurs() {
-		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
-		this.getControleur().getJeu().getJoueurs().clear();
-		this.getControleur().getJeu().getJoueurs().add(new Joueur("Civetdelapin"));
-		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_1", 0));
-		this.getControleur().getJeu().getJoueurs().add(new JoueurArtificiel("AI_2", 1));
-		this.getControleur().getJeu().getJoueursInitiation().clear();
-		for (int i = 0; i < this.getControleur().getJeu().getJoueurs().size(); i++) {
-			this.getControleur().getJeu().getJoueursInitiation().add(this.getControleur().getJeu().getJoueurs().get(i));
-		}
-		/*
-		 * Scanner sc = new Scanner(System.in); System.out.println(
-		 * "---- CREATION DU JOUEUR ----"); System.out.print(
-		 * "Entrer votre nom : "); String nom = sc.nextLine(); Joueur j = new
-		 * Joueur(nom); this.getControleur().getJeu().getJoueurs().add(j);
-		 * System.out.println("---- CREATION DES JOUEURS ARTIFICELS ----");
-		 * System.out.print("Combien de joueurs artificiels ? "); int nbJoueur =
-		 * sc.nextInt(); int strategie; for (int i = 1 ; i <= nbJoueur ; i++) {
-		 * 
-		 * System.out.print("Entrer nom joueur"+i+": ");
-		 * 
-		 * nom = sc.next();
-		 * 
-		 * System.out.print("Entrer stratégie joueur" +i+
-		 * " (taper 0 pour passif, 1 pour agréssif) :");
-		 * 
-		 * strategie = sc.nextInt();
-		 * 
-		 * j = new JoueurArtificiel(nom, strategie);
-		 * 
-		 * 
-		 * this.getControleur().getJeu().getJoueurs().add(j); } for (int i = 0 ;
-		 * i < this.getControleur().getJeu().getJoueurs().size() ; i++) {
-		 * this.getControleur().getJeu().getJoueursInitiation().add(this.
-		 * getControleur() .getJeu().getJoueurs().get(i)); }
-		 */
 
-		this.getControleur().getJeu().commencerPartie();
-	}
 
 	protected Integer lireInteger(String msg) {
-		
+
 		String numString = lireChaine(msg);
 		if (numString != null) {
 			boolean conversionok;
@@ -298,17 +260,13 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case choixChangerCouleur:
-				arreterThread();
-				th = new Thread(new InterfaceConsoleEffetChangerCouleur(getControleur(), ((Message) msg).getJoueurCourant(),
-						((Message) msg).getEffetAvecInputEnCours(), th));
-				th.start();
+				commencerThread(new InterfaceConsoleEffetChangerCouleur(getControleur(),
+						((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours(), th));
 				break;
 
 			case choixDonnerCarte:
-				arreterThread();
-				th = new Thread(new InterfaceConsoleEffetDonner(getControleur(), ((Message) msg).getJoueurCourant(),
+				commencerThread(new InterfaceConsoleEffetDonner(getControleur(), ((Message) msg).getJoueurCourant(),
 						((Message) msg).getEffetAvecInputEnCours(), th));
-				th.start();
 				break;
 
 			case cartePosee:
@@ -332,12 +290,11 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 			case tourJoueurHumain:
 				this.joueurCourant = ((Message) msg).getJoueurCourant();
-				th = new Thread(this);
-				th.start();
+				commencerThread(this);
 				break;
 
 			case initJoueurs:
-				initJoueurs();
+				commencerThread(new InterfaceConsoleInitJoueurs(getControleur(), getThread()));
 				break;
 
 			case finTourJoueurHumain:
@@ -362,6 +319,12 @@ public class InterfaceConsole extends IHM implements Runnable {
 			}
 		}
 
+	}
+
+	private void commencerThread(Runnable runnable) {
+		arreterThread();
+		th = new Thread(runnable);
+		th.start();
 	}
 
 	private void arreterThread() {

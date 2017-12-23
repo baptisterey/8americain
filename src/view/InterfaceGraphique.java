@@ -55,11 +55,7 @@ public class InterfaceGraphique extends IHM {
 		
 	}
 
-	@Override
-	public void initJoueurs() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	public void afficherConsole(String str) {
         textArea.append(str + "\n");

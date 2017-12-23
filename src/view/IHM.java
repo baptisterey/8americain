@@ -21,6 +21,4 @@ public abstract class IHM implements Observer{
 		this.controleur = controleur;
 	}
 
-	public abstract void initJoueurs();
-
 }
