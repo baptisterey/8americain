@@ -10,6 +10,7 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole {
 		super(ctrl);
 		setJoueurCourant(joueurCourant);
 		setThread(th);
+		
 	}
 	
 	
