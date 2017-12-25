@@ -16,7 +16,7 @@ import model.Joueur;
 
 public class InterfaceConsole extends IHM implements Runnable {
 
-	private Thread th;
+	private static Thread th;
 	private Joueur joueurCourant;
 
 	public InterfaceConsole(Controleur ctrl) {
@@ -31,13 +31,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 		return this.joueurCourant;
 	}
 
-	protected Thread getThread() {
-		return th;
-	}
-
-	protected void setThread(Thread th) {
-		this.th = th;
-	}
 
 	public void joueurCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";
@@ -261,12 +254,12 @@ public class InterfaceConsole extends IHM implements Runnable {
 
 			case choixChangerCouleur:
 				commencerThread(new InterfaceConsoleEffetChangerCouleur(getControleur(),
-						((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours(), th));
+						((Message) msg).getJoueurCourant(), ((Message) msg).getEffetAvecInputEnCours()));
 				break;
 
 			case choixDonnerCarte:
 				commencerThread(new InterfaceConsoleEffetDonner(getControleur(), ((Message) msg).getJoueurCourant(),
-						((Message) msg).getEffetAvecInputEnCours(), th));
+						((Message) msg).getEffetAvecInputEnCours()));
 				break;
 
 			case cartePosee:
@@ -294,7 +287,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case initJoueurs:
-				commencerThread(new InterfaceConsoleInitJoueurs(getControleur(), getThread()));
+				commencerThread(new InterfaceConsoleInitJoueurs(getControleur()));
 				break;
 
 			case finTourJoueurHumain:

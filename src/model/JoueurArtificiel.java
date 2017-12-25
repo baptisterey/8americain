@@ -10,8 +10,8 @@ public class JoueurArtificiel extends Joueur {
 	
 	private Strategie strategie;
 	
-	private static final int PASSIF = 0;
-	private static final int AGRESSIF = 1;
+	public static final int PASSIF = 0;
+	public static final int AGRESSIF = 1;
 	
 	public JoueurArtificiel (String pseudo, int strategie) {
 		super(pseudo);

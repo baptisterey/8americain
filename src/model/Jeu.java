@@ -21,7 +21,9 @@ public class Jeu extends java.util.Observable {
 	private int methodeCompte = COMPTE_POSITIF;
 	private int nbCarteModeAttaque = 0;
 	private int numManche = 1;
-
+	
+	private static Jeu instance;
+	
 	public final static String ANNONCE_CARTE = "Carte";
 	public final static String ANNONCE_CONTRE_CARTE = "Contre Carte";
 
@@ -52,11 +54,6 @@ public class Jeu extends java.util.Observable {
 		return gagnants;
 	}
 
-	private static Jeu instance;
-
-	private Jeu() {
-
-	}
 
 	/**
 	 * Implementation du design patern SINGLETON
