@@ -33,7 +33,7 @@ public class Controleur {
 		IHM ihm2 = new InterfaceGraphique(controleur);
 		controleur.getJeu().addObserver(ihm2);
 		
-		controleur.getJeu().initJoueurs();
+		controleur.getJeu().initPartie();
 	}
 	/*
 	public void commencerPartie() {

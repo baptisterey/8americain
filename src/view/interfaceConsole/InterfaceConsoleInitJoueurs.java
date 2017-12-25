@@ -6,7 +6,7 @@ import controleur.Controleur;
 import model.Joueur;
 import model.JoueurArtificiel;
 
-public class InterfaceConsoleInitJoueurs extends InterfaceConsole {
+public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Runnable {
 
 	public InterfaceConsoleInitJoueurs(Controleur ctrl) {
 		super(ctrl);

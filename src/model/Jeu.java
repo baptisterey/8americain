@@ -16,9 +16,14 @@ public class Jeu extends java.util.Observable {
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
 	public final static int COMPTE_POSITIF = 0;
 	public final static int COMPTE_NEGATIF = 1;
-
+	
+	public final static int DECK_52_CARTES = 5;
+	public final static int DECK_32_CARTES = 0;
+	
 	private Variante variante = new Basique();
 	private int methodeCompte = COMPTE_POSITIF;
+	private int nbCarteDeck = DECK_52_CARTES;
+	
 	private int nbCarteModeAttaque = 0;
 	private int numManche = 1;
 	
@@ -40,6 +45,14 @@ public class Jeu extends java.util.Observable {
 
 	public void setMethodeCompte(int methodeCompte) {
 		this.methodeCompte = methodeCompte;
+	}
+	
+	public void setVariante(Variante variante) {
+		this.variante = variante;
+	}
+	
+	public void setNbCarteDeck(int nbCarteDeck) {
+		this.nbCarteDeck = nbCarteDeck;
 	}
 
 	public LinkedList<Joueur> getJoueursInitiation() {
@@ -74,7 +87,18 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Carte> getDefausse() {
 		return defausse;
 	}
-
+	
+	/**
+	 * Notifie tous les Observateurs, indiquant qu'une partie est prête à être créer.
+	 */
+	public void initPartie() {
+		setChanged();
+		notifyObservers(new Message(Message.Types.initPartie));
+	}
+	
+	/**
+	 * Initialise le compteur de manche à 1 et appelle la méthode commencerNouvelleManche();
+	 */
 	public void commencerPartie() {
 		numManche = 1;
 		commencerNouvelleManche();
@@ -197,7 +221,10 @@ public class Jeu extends java.util.Observable {
 		}
 
 	}
-
+	
+	/**
+	 * Si la partie est finie, appelle la méthode finirPartie(), sinon incrémente le numéro de manche et appelle la méthode commencerNouvelleManche();
+	 */
 	public synchronized void finirManche() {
 		if (!isPartieOver()) {
 			numManche++;
@@ -226,6 +253,8 @@ public class Jeu extends java.util.Observable {
 		Message msg = new Message(Message.Types.finPartie);
 		msg.setJoueurCourant(gagnant);
 		notifyObservers(msg);
+		
+		initPartie(); // On recommence une partie
 	}
 
 	public synchronized void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
@@ -421,8 +450,7 @@ public class Jeu extends java.util.Observable {
 			joueurs.add(joueur);
 		}
 
-		// CrÃ©ation des 32 cartes (TODO faire avec 52)
-		for (int valeur = 3; valeur < 13; valeur++) {
+		for (int valeur = nbCarteDeck; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
 				this.variante.gererVariante(carte); // Application des effets en

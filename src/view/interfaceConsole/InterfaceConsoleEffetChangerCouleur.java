@@ -6,14 +6,23 @@ import model.Joueur;
 import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
-public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole {
+public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole implements Runnable {
 	private EffetAvecInput effet;
-
+	private Joueur joueurCourant;
+	
 	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant,
 			EffetAvecInput effet) {
 		super(ctrl);
 		setJoueurCourant(joueurCourant);
 		this.effet = effet;
+	}
+
+	public Joueur getJoueurCourant() {
+		return joueurCourant;
+	}
+
+	public void setJoueurCourant(Joueur joueurCourant) {
+		this.joueurCourant = joueurCourant;
 	}
 
 	@Override

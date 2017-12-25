@@ -6,85 +6,18 @@ import java.io.InputStreamReader;
 import java.util.Observable;
 
 import controleur.Controleur;
-import model.JoueurArtificiel;
 import model.Message;
 import view.IHM;
 import model.Carte;
-import model.ErreurCarteInposable;
-import model.Jeu;
-import model.Joueur;
 
-public class InterfaceConsole extends IHM implements Runnable {
+
+public class InterfaceConsole extends IHM {
 
 	private static Thread th;
-	private Joueur joueurCourant;
 
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
-
-	public void setJoueurCourant(Joueur joueurCourant) {
-		this.joueurCourant = joueurCourant;
-	}
-
-	public Joueur getJoueurCourant() {
-		return this.joueurCourant;
-	}
-
-
-	public void joueurCarte(Joueur joueurCourant) {
-		String carteDefausse = "Carte sommet défausse : ";
-		if (Jeu.getInstance().getDefausse().isEmpty()) {
-			carteDefausse += "aucune!";
-
-		} else {
-			carteDefausse += Jeu.getInstance().getDefausse().get(Jeu.getInstance().getDefausse().size() - 1);
-		}
-		System.out.println(carteDefausse);
-
-		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
-		for (Carte carte : joueurCourant.getMain()) {
-			System.out.println(" * (" + joueurCourant.getMain().indexOf(carte) + ") " + carte.toString());
-		}
-		System.out.println("=====================");
-		System.out.println("(-1)Piocher une carte");
-
-		Carte carte = null;
-		boolean choixok;
-		do {
-			choixok = true;
-
-			Integer choix = lireInteger("Votre choix :");
-
-			if (choix != null) {
-				switch (choix) {
-				case -1:
-					carte = null;
-					break;
-
-				default:
-					try {
-						carte = joueurCourant.getMain().get(choix);
-					} catch (IndexOutOfBoundsException e) {
-						System.out.println("Choix improbable!");
-						choixok = false;
-					}
-				}
-				if (choixok) {
-					try {
-						getControleur().getJeu().jouerCarte(joueurCourant, carte);
-					} catch (ErreurCarteInposable e) {
-						System.out.println(carte.toString() + " n'a pas pu être posé(e)!");
-						choixok = false;
-					}
-				}
-			}
-
-		} while (!choixok);
-
-	}
-
-
 
 	protected Integer lireInteger(String msg) {
 
@@ -122,57 +55,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 			}
 		}
 		return null;
-	}
-
-	public boolean annoncer(Joueur joueurCourant) {
-		String annonce = lireChaine("Votre annonce :");
-		if (annonce != null) {
-			Jeu.getInstance().annoncer(joueurCourant, annonce);
-			return true;
-		}
-		return false;
-	}
-
-	public void jouerTour(Joueur joueurCourant) {
-		System.out.println("---- A TOI DE JOUER ----");
-		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
-			if (joueur != joueurCourant) {
-				System.out.println(joueur.getPseudo() + " possède " + joueur.getMain().size() + " carte(s)!");
-			}
-		}
-		System.out.println("Carte sommet défausse : " + Jeu.getInstance().getDefausse().getLast());
-		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
-		for (Carte carte : joueurCourant.getMain()) {
-			System.out.println(" * " + carte.toString());
-		}
-		System.out.println("===== ACTION =====");
-		System.out.println("(0) Annoncer");
-		System.out.println("(1) Jouer ou piocher une carte");
-		System.out.println("------------------");
-
-		boolean choixok;
-		do {
-			Integer choix = lireInteger("Choisir action :");
-
-			choixok = true;
-			if (choix != null) {
-				switch (choix) {
-				case 0:
-					if (annoncer(joueurCourant)) {
-						choixok = false;
-					}
-					break;
-
-				case 1:
-					joueurCarte(joueurCourant);
-					break;
-
-				default:
-					choixok = false;
-				}
-
-			}
-		} while (!choixok);
 	}
 
 	@Override
@@ -282,8 +164,7 @@ public class InterfaceConsole extends IHM implements Runnable {
 				break;
 
 			case tourJoueurHumain:
-				this.joueurCourant = ((Message) msg).getJoueurCourant();
-				commencerThread(this);
+				commencerThread(new InterfaceConsoleJouerTour(getControleur(), ((Message) msg).getJoueurCourant()));
 				break;
 
 			case initJoueurs:
@@ -305,7 +186,11 @@ public class InterfaceConsole extends IHM implements Runnable {
 			case finPartie:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + "gagne la partie!");
 				break;
-
+			
+			case initPartie:
+				commencerThread(new InterfaceConsoleInitPartie(getControleur()));
+				break;
+				
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;
@@ -328,11 +213,6 @@ public class InterfaceConsole extends IHM implements Runnable {
 			} catch (InterruptedException e) {
 			}
 		}
-	}
-
-	@Override
-	public void run() {
-		jouerTour(joueurCourant);
 	}
 
 }

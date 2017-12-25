@@ -15,7 +15,7 @@ public class Message {
 	private EffetAvecInput effetAvecInputEnCours;
 	
 	public static enum Types {
-		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain, annonceCarte, nouvelleManche, finPartie
+		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain, annonceCarte, nouvelleManche, finPartie, initPartie
 	}
 	
 	public Message (Types type) {
