@@ -51,8 +51,6 @@ public class InterfaceGraphique extends IHM {
 		if(msg instanceof Message) {
 			afficherConsole(((Message) msg).getType().toString());
 		}
-		// TODO Auto-generated method stub
-		
 	}
 
 

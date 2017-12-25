@@ -17,11 +17,17 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole {
 		boolean operationInterompue = true;
 		LinkedList<Joueur> joueursInit = new LinkedList<Joueur>();
 
+		
+		// ------------------------- CREATION AUTO DES JOUEURS --------------------------------
+		
 		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
 
 		joueursInit.add(new Joueur("Civetdelapin"));
 		joueursInit.add(new JoueurArtificiel("AI_1", 0));
 		joueursInit.add(new JoueurArtificiel("AI_2", 1));
+		operationInterompue = false;
+		
+		// ------------------------------------------------------------------------------------
 		
 		/*
 		System.out.println("===== CHOIX DE VOTRE NOM =====");
