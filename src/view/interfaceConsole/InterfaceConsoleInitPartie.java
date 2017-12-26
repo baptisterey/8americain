@@ -7,6 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import controleur.Controleur;
+import model.Jeu;
+import model.variantes.Basique;
+import model.variantes.Minimale;
+import model.variantes.Monclar;
+import model.variantes.Variante;
 
 public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runnable {
 
@@ -34,33 +39,15 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 			if (choix != null) {
 				switch (choix) {
 				case 0:
-					try {
-						File f = new File ("./src/regle.txt");
-					    FileReader fr = new FileReader (f);
-					    BufferedReader br = new BufferedReader (fr);
-						try
-					    {
-					        String line = br.readLine();
-					 
-					        while (line != null)
-					        {
-					            System.out.println (line);
-					            line = br.readLine();
-					        }
-					 
-					        br.close();
-					        fr.close();
-					    }
-						catch (IOException exception)
-					    {
-					        System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
-					    }
-					} catch (FileNotFoundException e) {
-						System.out.println("Le fichier n'a pas été trouvé.");
-					}
+					afficherFichier(new File("./src/regles.txt"));
+					break;
+
+				case 1:
+					initPartie();
 					break;
 
 				case 2:
+					afficherFichier(new File("./src/credits.txt"));
 					break;
 
 				case 3:
@@ -71,13 +58,140 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 				}
 			}
 		} while (!choixok);
+	}
 
-		if (choix != null && choix == 1) {
-			getControleur().getJeu().initJoueurs();
+	private void initPartie() {
+		int deck = Jeu.DECK_52_CARTES;
+		int methodeComptage = Jeu.COMPTE_POSITIF;
+		Variante variante = new Basique();
+
+		boolean operationInterompue = false;
+		boolean choixok;
+		
+		System.out.println("CREATION AUTO DE LA VARIANTE ET DU DECK POUR TESTER, CHANGER DANS InterfaceConsoleInitPartie");
+/*
+		System.out.println("==== CHOIX DU MODE DE JEU ====");
+
+		// CHOIX DU DECK
+		System.out.println("--- Choix du Deck ---");
+		System.out.println("(0) Deck à 32 Cartes");
+		System.out.println("(1) Deck à 52 Cartes");
+		System.out.println("------------------");
+		do {
+			choixok = true;
+			Integer choix = super.lireInteger("Choix du deck : ");
+			if (choix != null) {
+				switch (choix) {
+				case 0:
+					deck = Jeu.DECK_32_CARTES;
+					break;
+				case 1:
+					deck = Jeu.DECK_52_CARTES;
+					break;
+				default:
+					choixok = false;
+					break;
+				}
+			} else {
+				operationInterompue = true;
+			}
+
+		} while (!choixok);
+
+		if (!operationInterompue) {
+
+			// CHOIX DE LA METHODE DE COMPTAGE
+			System.out.println("--- Choix du Mode de Comptage ---");
+			System.out.println("(0) Compte Positif");
+			System.out.println("(1) Compte Negatif");
+			System.out.println("------------------");
+			do {
+				choixok = true;
+				Integer choix = super.lireInteger("Choix du mode : ");
+				if (choix != null) {
+					switch (choix) {
+					case 0:
+						methodeComptage = Jeu.COMPTE_POSITIF;
+						break;
+					case 1:
+						methodeComptage = Jeu.COMPTE_NEGATIF;
+						break;
+					default:
+						choixok = false;
+						break;
+					}
+				} else {
+					operationInterompue = true;
+				}
+
+			} while (!choixok);
 		}
 
-		// Integer choix = lireInteger("Choix action : ");
-		// System.out.println("Crédits : REY Baptiste & LORIOT Thomas");
+		if (!operationInterompue) {
+
+			// CHOIX DE LA VARIANTE
+			System.out.println("--- Choix de la Variante ---");
+			System.out.println("(0) Basique");
+			System.out.println("(1) Minimale");
+			System.out.println("(2) Monclar");
+			System.out.println("------------------");
+			do {
+				choixok = true;
+				Integer choix = super.lireInteger("Choix de la variante : ");
+				if (choix != null) {
+					switch (choix) {
+					case 0:
+						variante = new Basique();
+						break;
+						
+					case 1:
+						variante = new Minimale();
+						break;
+						
+					case 2:
+						variante = new Monclar();
+						break;
+					default:
+						choixok = false;
+						break;
+					}
+				} else {
+					operationInterompue = true;
+				}
+
+			} while (!choixok);
+		}
+		*/
+		if(!operationInterompue) {
+			getControleur().getJeu().setMethodeCompte(methodeComptage);
+			getControleur().getJeu().setVariante(variante);
+			getControleur().getJeu().setNbCarteDeck(deck);
+			
+			getControleur().getJeu().initJoueurs();
+		}
+	}
+
+	private void afficherFichier(File f) {
+		FileReader fr;
+		try {
+			fr = new FileReader(f);
+			BufferedReader br = new BufferedReader(fr);
+			try {
+				String line = br.readLine();
+
+				while (line != null) {
+					System.out.println(line);
+					line = br.readLine();
+				}
+
+				br.close();
+				fr.close();
+			} catch (IOException exception) {
+				System.out.println("Erreur lors de la lecture : " + exception.getMessage());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Le fichier n'a pas été trouvé.");
+		}
 
 	}
 

@@ -1,1 +1,8 @@
-Le but du jeu est de n'avoir plus de carte dans la main.
+==== REGLES DU 8 AMERICAIN =====
+But du jeu
+	Le but du jeu est de n'avoir plus de carte dans la main.
+
+Déroulement du jeu
+	Pour débuter, chaque joueur reçoit un nombre de carte.
+	
+(... TODO : FAIRE UNE VRAIE REGLE ..)

@@ -16,19 +16,19 @@ public class Jeu extends java.util.Observable {
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
 	public final static int COMPTE_POSITIF = 0;
 	public final static int COMPTE_NEGATIF = 1;
-	
-	public final static int DECK_52_CARTES = 5;
-	public final static int DECK_32_CARTES = 0;
-	
+
+	public final static int DECK_52_CARTES = 0;
+	public final static int DECK_32_CARTES = 5;
+
 	private Variante variante = new Basique();
 	private int methodeCompte = COMPTE_POSITIF;
 	private int nbCarteDeck = DECK_52_CARTES;
-	
+
 	private int nbCarteModeAttaque = 0;
 	private int numManche = 1;
-	
+
 	private static Jeu instance;
-	
+
 	public final static String ANNONCE_CARTE = "Carte";
 	public final static String ANNONCE_CONTRE_CARTE = "Contre Carte";
 
@@ -46,11 +46,11 @@ public class Jeu extends java.util.Observable {
 	public void setMethodeCompte(int methodeCompte) {
 		this.methodeCompte = methodeCompte;
 	}
-	
+
 	public void setVariante(Variante variante) {
 		this.variante = variante;
 	}
-	
+
 	public void setNbCarteDeck(int nbCarteDeck) {
 		this.nbCarteDeck = nbCarteDeck;
 	}
@@ -58,7 +58,7 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Joueur> getJoueursInitiation() {
 		return joueursInitiation;
 	}
-	
+
 	public void setJoueursInitiation(LinkedList<Joueur> joueursInitiation) {
 		this.joueursInitiation = joueursInitiation;
 	}
@@ -66,7 +66,6 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Joueur> getGagnants() {
 		return gagnants;
 	}
-
 
 	/**
 	 * Implementation du design patern SINGLETON
@@ -87,17 +86,19 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Carte> getDefausse() {
 		return defausse;
 	}
-	
+
 	/**
-	 * Notifie tous les Observateurs, indiquant qu'une partie est prête à être créer.
+	 * Notifie tous les Observateurs, indiquant qu'une partie est prête à être
+	 * créer.
 	 */
 	public void initPartie() {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initPartie));
 	}
-	
+
 	/**
-	 * Initialise le compteur de manche à 1 et appelle la méthode commencerNouvelleManche();
+	 * Initialise le compteur de manche à 1 et appelle la méthode
+	 * commencerNouvelleManche();
 	 */
 	public void commencerPartie() {
 		numManche = 1;
@@ -221,9 +222,10 @@ public class Jeu extends java.util.Observable {
 		}
 
 	}
-	
+
 	/**
-	 * Si la partie est finie, appelle la méthode finirPartie(), sinon incrémente le numéro de manche et appelle la méthode commencerNouvelleManche();
+	 * Si la partie est finie, appelle la méthode finirPartie(), sinon incrémente le
+	 * numéro de manche et appelle la méthode commencerNouvelleManche();
 	 */
 	public synchronized void finirManche() {
 		if (!isPartieOver()) {
@@ -253,7 +255,7 @@ public class Jeu extends java.util.Observable {
 		Message msg = new Message(Message.Types.finPartie);
 		msg.setJoueurCourant(gagnant);
 		notifyObservers(msg);
-		
+
 		initPartie(); // On recommence une partie
 	}
 
@@ -423,21 +425,26 @@ public class Jeu extends java.util.Observable {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initJoueurs));
 	}
-	
+
 	/**
-	 * Methode à appeler une fois setData() réaliser dans effet. Elle permet de jouer l'effet et de finir le tour du joueur humain.
-	 * @param effet Effet qui va être jouer, doit être déja initialiser avec un appel de sa méthode setData().
-	 * @param joueurCourant Joueur utilisant cet Effet, après cela son tour est terminé.
+	 * Methode à appeler une fois setData() réaliser dans effet. Elle permet de
+	 * jouer l'effet et de finir le tour du joueur humain.
+	 * 
+	 * @param effet
+	 *            Effet qui va être jouer, doit être déja initialiser avec un appel
+	 *            de sa méthode setData().
+	 * @param joueurCourant
+	 *            Joueur utilisant cet Effet, après cela son tour est terminé.
 	 */
 	public void jouerEffetAvecInputEnCours(EffetAvecInput effet, Joueur joueurCourant) {
 		setChanged();
-		notifyObservers(effet.action(joueurCourant)); 
-		
+		notifyObservers(effet.action(joueurCourant));
+
 		setChanged();
 		notifyObservers(new Message(Message.Types.finTourJoueurHumain));
 		finirTour(joueurCourant);
 	}
-	
+
 	public synchronized void initCarteManche() {
 
 		joueurs.clear();
@@ -558,7 +565,8 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (modeAttaque) {
-			if ((carte.getEffet() instanceof EffetAttaque && !(((EffetAttaque) carte.getEffet()).isContrable())) || carte.getEffet() instanceof EffetContrerChangerCouleur) {
+			if ((carte.getEffet() instanceof EffetAttaque && !(((EffetAttaque) carte.getEffet()).isContrable()))
+					|| carte.getEffet() instanceof EffetContrerChangerCouleur) {
 				return true;
 			}
 		} else {
@@ -651,7 +659,5 @@ public class Jeu extends java.util.Observable {
 		}
 		return b;
 	}
-	
-
 
 }

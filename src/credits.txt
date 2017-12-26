@@ -1,0 +1,4 @@
+==== CREDITS ====
+Développement : REY Baptiste & LORIOT Thomas
+
+Jeu réalisé dans le cadre d'un enseignement à l'UTT. 
