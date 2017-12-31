@@ -4,7 +4,13 @@ import model.Jeu;
 import model.Joueur;
 import model.Message;
 
+/**
+ * Effet représentant une carte qui modifie le sens du tour de jeu.
+ */
 public class EffetChangerSensJeu extends Effet {
+	/**
+	 * Constante privée pour le score de l'Effet.
+	 */
 	private static final int score = 20;
 
 	public EffetChangerSensJeu() {
@@ -12,6 +18,10 @@ public class EffetChangerSensJeu extends Effet {
 	}
 
 	@Override
+	/**
+	 * Change le sens du jeu grâce un appel de changerSensJeu() de la classe Jeu.
+	 * Renvoie un message de type effetChangerSensJeu.
+	 */
 	public Message action(Joueur joueurCourant) {
 		Jeu.getInstance().changerSensJeu();
 

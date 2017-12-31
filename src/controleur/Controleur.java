@@ -2,8 +2,8 @@ package controleur;
 
 import model.*;
 import view.IHM;
-import view.InterfaceGraphique;
 import view.interfaceConsole.InterfaceConsole;
+import view.interfaceGraphique.InterfaceGraphique;
 
 public class Controleur {
 

@@ -1,4 +1,4 @@
-package view;
+package view.interfaceGraphique;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import controleur.Controleur;
 import model.Joueur;
 import model.Message;
+import view.IHM;
 
 public class InterfaceGraphique extends IHM {
 	

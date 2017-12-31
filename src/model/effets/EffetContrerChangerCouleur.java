@@ -23,7 +23,7 @@ public class EffetContrerChangerCouleur extends EffetChangerCouleur {
 			msg.setJoueurCourant(joueurCourant);
 			msg.setNouvelleCouleur(nouvelleCouleur);
 			
-			//On réalise l'action ChangerCouleur
+			//ET On réalise l'action ChangerCouleur
 			super.action(joueurCourant);
 		}else {
 			//On réalise l'action ChangerCouleur

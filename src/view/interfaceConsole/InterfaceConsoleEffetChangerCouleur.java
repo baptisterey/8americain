@@ -6,12 +6,22 @@ import model.Joueur;
 import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
+/**
+ * Représente la demande faite auprès de l'Utilisateur lorsque ce dernier doit
+ * choisir une nouvelle couleur (effet ChangerCouleur).
+ */
 public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole implements Runnable {
+	/**
+	 * L'effet qui doit être initialiser avant d'être joué. 
+	 */
 	private EffetAvecInput effet;
-	private Joueur joueurCourant;
 	
-	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant,
-			EffetAvecInput effet) {
+	/**
+	 * Le joueur qui est entrain de jouer. 
+	 */
+	private Joueur joueurCourant;
+
+	public InterfaceConsoleEffetChangerCouleur(Controleur ctrl, Joueur joueurCourant, EffetAvecInput effet) {
 		super(ctrl);
 		setJoueurCourant(joueurCourant);
 		this.effet = effet;
@@ -26,6 +36,12 @@ public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole implem
 	}
 
 	@Override
+	/**
+	 * Demande à l'utilisateur une nouvelle couleur, initialise l'EffetAvecInput
+	 * <<effet>> avec cette donnée et appelle la méthode jouerEffetAvecInputEnCours
+	 * de Jeu. 
+	 * Si le thread est interrompu, ne fait rien.
+	 */
 	public void run() {
 		boolean setDataOk;
 		Integer[] data = new Integer[2];

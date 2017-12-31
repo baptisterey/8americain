@@ -10,15 +10,33 @@ import model.Message;
 import view.IHM;
 import model.Carte;
 
-
+/**
+ * Classe représentant une Interface en ligne de commande, elle hérite de IHM et
+ * implémente donc Observer.
+ */
 public class InterfaceConsole extends IHM {
 
+	/**
+	 * Le thread associé à la classe. Avant de créer un nouveau Thread, on assure
+	 * que ce dernier soit bien terminé afin d'éviter une incohérence dans les
+	 * Entrées fournies par l'utilisateur.
+	 */
 	private static Thread th;
 
 	public InterfaceConsole(Controleur ctrl) {
 		super(ctrl);
 	}
 
+	/**
+	 * Utilise la méthode lireChaine(String msg), et tente de convertir la chaîne de
+	 * caractères entrée par l'utilisateur, répéte jusqu'a succès ou que lireChaine
+	 * ait renvoyé null (thread interrompu).
+	 * 
+	 * @param msg
+	 *            Le message à afficher avant de demander un Entier.
+	 * @return L'Entier entré par l'utilisateur ou null si le Thread se fait
+	 *         interrompre.
+	 */
 	protected Integer lireInteger(String msg) {
 
 		String numString = lireChaine(msg);
@@ -41,6 +59,16 @@ public class InterfaceConsole extends IHM {
 		return null;
 	}
 
+	/**
+	 * Envoie la chaîne de caractères entrée par l'utilisateur. L'appel de la
+	 * méthode interrupt sur l'attribut th interrompt termine cette méthode en la
+	 * faisant retourner null.
+	 * 
+	 * @param msg
+	 *            Le message à afficher avant de demander une Chaîne.
+	 * @return La chaîne de caractères entrée par l'utilisateur ou null si le Thread
+	 *         se fait interrompre.
+	 */
 	protected String lireChaine(String msg) {
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println(msg);
@@ -58,6 +86,13 @@ public class InterfaceConsole extends IHM {
 	}
 
 	@Override
+	/**
+	 * Implementation de l'interface Observer. L'objet passé est la classe Message,
+	 * on réalise alors la bonne action en fonction de son type. Lorsqu'une Action
+	 * de la part de l'utilisateur est requise, on créer la Classe correspondante
+	 * (Voir suite du package) et on l'éxecute dans le Thread th grâce à la méthode
+	 * commencerThread().
+	 */
 	public void update(Observable jeu, Object msg) {
 		if (msg instanceof Message) {
 			switch (((Message) msg).getType()) {
@@ -186,11 +221,11 @@ public class InterfaceConsole extends IHM {
 			case finPartie:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + "gagne la partie!");
 				break;
-			
+
 			case initPartie:
 				commencerThread(new InterfaceConsoleInitPartie(getControleur()));
 				break;
-				
+
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;
@@ -199,12 +234,22 @@ public class InterfaceConsole extends IHM {
 
 	}
 
+	/**
+	 * Interrompt le thread en cours et execute le Runnable passé en paramêtre dans
+	 * le Thread th.
+	 * 
+	 * @param runnable
+	 *            L'interface à executer.
+	 */
 	private void commencerThread(Runnable runnable) {
 		arreterThread();
 		th = new Thread(runnable);
 		th.start();
 	}
 
+	/**
+	 * Si th n'est pas null, l'interrompt et attend la fin de son execution.
+	 */
 	private void arreterThread() {
 		if (th != null) {
 			th.interrupt();

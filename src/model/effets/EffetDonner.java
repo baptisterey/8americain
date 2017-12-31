@@ -4,7 +4,9 @@ import model.Carte;
 import model.Jeu;
 import model.Joueur;
 import model.Message;
-
+/**
+ * 
+ */
 public class EffetDonner extends EffetAvecInput {
 	Joueur joueurADonner;
 	Carte carteADonner;
