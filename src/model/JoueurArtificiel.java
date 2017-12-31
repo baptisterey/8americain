@@ -6,12 +6,21 @@ package model;
  */
 
 public class JoueurArtificiel extends Joueur {
-
+	/**
+	 * La stratégie du joueur artificiel.
+	 */
 	private Strategie strategie;
 
+	/**
+	 * Constante pour la stratégie Passive.
+	 */
 	public static final int PASSIF = 0;
-	public static final int AGRESSIF = 1;
 
+	/**
+	 * Constante pour la stratégie Agressive.
+	 */
+	public static final int AGRESSIF = 1;
+	
 	public JoueurArtificiel(String pseudo, int strategie) {
 		super(pseudo);
 
@@ -22,7 +31,7 @@ public class JoueurArtificiel extends Joueur {
 		case AGRESSIF:
 			this.strategie = new Agressif();
 			break;
-		default:
+		default: // Par défaut on choisi une strategie Passive.
 			this.strategie = new Passif();
 		}
 

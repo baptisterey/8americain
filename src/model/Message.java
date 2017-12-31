@@ -2,6 +2,11 @@ package model;
 
 import model.effets.EffetAvecInput;
 
+/**
+ * Classe utilisée dans le pattern Observer / Observable afin de faire passer
+ * les données dans la méthode notifyObservers();
+ * On identifie un message par son type.
+ */
 public class Message {
 
 	private Types type;
@@ -13,7 +18,10 @@ public class Message {
 	private String annonce;
 	private int numeroManche;
 	private EffetAvecInput effetAvecInputEnCours;
-
+	
+	/**
+	 * Liste de tous les types de message possibles.
+	 */
 	public static enum Types {
 		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain, annonceCarte, nouvelleManche, finPartie, initPartie
 	}

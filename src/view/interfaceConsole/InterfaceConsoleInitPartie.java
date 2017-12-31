@@ -9,8 +9,6 @@ import java.io.IOException;
 import controleur.Controleur;
 import model.Jeu;
 import model.variantes.Basique;
-import model.variantes.Minimale;
-import model.variantes.Monclar;
 import model.variantes.Variante;
 
 public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runnable {
