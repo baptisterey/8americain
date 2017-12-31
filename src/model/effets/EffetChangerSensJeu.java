@@ -5,7 +5,7 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Effet représentant une carte qui modifie le sens du tour de jeu.
+ * Effet représentant un changement dans le sens du tour de jeu.
  */
 public class EffetChangerSensJeu extends Effet {
 	/**

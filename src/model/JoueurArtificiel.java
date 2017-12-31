@@ -1,48 +1,47 @@
 package model;
 
 /**
- * JoueurArtificiel représente un Joueur BOT qui posséde une surcharge de la méthode choisirCarte() qui utilise une strategie propre au Joueur.
- * 
- *
+ * JoueurArtificiel représente un Joueur BOT qui posséde une surcharge de la
+ * méthode choisirCarte() qui utilise une strategie propre au Joueur.
  */
 
 public class JoueurArtificiel extends Joueur {
-	
+
 	private Strategie strategie;
-	
+
 	public static final int PASSIF = 0;
 	public static final int AGRESSIF = 1;
-	
-	public JoueurArtificiel (String pseudo, int strategie) {
+
+	public JoueurArtificiel(String pseudo, int strategie) {
 		super(pseudo);
-		
-		switch(strategie) {
-	    case PASSIF:
-	        this.strategie = new Passif();
-	        break;
-	    case AGRESSIF:
-	    	this.strategie = new Agressif();
-	        break;
-	    default:
-	    	this.strategie = new Passif();
+
+		switch (strategie) {
+		case PASSIF:
+			this.strategie = new Passif();
+			break;
+		case AGRESSIF:
+			this.strategie = new Agressif();
+			break;
+		default:
+			this.strategie = new Passif();
 		}
-	
+
 	}
-	
+
 	public Carte choisirCarte() {
 		return this.strategie.choisirCarteStrategie(this);
-    }
-	
+	}
+
 	public Integer[] choisirDataDonner() {
 		return this.strategie.choisirDataDonner(this);
 	}
-	
+
 	public Integer[] choisirDataChangerCouleur() {
 		return this.strategie.choisirDataChangerCouleur(this);
 	}
-	
+
 	public String choisirAnnonce() {
 		return this.strategie.choisirAnnonce(this);
 	}
-	
+
 }

@@ -13,19 +13,19 @@ public class Message {
 	private String annonce;
 	private int numeroManche;
 	private EffetAvecInput effetAvecInputEnCours;
-	
+
 	public static enum Types {
 		effetAttaque, effetClassique, effetRejouer, effetSauterTour, effetContrerChangerCouleur, effetChangerCouleur, effetDonner, effetModeAttaque, effetChangerSensJeu, nePeutPasJouer, joueurAnnonce, annonceContreCarteReussi, annonceContreCarteEchoue, annonceInconnue, piocherCarte, choixChangerCouleur, choixDonnerCarte, cartePosee, annonceCarteTropTot, joueurAFiniManche, afficherTour, tourJoueurHumain, initJoueurs, finTourJoueurHumain, annonceCarte, nouvelleManche, finPartie, initPartie
 	}
-	
-	public Message (Types type) {
+
+	public Message(Types type) {
 		this.type = type;
 	}
-	
+
 	public Types getType() {
 		return type;
 	}
-	
+
 	public void setType(Types type) {
 		this.type = type;
 	}
@@ -93,6 +93,5 @@ public class Message {
 	public void setEffetAvecInputEnCours(EffetAvecInput effetAvecInputEnCours) {
 		this.effetAvecInputEnCours = effetAvecInputEnCours;
 	};
-	
-	
+
 }

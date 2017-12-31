@@ -3,13 +3,19 @@ package model;
 import model.effets.Effet;
 import model.effets.EffetClassique;
 
+/**
+ * Représente une Carte, avec une Couleur, une Valeur et d'un Effet représentant
+ * son action.
+ */
 public class Carte {
 
+	// CONSTANTES COULEURS
 	public final static int PIC = 0;
 	public final static int COEUR = 1;
 	public final static int CARREAU = 2;
 	public final static int TREFLE = 3;
 
+	// CONSTANTES VALEURS
 	public final static int DEUX = 0;
 	public final static int TROIS = 1;
 	public final static int QUATRE = 2;
@@ -29,6 +35,7 @@ public class Carte {
 			"Valet", "Dame", "Roi", "As" };
 
 	private int couleur;
+
 	private int valeur;
 
 	private Effet effet;
@@ -36,7 +43,8 @@ public class Carte {
 	public Carte(int valeur, int couleur) {
 		this.setCouleur(couleur);
 		this.setValeur(valeur);
-		this.effet = new EffetClassique(valeur + 2);
+		this.effet = new EffetClassique(valeur + 2); // De base, l'effet est un effet classique avec pour score la
+														// valeur de la carte.
 	}
 
 	public Carte(String valeur, String couleur) {
@@ -98,6 +106,9 @@ public class Carte {
 		this.effet = effet;
 	}
 
+	/**
+	 * Renvoie une réprésentation en chaîne de caractéres.
+	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(Carte.VALEURS[this.valeur]);

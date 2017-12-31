@@ -14,6 +14,9 @@ public abstract class EffetAvecInput extends Effet {
 	}
 
 	/**
+	 * Initialise avec les données passées en paramêtre, afin de permettre la
+	 * réalisation de la méthode action().
+	 * 
 	 * @param data
 	 *            Les données sous forme d'un tableau d'Entier, se référer aux
 	 *            classes qui héritent EffetAvecInput afin de connaître ce qu'elles
