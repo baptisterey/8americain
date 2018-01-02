@@ -34,6 +34,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
         this.add(this.image);
         //
         
+        
         String pseudo = j.getPseudo();
         int nombreCarte = j.getMain().size();
         
