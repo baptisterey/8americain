@@ -14,39 +14,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controleur.Controleur;
 import model.Joueur;
-import view.IHM;
 
-public class JoueurArtificiel extends IHM {
+public class JoueurArtificiel extends JPanel {
 	
-	private JFrame fenetre; // j'arrive pas à utiliser borderlayout sans avoir de fenetre --'
 	private JLabel image; //pour image du personnage
 	private JLabel texte; //pour son pseudo et son nombre de carte
 	private JButton button; // pour pouvoir le selectionner (effet donner par exemple)
 	private JCheckBox checkBox; // coché s'il a bien annoncé "carte" (pas besoin de préciser pour les autres annonces ?)
 
-	public JoueurArtificiel(Controleur ctrl, String pathImage, Joueur j) {
-		super(ctrl);
-		
-		initialize(pathImage, j);
-		
-		
-        
-        
-		// TODO Auto-generated constructor stub
+	public JoueurArtificiel(Joueur j) {
+		initialize(j);
 	}
 	
-	private void initialize(String pathImage, Joueur j ) {
-		this.fenetre = new JFrame();//faut il donner une taille ? le rendre visible ?
+	private void initialize(Joueur j ) {
 	
-		JPanel panel = new JPanel(new BorderLayout());
-		Container reservoir = fenetre.getContentPane();
-		reservoir.add(panel);
 		
 		//Center
-		this.image = new JLabel(new ImageIcon(pathImage));
-        panel.add(this.image);
+		this.image = new JLabel(new ImageIcon("./bot.png"));
+        this.add(this.image);
         //
         
         String pseudo = j.getPseudo();
@@ -54,7 +40,7 @@ public class JoueurArtificiel extends IHM {
         
         //North
         this.texte = new JLabel(pseudo + " : "+nombreCarte+" cartes");
-        panel.add(texte, BorderLayout.NORTH);
+        this.add(texte, BorderLayout.NORTH);
         //
         
         //South
@@ -68,20 +54,14 @@ public class JoueurArtificiel extends IHM {
 			}
         	
         });
-        panel.add(button, BorderLayout.SOUTH);
+        this.add(button, BorderLayout.SOUTH);
         //
         
         //West
         this.checkBox = new JCheckBox("a annoncé 'Carte'");
-        panel.add(checkBox, BorderLayout.WEST);
+        this.add(checkBox, BorderLayout.WEST);
        
         //
-	}
-	
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
