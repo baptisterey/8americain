@@ -15,7 +15,6 @@ import model.Jeu;
 import model.Message;
 import view.IHM;
 
-
 import javax.swing.JPanel;
 
 public class InterfaceGraphique extends IHM {
@@ -26,8 +25,11 @@ public class InterfaceGraphique extends IHM {
 	}
 
 	private JFrame frame;
-	JTextArea txtrHistorique;
-	
+	private JTextArea txtrHistorique;
+	private JPanel panelMainDuJoueur;
+	private JPanel panelCentreDefausse;
+	private JPanel panelJoueurArtificiel;
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -36,7 +38,7 @@ public class InterfaceGraphique extends IHM {
 		frame.setBounds(100, 100, 589, 413);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton btnAnnoncer = new JButton("Annoncer");
 		btnAnnoncer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -44,7 +46,7 @@ public class InterfaceGraphique extends IHM {
 		});
 		btnAnnoncer.setBounds(335, 101, 203, 25);
 		frame.getContentPane().add(btnAnnoncer);
-		
+
 		JButton btnPiocher = new JButton("Piocher");
 		btnPiocher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -52,11 +54,11 @@ public class InterfaceGraphique extends IHM {
 		});
 		btnPiocher.setBounds(335, 139, 203, 25);
 		frame.getContentPane().add(btnPiocher);
-		
+
 		txtrHistorique = new JTextArea();
 		txtrHistorique.setBounds(335, 177, 203, 157);
 		frame.getContentPane().add(txtrHistorique);
-		
+
 		JButton btnAbandonner = new JButton("Abandonner");
 		btnAbandonner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -64,33 +66,30 @@ public class InterfaceGraphique extends IHM {
 		});
 		btnAbandonner.setBounds(374, 339, 123, 14);
 		frame.getContentPane().add(btnAbandonner);
-		
-		//la main du joueur
-		JPanel panel = new JPanel(); 
-		panel.setBounds(12, 230, 311, 123);
-		frame.getContentPane().add(panel);
+
+		// la main du joueur
+		panelMainDuJoueur = new JPanel();
+		panelMainDuJoueur.setBounds(12, 230, 311, 123);
+		frame.getContentPane().add(panelMainDuJoueur);
 		//
-		
-		//le centre avec la défausse
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(62, 139, 214, 78);
-		frame.getContentPane().add(panel_1);
+
+		// le centre avec la défausse
+		panelCentreDefausse = new JPanel();
+		panelCentreDefausse.setBounds(62, 139, 214, 78);
+		frame.getContentPane().add(panelCentreDefausse);
 		//
-		
-		//les IA
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(12, 13, 311, 113);
-		frame.getContentPane().add(panel_2);
+
+		// les IA
+		panelJoueurArtificiel = new JPanel();
+		panelJoueurArtificiel.setBounds(12, 13, 311, 113);
+		frame.getContentPane().add(panelJoueurArtificiel);
 		//
-		
+
 		frame.setVisible(true);
 	}
-	
+
 	public void refreshDisplay(Jeu jeu) {
-		
-		
-		
-		
+
 	}
 
 	public void update(Observable jeu, Object msg) {
@@ -170,11 +169,11 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case choixChangerCouleur:
-				
+
 				break;
 
 			case choixDonnerCarte:
-				
+
 				break;
 
 			case cartePosee:
@@ -200,7 +199,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initJoueurs:
-				
+
 				break;
 
 			case finTourJoueurHumain:
@@ -219,7 +218,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initPartie:
-				
+
 				break;
 
 			default:
@@ -230,9 +229,7 @@ public class InterfaceGraphique extends IHM {
 
 	}
 
-
-	
 	public void afficherConsole(String str) {
 		txtrHistorique.append(str + "\n");
-    }
+	}
 }
