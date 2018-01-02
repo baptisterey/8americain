@@ -50,7 +50,7 @@ public class VueDEnsemble {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAnnoncer.setBounds(335, 83, 203, 25);
+		btnAnnoncer.setBounds(335, 101, 203, 25);
 		frame.getContentPane().add(btnAnnoncer);
 		
 		JButton btnPiocher = new JButton("Piocher");
@@ -58,12 +58,12 @@ public class VueDEnsemble {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnPiocher.setBounds(335, 121, 203, 25);
+		btnPiocher.setBounds(335, 139, 203, 25);
 		frame.getContentPane().add(btnPiocher);
 		
 		JTextArea txtrHistorique = new JTextArea();
 		txtrHistorique.setText("Historique");
-		txtrHistorique.setBounds(335, 149, 203, 185);
+		txtrHistorique.setBounds(335, 177, 203, 157);
 		frame.getContentPane().add(txtrHistorique);
 		
 		JButton btnAbandonner = new JButton("Abandonner");
@@ -71,19 +71,25 @@ public class VueDEnsemble {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAbandonner.setBounds(363, 339, 123, 14);
+		btnAbandonner.setBounds(374, 339, 123, 14);
 		frame.getContentPane().add(btnAbandonner);
 		
-		JPanel panel = new JPanel();
+		//la main du joueur
+		JPanel panel = new JPanel(); 
 		panel.setBounds(12, 230, 311, 123);
 		frame.getContentPane().add(panel);
+		//
 		
+		//le centre avec la défausse
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(62, 139, 200, 78);
+		panel_1.setBounds(62, 139, 214, 78);
 		frame.getContentPane().add(panel_1);
+		//
 		
+		//les IA
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(12, 13, 311, 113);
 		frame.getContentPane().add(panel_2);
+		//
 	}
 }
