@@ -21,7 +21,7 @@ import view.IHM;
 public class JoueurArtificiel extends IHM {
 	
 	private JFrame fenetre; // j'arrive pas à utiliser borderlayout sans avoir de fenetre --'
-	private ImageIcon image; //pour image du personnage
+	private JLabel image; //pour image du personnage
 	private JLabel texte; //pour son pseudo et son nombre de carte
 	private JButton button; // pour pouvoir le selectionner (effet donner par exemple)
 	private JCheckBox checkBox; // coché s'il a bien annoncé "carte" (pas besoin de préciser pour les autres annonces ?)
@@ -45,8 +45,8 @@ public class JoueurArtificiel extends IHM {
 		reservoir.add(panel);
 		
 		//Center
-        this.image = new ImageIcon(pathImage);
-        panel.add(this.image);//marche pas parce qu'il faut un component............
+		this.image = new JLabel(new ImageIcon(pathImage));
+        panel.add(this.image);
         //
         
         String pseudo = j.getPseudo();
