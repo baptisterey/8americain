@@ -225,7 +225,9 @@ public class InterfaceConsole extends IHM {
 			case initPartie:
 				commencerThread(new InterfaceConsoleInitPartie(getControleur()));
 				break;
-
+				
+			case debutPartie:	
+				break;
 			default:
 				System.out.println("MESSAGE NON PRIS EN CHARGE : " + ((Message) msg).getType().toString());
 				break;

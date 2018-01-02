@@ -97,11 +97,18 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Initialise le compteur de manche à 1 et appelle la méthode
+	 * Initialise le compteur de manche à 1, notifie les Observateurs de la nouvelle partie et appelle la méthode
 	 * commencerNouvelleManche();
 	 */
 	public void commencerPartie() {
 		numManche = 1;
+		
+		Message msg = new Message(Message.Types.debutPartie);
+		msg.setJoueurCourant(getJoueurHumain());
+		setChanged();
+		notifyObservers(msg);
+		
+		
 		commencerNouvelleManche();
 	}
 
@@ -138,6 +145,15 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	private Joueur getJoueurHumain() {
+		for (Joueur joueur : getJoueursInitiation()) {
+			if(!(joueur instanceof JoueurArtificiel)) {
+				return joueur;
+			}
+		}
+		return null;
+	}
+	
 	private synchronized Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
