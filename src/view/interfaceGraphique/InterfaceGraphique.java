@@ -25,7 +25,6 @@ public class InterfaceGraphique extends IHM {
 
 	public InterfaceGraphique(Controleur ctrl) {
 		super(ctrl);
-		initialize();
 	}
 
 	private JFrame fenetreDeJeu;
@@ -33,11 +32,12 @@ public class InterfaceGraphique extends IHM {
 	private JPanel panelMainDuJoueur;
 	private JPanel panelCentreDefausse;
 	private JPanel panelJoueurArtificiel;
+	private JButton btnPiocher;
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initializeJouerTour(Joueur joueurCourant) {
 		fenetreDeJeu = new JFrame();
 		fenetreDeJeu.setBounds(100, 100, 589, 413);
 		fenetreDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,11 +51,13 @@ public class InterfaceGraphique extends IHM {
 		btnAnnoncer.setBounds(335, 101, 203, 25);
 		fenetreDeJeu.getContentPane().add(btnAnnoncer);
 
-		JButton btnPiocher = new JButton("Piocher");
+		btnPiocher = new JButton("Piocher");
 		btnPiocher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				getControleur().getJeu().jouerCarte(joueurCourant, null); // On pioche une carte
 			}
 		});
+
 		btnPiocher.setBounds(335, 139, 203, 25);
 		fenetreDeJeu.getContentPane().add(btnPiocher);
 
@@ -94,21 +96,21 @@ public class InterfaceGraphique extends IHM {
 
 	public void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
 		// On actualise la main du Joueur
-		afficherMainJoueur(joueurCourant); 
-		
+		afficherMainJoueur(joueurCourant);
+
 		// On actualise la défausse
 		panelCentreDefausse.removeAll();
-		panelCentreDefausse.add(new JLabel("Défausse : "+jeu.getDefausse().getLast()));
-		
+		panelCentreDefausse.add(new JLabel("Défausse : " + jeu.getDefausse().getLast()));
+
 		// On actualise les joueurs artificiels
 		afficherJoueursArtificiels(jeu.getJoueurs());
-		
+
 		fenetreDeJeu.repaint();
 	}
 
 	private void afficherMainJoueur(Joueur joueurCourant) {
 		panelMainDuJoueur.removeAll();
-		
+
 		for (Carte carte : joueurCourant.getMain()) {
 			JButton bouton = new JButton(carte.toString());
 			bouton.addActionListener(new ActionListener() {
@@ -116,20 +118,20 @@ public class InterfaceGraphique extends IHM {
 					try {
 						getControleur().getJeu().jouerCarte(joueurCourant, carte);
 					} catch (ErreurCarteInposable e1) {
-						JOptionPane.showMessageDialog(fenetreDeJeu, carte.toString()+" n'a pas pu être posé(e)!");
+						JOptionPane.showMessageDialog(fenetreDeJeu, carte.toString() + " n'a pas pu être posé(e)!");
 					}
 				}
 			});
 			panelMainDuJoueur.add(bouton);
 		}
-		
+
 	}
-	
+
 	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
 		panelJoueurArtificiel.removeAll();
-		
+
 		for (Joueur joueur : joueurs) {
-			if(joueur instanceof JoueurArtificiel) {
+			if (joueur instanceof JoueurArtificiel) {
 				panelJoueurArtificiel.add(new InterfaceGraphiqueJoueurArtificiel(joueur));
 			}
 		}
@@ -263,6 +265,10 @@ public class InterfaceGraphique extends IHM {
 
 			case initPartie:
 
+				break;
+			
+			case debutPartie:
+				initializeJouerTour(((Message) msg).getJoueurCourant());
 				break;
 
 			default:
