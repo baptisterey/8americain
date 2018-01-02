@@ -1,17 +1,21 @@
 package view.interfaceGraphique;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
 import controleur.Controleur;
 import model.Carte;
+import model.ErreurCarteInposable;
 import model.Jeu;
+import model.Joueur;
+import model.JoueurArtificiel;
 import model.Message;
 import view.IHM;
 
@@ -24,7 +28,7 @@ public class InterfaceGraphique extends IHM {
 		initialize();
 	}
 
-	private JFrame frame;
+	private JFrame fenetreDeJeu;
 	private JTextArea txtrHistorique;
 	private JPanel panelMainDuJoueur;
 	private JPanel panelCentreDefausse;
@@ -34,10 +38,10 @@ public class InterfaceGraphique extends IHM {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 589, 413);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		fenetreDeJeu = new JFrame();
+		fenetreDeJeu.setBounds(100, 100, 589, 413);
+		fenetreDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetreDeJeu.getContentPane().setLayout(null);
 
 		JButton btnAnnoncer = new JButton("Annoncer");
 		btnAnnoncer.addActionListener(new ActionListener() {
@@ -45,7 +49,7 @@ public class InterfaceGraphique extends IHM {
 			}
 		});
 		btnAnnoncer.setBounds(335, 101, 203, 25);
-		frame.getContentPane().add(btnAnnoncer);
+		fenetreDeJeu.getContentPane().add(btnAnnoncer);
 
 		JButton btnPiocher = new JButton("Piocher");
 		btnPiocher.addActionListener(new ActionListener() {
@@ -53,11 +57,11 @@ public class InterfaceGraphique extends IHM {
 			}
 		});
 		btnPiocher.setBounds(335, 139, 203, 25);
-		frame.getContentPane().add(btnPiocher);
+		fenetreDeJeu.getContentPane().add(btnPiocher);
 
 		txtrHistorique = new JTextArea();
 		txtrHistorique.setBounds(335, 177, 203, 157);
-		frame.getContentPane().add(txtrHistorique);
+		fenetreDeJeu.getContentPane().add(txtrHistorique);
 
 		JButton btnAbandonner = new JButton("Abandonner");
 		btnAbandonner.addActionListener(new ActionListener() {
@@ -65,31 +69,70 @@ public class InterfaceGraphique extends IHM {
 			}
 		});
 		btnAbandonner.setBounds(374, 339, 123, 14);
-		frame.getContentPane().add(btnAbandonner);
+		fenetreDeJeu.getContentPane().add(btnAbandonner);
 
 		// la main du joueur
 		panelMainDuJoueur = new JPanel();
 		panelMainDuJoueur.setBounds(12, 230, 311, 123);
-		frame.getContentPane().add(panelMainDuJoueur);
+		fenetreDeJeu.getContentPane().add(panelMainDuJoueur);
 		//
 
 		// le centre avec la défausse
 		panelCentreDefausse = new JPanel();
 		panelCentreDefausse.setBounds(62, 139, 214, 78);
-		frame.getContentPane().add(panelCentreDefausse);
+		fenetreDeJeu.getContentPane().add(panelCentreDefausse);
 		//
 
 		// les IA
 		panelJoueurArtificiel = new JPanel();
 		panelJoueurArtificiel.setBounds(12, 13, 311, 113);
-		frame.getContentPane().add(panelJoueurArtificiel);
+		fenetreDeJeu.getContentPane().add(panelJoueurArtificiel);
 		//
 
-		frame.setVisible(true);
+		fenetreDeJeu.setVisible(true);
 	}
 
-	public void refreshDisplay(Jeu jeu) {
+	public void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
+		// On actualise la main du Joueur
+		afficherMainJoueur(joueurCourant); 
+		
+		// On actualise la défausse
+		panelCentreDefausse.removeAll();
+		panelCentreDefausse.add(new JLabel("Défausse : "+jeu.getDefausse().getLast()));
+		
+		// On actualise les joueurs artificiels
+		afficherJoueursArtificiels(jeu.getJoueurs());
+		
+		fenetreDeJeu.repaint();
+	}
 
+	private void afficherMainJoueur(Joueur joueurCourant) {
+		panelMainDuJoueur.removeAll();
+		
+		for (Carte carte : joueurCourant.getMain()) {
+			JButton bouton = new JButton(carte.toString());
+			bouton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						getControleur().getJeu().jouerCarte(joueurCourant, carte);
+					} catch (ErreurCarteInposable e1) {
+						JOptionPane.showMessageDialog(fenetreDeJeu, carte.toString()+" n'a pas pu être posé(e)!");
+					}
+				}
+			});
+			panelMainDuJoueur.add(bouton);
+		}
+		
+	}
+	
+	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
+		panelJoueurArtificiel.removeAll();
+		
+		for (Joueur joueur : joueurs) {
+			if(joueur instanceof JoueurArtificiel) {
+				panelJoueurArtificiel.add(new InterfaceGraphiqueJoueurArtificiel(joueur));
+			}
+		}
 	}
 
 	public void update(Observable jeu, Object msg) {
@@ -196,6 +239,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case tourJoueurHumain:
+				refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				break;
 
 			case initJoueurs:

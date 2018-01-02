@@ -35,7 +35,6 @@ public class Carte {
 			"Valet", "Dame", "Roi", "As" };
 
 	private int couleur;
-
 	private int valeur;
 
 	private Effet effet;

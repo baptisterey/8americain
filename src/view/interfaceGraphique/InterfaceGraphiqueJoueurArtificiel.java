@@ -19,7 +19,6 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	
 	private JLabel image; //pour image du personnage
 	private JLabel texte; //pour son pseudo et son nombre de carte
-	private JButton button; // pour pouvoir le selectionner (effet donner par exemple)
 	private JCheckBox checkBox; // coché s'il a bien annoncé "carte" (pas besoin de préciser pour les autres annonces ?)
 
 	public InterfaceGraphiqueJoueurArtificiel(Joueur j) {
@@ -44,24 +43,16 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
         //
         
         //South
-        this.button = new JButton("selectionner");
-        checkBox.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-        	
-        });
-        this.add(button, BorderLayout.SOUTH);
+        
         //
         
         //West
         this.checkBox = new JCheckBox("a annoncé 'Carte'");
+        this.checkBox.setEnabled(false);
+        this.checkBox.setSelected(j.isPeutFinir());
         this.add(checkBox, BorderLayout.WEST);
-       
         //
+        this.setVisible(true);
 	}
 	
 }
