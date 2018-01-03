@@ -3,10 +3,12 @@ package view.interfaceGraphique;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Observable;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
@@ -20,6 +22,7 @@ import model.Message;
 import view.IHM;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class InterfaceGraphique extends IHM {
 
@@ -33,6 +36,7 @@ public class InterfaceGraphique extends IHM {
 	private JPanel panelCentreDefausse;
 	private JPanel panelJoueurArtificiel;
 	private JButton btnPiocher;
+	private JButton btnAnnoncer;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -42,8 +46,80 @@ public class InterfaceGraphique extends IHM {
 		fenetreDeJeu.setBounds(100, 100, 589, 413);
 		fenetreDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetreDeJeu.getContentPane().setLayout(null);
+		fenetreDeJeu.setResizable(true);
+		fenetreDeJeu.setVisible(true);
+		
+		JPanel panel = new JPanel(new BorderLayout()); //le borderlayout de base n'aura qu'un CENTER est un EAST
+		fenetreDeJeu.getContentPane().add(panel);
+		
+		//Center
+		JPanel panelCenter = new JPanel(new BorderLayout()); //c'est le bordel
+		panel.add(panelCenter); //devrait partager la partie gauche en trois partie... on croise les doigts
+								// de manière pas trop dégueu
+			//Center de panelCenter
+			JPanel panelMainDefausse = new JPanel(new BorderLayout());
+			panelCenter.add(panelMainDefausse, BorderLayout.CENTER);
+				//Center de panelMainDefausse
+				panelMainDuJoueur = new JPanel();
+				panelMainDefausse.add(panelMainDuJoueur);
+				//
+				//North de panelMainDefausse
+				panelCentreDefausse = new JPanel();
+				panelMainDefausse.add(panelCentreDefausse, BorderLayout.NORTH);
+				//
+			//
+			
+			//North de panelCenter
+			panelJoueurArtificiel = new JPanel();
+			panelCenter.add(panelJoueurArtificiel, BorderLayout.NORTH);
+			//
+		//
+			
+		//East
+		JPanel panelEast = new JPanel(new BorderLayout());
+		panel.add(panelEast, BorderLayout.EAST);
+		
+			//Center de panelEast
+			JPanel panelHistoriquePiocher = new JPanel(new BorderLayout());
+			panelEast.add(panelHistoriquePiocher);
+				//Center de PanelHistoriquePiocher
+				txtrHistorique = new JTextArea();
+				txtrHistorique.setEditable(true);
+				txtrHistorique.setLineWrap(true);//fait revenir à la ligne les prochaines lettres si elles dépassent le carde
+				txtrHistorique.setWrapStyleWord(true);//fait revenir à la ligne tout le dernier mot si ses lettres dépassent le cadre
+				JScrollPane scrollPane = new JScrollPane(txtrHistorique);// permet d'utiliser de monter et descendre dans la fenetre de texte
+				panelHistoriquePiocher.add(scrollPane);
+				//
+				//North de panelHistoriquePiocher
+				btnPiocher = new JButton();
+				btnPiocher.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						getControleur().getJeu().jouerCarte(joueurCourant, null); // On pioche une carte
+					}
+				});
+				panelHistoriquePiocher.add(btnPiocher, BorderLayout.NORTH);
+				//
+			//
+			
+			//North de panelEast
+			JPanel panelImageAnnoncer = new JPanel(new BorderLayout());
+			panelEast.add(panelImageAnnoncer, BorderLayout.NORTH);
+				//Center de panelImageAnnoncer
+				JLabel jolieImage = new JLabel(new ImageIcon("jolieImage"));
+				panelImageAnnoncer.add(jolieImage);
+				//
+				//South de panelImageAnnoncer
+				btnAnnoncer = new JButton();
+				btnAnnoncer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					}
+				});
+				panelImageAnnoncer.add(btnAnnoncer, BorderLayout.SOUTH);
+				//
+			//
+		//
 
-		JButton btnAnnoncer = new JButton("Annoncer");
+		/*JButton btnAnnoncer = new JButton("Annoncer");
 		btnAnnoncer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -92,6 +168,7 @@ public class InterfaceGraphique extends IHM {
 		//
 
 		fenetreDeJeu.setVisible(true);
+		*/
 	}
 
 	public void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
@@ -106,6 +183,7 @@ public class InterfaceGraphique extends IHM {
 		afficherJoueursArtificiels(jeu.getJoueurs());
 
 		fenetreDeJeu.repaint();
+		
 	}
 
 	private void afficherMainJoueur(Joueur joueurCourant) {
