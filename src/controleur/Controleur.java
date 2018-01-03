@@ -4,6 +4,7 @@ import model.*;
 import view.IHM;
 import view.interfaceConsole.InterfaceConsole;
 import view.interfaceGraphique.InterfaceGraphique;
+import view.interfaceGraphique.InterfaceGraphiqueInitJoueurs;
 import view.interfaceGraphique.OldInterfaceGraphique;
 
 /**
@@ -36,6 +37,8 @@ public class Controleur {
 		IHM ihm2 = new InterfaceGraphique(controleur);
 		controleur.getJeu().addObserver(ihm2);
 
+		InterfaceGraphiqueInitJoueurs interfaced = new InterfaceGraphiqueInitJoueurs(controleur);
+		
 		controleur.getJeu().initPartie();
 	}
 
