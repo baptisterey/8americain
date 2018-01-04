@@ -3,10 +3,13 @@ package view.interfaceGraphique;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Observable;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
@@ -17,6 +20,8 @@ import model.Jeu;
 import model.Joueur;
 import model.JoueurArtificiel;
 import model.Message;
+import model.effets.EffetAvecInput;
+import model.effets.ErreurDonneesEffet;
 import view.IHM;
 
 import javax.swing.JPanel;
@@ -33,6 +38,11 @@ public class InterfaceGraphique extends IHM {
 	private JPanel panelCentreDefausse;
 	private JPanel panelJoueurArtificiel;
 	private JButton btnPiocher;
+
+	private JFrame fenetreChangerCouleur;
+
+	private InterfaceGraphiqueInitPartie initPartie;
+	private InterfaceGraphiqueInitJoueurs initJoueurs;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -137,6 +147,93 @@ public class InterfaceGraphique extends IHM {
 		}
 	}
 
+	private void menuChangerCouleur(EffetAvecInput effet, Joueur joueurCourant) {
+		fenetreChangerCouleur = new JFrame();
+		fenetreDeJeu.setEnabled(false);
+		fenetreChangerCouleur.setVisible(true);
+		fenetreChangerCouleur.setSize(400, 400);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+
+		panel.add(new JLabel("Choisir la nouvelle Couleur", JLabel.CENTER), BorderLayout.NORTH);
+
+		JPanel panelImg = new JPanel();
+
+		JButton trefle = new JButton(new ImageIcon("images/iconesCouleurs/trefle.png"));
+		trefle.setBackground(Color.WHITE);
+		trefle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Integer[] data = new Integer[1];
+				data[0] = Carte.TREFLE;
+				try {
+
+					effet.setData(data, joueurCourant);
+					getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+				} catch (ErreurDonneesEffet e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		panelImg.add(trefle);
+
+		JButton carreau = new JButton(new ImageIcon("images/iconesCouleurs/carreau.png"));
+		carreau.setBackground(Color.WHITE);
+		carreau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Integer[] data = new Integer[1];
+				data[0] = Carte.CARREAU;
+				try {
+					effet.setData(data, joueurCourant);
+					getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+				} catch (ErreurDonneesEffet e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		panelImg.add(carreau);
+
+		JButton coeur = new JButton(new ImageIcon("images/iconesCouleurs/coeur.png"));
+		coeur.setBackground(Color.WHITE);
+		coeur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Integer[] data = new Integer[1];
+				data[0] = Carte.COEUR;
+				try {
+					effet.setData(data, joueurCourant);
+					getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+				} catch (ErreurDonneesEffet e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		panelImg.add(coeur);
+
+		JButton pique = new JButton(new ImageIcon("images/iconesCouleurs/pique.png"));
+		pique.setBackground(Color.WHITE);
+		pique.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Integer[] data = new Integer[1];
+				data[0] = Carte.PIC;
+				try {
+					effet.setData(data, joueurCourant);
+					getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+				} catch (ErreurDonneesEffet e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		panelImg.add(pique);
+
+		panel.add(panelImg, BorderLayout.CENTER);
+
+		fenetreChangerCouleur.add(panel);
+	}
+
 	public void update(Observable jeu, Object msg) {
 		if (msg instanceof Message) {
 			switch (((Message) msg).getType()) {
@@ -165,6 +262,8 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case effetChangerCouleur:
+				fenetreDeJeu.setEnabled(true);
+				fenetreChangerCouleur.dispose();
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " a choisi la couleur "
 						+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
 				break;
@@ -214,7 +313,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case choixChangerCouleur:
-
+				menuChangerCouleur(((Message) msg).getEffetAvecInputEnCours(), ((Message) msg).getJoueurCourant());
 				break;
 
 			case choixDonnerCarte:
@@ -245,7 +344,10 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initJoueurs:
-				InterfaceGraphiqueInitJoueurs initJoueurs = new InterfaceGraphiqueInitJoueurs(getControleur());
+				if (initPartie != null) {
+					initPartie.getMenuInitJFrame().dispose();
+				}
+				initJoueurs = new InterfaceGraphiqueInitJoueurs(getControleur());
 				break;
 
 			case finTourJoueurHumain:
@@ -264,10 +366,16 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initPartie:
-				InterfaceGraphiqueInitPartie initPartie = new InterfaceGraphiqueInitPartie(getControleur());
+				if (fenetreDeJeu != null) {
+					fenetreDeJeu.dispose();
+				}
+				initPartie = new InterfaceGraphiqueInitPartie(getControleur());
 				break;
-			
+
 			case debutPartie:
+				if (initJoueurs != null) {
+					initJoueurs.getMenuInitJFrame().dispose();
+				}
 				initializeJouerTour(((Message) msg).getJoueurCourant());
 				break;
 

@@ -38,6 +38,11 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 	private ArrayList<String> dataJList = new ArrayList<>();
 	private JTextField jTfJoueurHumain;
 
+	
+	public JFrame getMenuInitJFrame() {
+		return menuInitJFrame;
+	}
+	
 	public void menuInitJoueurs() {
 		joueursInit.clear();
 

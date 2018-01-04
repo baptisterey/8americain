@@ -471,6 +471,8 @@ public class Jeu extends java.util.Observable {
 		for (Joueur joueur : joueursInitiation) {
 			joueur.getMain().clear();
 			joueurs.add(joueur);
+			joueur.setPeutJouer(true);
+			joueur.setPeutFinir(false);
 		}
 
 		for (int valeur = nbCarteDeck; valeur < 13; valeur++) {

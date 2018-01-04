@@ -41,6 +41,10 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 		menuInitPartie();
 	}
 
+	public JFrame getMenuInitJFrame() {
+		return menuInitJFrame;
+	}
+
 	private void menuInitPartie() {
 		menuInitJFrame = new JFrame();
 		menuInitJFrame.setTitle("8 Américain");
