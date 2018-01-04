@@ -56,7 +56,15 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 		JLabel titre = new JLabel("8 Américain");
 		titre.setFont(new Font("TimesRoman", Font.PLAIN, 25));
 		titre.setHorizontalAlignment(JLabel.CENTER);
-		jPanelFond.add(titre, BorderLayout.NORTH);
+
+		JPanel jPanelTitre = new JPanel();
+		jPanelTitre.setLayout(new BorderLayout());
+
+		jPanelTitre.add(titre, BorderLayout.NORTH);
+
+		jPanelTitre.add(new JLabel("REY Baptiste & LORIOT Thomas", JLabel.CENTER), BorderLayout.CENTER);
+
+		jPanelFond.add(jPanelTitre, BorderLayout.NORTH);
 
 		JPanel jPanelCenterFond = new JPanel();
 		jPanelFond.add(jPanelCenterFond, BorderLayout.CENTER);
