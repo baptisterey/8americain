@@ -97,18 +97,17 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Initialise le compteur de manche à 1, notifie les Observateurs de la nouvelle partie et appelle la méthode
-	 * commencerNouvelleManche();
+	 * Initialise le compteur de manche à 1, notifie les Observateurs de la nouvelle
+	 * partie et appelle la méthode commencerNouvelleManche();
 	 */
 	public void commencerPartie() {
 		numManche = 1;
-		
+
 		Message msg = new Message(Message.Types.debutPartie);
 		msg.setJoueurCourant(getJoueurHumain());
 		setChanged();
 		notifyObservers(msg);
-		
-		
+
 		commencerNouvelleManche();
 	}
 
@@ -147,14 +146,14 @@ public class Jeu extends java.util.Observable {
 
 	private Joueur getJoueurHumain() {
 		for (Joueur joueur : getJoueursInitiation()) {
-			if(!(joueur instanceof JoueurArtificiel)) {
+			if (!(joueur instanceof JoueurArtificiel)) {
 				return joueur;
 			}
 		}
 		return null;
 	}
-	
-	private synchronized Joueur jouerTourJoueursArtificiels() {
+
+	private Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
 			Message msg = new Message(Message.Types.afficherTour);
@@ -196,7 +195,7 @@ public class Jeu extends java.util.Observable {
 		return joueurCourant;
 	}
 
-	public synchronized void commencerNouvelleManche() {
+	public void commencerNouvelleManche() {
 		initCarteManche();
 
 		Message msg = new Message(Message.Types.nouvelleManche);
@@ -206,7 +205,7 @@ public class Jeu extends java.util.Observable {
 		jouerManche();
 	}
 
-	public synchronized void finirTour(Joueur joueurCourant) {
+	public void finirTour(Joueur joueurCourant) {
 
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
@@ -243,7 +242,7 @@ public class Jeu extends java.util.Observable {
 	 * Si la partie est finie, appelle la méthode finirPartie(), sinon incrémente le
 	 * numéro de manche et appelle la méthode commencerNouvelleManche();
 	 */
-	public synchronized void finirManche() {
+	public void finirManche() {
 		if (!isPartieOver()) {
 			numManche++;
 			commencerNouvelleManche();
@@ -252,7 +251,7 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	public synchronized void finirPartie() {
+	public void finirPartie() {
 		Joueur gagnant = getJoueursInitiation().get(0);
 		if (getMethodeCompte() == Jeu.COMPTE_POSITIF) {
 			for (int i = 1; i < getJoueursInitiation().size(); i++) {
@@ -275,7 +274,7 @@ public class Jeu extends java.util.Observable {
 		initPartie(); // On recommence une partie
 	}
 
-	public synchronized void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
+	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
 		boolean effetJouableDirectement = true;
 
 		if (isCartePosable(carte)) {
@@ -385,7 +384,7 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	public synchronized void annoncer(Joueur joueurCourant, String annonce) {
+	public void annoncer(Joueur joueurCourant, String annonce) {
 		Message msg = new Message(Message.Types.joueurAnnonce);
 		msg.setJoueurCourant(joueurCourant);
 		msg.setAnnonce(annonce);
@@ -437,7 +436,7 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
-	public synchronized void initJoueurs() {
+	public void initJoueurs() {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initJoueurs));
 	}
@@ -536,6 +535,9 @@ public class Jeu extends java.util.Observable {
 		return joueurs.get((joueurs.indexOf(joueurCourant) + 1) % joueurs.size());
 	}
 
+	/**
+	 * Inverse l'array joueurs grâce à Collections.reverse()
+	 */
 	public void changerSensJeu() {
 		Collections.reverse(joueurs);
 
@@ -549,16 +551,28 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	/**
+	 * Ajoute la carte dans la défausse et la supprimer de la main du joueur
+	 * 
+	 * @param joueurCourant
+	 *            Le joueur qui joue la carte
+	 * @param carte
+	 *            La carte à défausser
+	 */
 	public void defausserCarte(Joueur joueurCourant, Carte carte) {
 		defausse.add(carte);
 		joueurCourant.getMain().remove(carte);
 	}
 
-	public void defausserCarte(Joueur joueurCourant, int indexCarte) {
-		defausse.add(joueurCourant.getMain().get(indexCarte));
-		joueurCourant.getMain().remove(indexCarte);
-	}
-
+	/**
+	 * Fait piocher autant de carte que nécéssaire au joueur. Si la pioche est vide,
+	 * on mélange la défausse et on l'ajoute à la pioche.
+	 * 
+	 * @param joueur
+	 *            Le joueur piochant les cartes
+	 * @param nb
+	 *            Le nombre de cartes à piocher
+	 */
 	public void piocherCarte(Joueur joueur, int nb) {
 		for (int i = 0; i < nb; i++) {
 			if (pioche.isEmpty()) {
@@ -577,6 +591,15 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	/**
+	 * Indique si la carte est posable par rapport au sommet de la défausse. En mode
+	 * normal, la couleur et la valeur de la carte sont regardés, en mode attaquen,
+	 * seul les cartes attaques et contre sont posables.
+	 * 
+	 * @param carte
+	 *            La carte qui va être tester
+	 * @return Vrai si elle est posable, Faux sinon.
+	 */
 	public boolean isCartePosable(Carte carte) {
 		if (defausse.isEmpty() || carte == null) {
 			return true;
@@ -603,19 +626,30 @@ public class Jeu extends java.util.Observable {
 		return false;
 	}
 
+	/**
+	 * Le nombre de joueurs actifs (les joueurs dans l'array joueurs)
+	 * 
+	 * @return le nombre de joueurs actifs
+	 */
 	public int getNombreJoueursActifs() {
 		return getJoueurs().size();
 	}
 
+	/**
+	 * Regarde en fonction de la methode de comptage si la manche est terminée.
+	 * 
+	 * @return Vrai si la manche est terminé, Faux sinon.
+	 */
 	public boolean isMancheOver() {
 
-		if (this.methodeCompte == COMPTE_NEGATIF) {
+		if (this.methodeCompte == COMPTE_NEGATIF) { // Si un joueur n'a plus de cartes dans sa main, la manche est
+													// finie.
 			for (Joueur joueur : joueursInitiation) {
 				if (joueur.getMain().isEmpty()) {
 					return true;
 				}
 			}
-		} else if (this.methodeCompte == COMPTE_POSITIF) {
+		} else if (this.methodeCompte == COMPTE_POSITIF) { // Si un podium peut être formé, la manche est finie.
 			if ((this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2)) {
 				return true;
 			}
@@ -623,6 +657,10 @@ public class Jeu extends java.util.Observable {
 		return false;
 	}
 
+	/**
+	 * Attribue pour chacun des joueurs le score adéquat en fonction de la méthode
+	 * de comptage.
+	 */
 	public void compterScore() {
 		switch (methodeCompte) {
 		case COMPTE_NEGATIF:
@@ -660,6 +698,12 @@ public class Jeu extends java.util.Observable {
 
 	}
 
+	/**
+	 * Indique si la partie est terminée en fonction des scores des joueurs et de la
+	 * méthode de comptage.
+	 * 
+	 * @return Vrai si la partie est terminée, Faux sinon.
+	 */
 	public boolean isPartieOver() {
 		boolean b = false;
 		if (methodeCompte == COMPTE_NEGATIF) {
