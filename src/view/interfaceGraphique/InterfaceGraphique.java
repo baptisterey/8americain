@@ -151,10 +151,10 @@ public class InterfaceGraphique extends IHM {
 		fenetreChangerCouleur = new JFrame();
 		fenetreDeJeu.setEnabled(false);
 		fenetreChangerCouleur.setVisible(true);
-		fenetreChangerCouleur.setSize(400, 400);
+		fenetreChangerCouleur.setSize(500, 200);
 
 		fenetreChangerCouleur.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 
@@ -264,8 +264,10 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case effetChangerCouleur:
-				fenetreDeJeu.setEnabled(true);
-				fenetreChangerCouleur.dispose();
+				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
+					fenetreDeJeu.setEnabled(true);
+					fenetreChangerCouleur.dispose();
+				}
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " a choisi la couleur "
 						+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
 				break;
