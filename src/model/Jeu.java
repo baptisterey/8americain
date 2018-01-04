@@ -697,7 +697,8 @@ public class Jeu extends java.util.Observable {
 		}
 
 	}
-
+	
+	
 	/**
 	 * Indique si la partie est terminée en fonction des scores des joueurs et de la
 	 * méthode de comptage.
