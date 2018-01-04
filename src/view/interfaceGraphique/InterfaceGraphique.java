@@ -153,6 +153,8 @@ public class InterfaceGraphique extends IHM {
 		fenetreChangerCouleur.setVisible(true);
 		fenetreChangerCouleur.setSize(400, 400);
 
+		fenetreChangerCouleur.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 

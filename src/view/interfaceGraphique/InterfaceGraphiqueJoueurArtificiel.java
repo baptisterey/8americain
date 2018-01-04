@@ -2,12 +2,7 @@ package view.interfaceGraphique;
 
 import java.awt.BorderLayout;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 import javax.swing.JLabel;
@@ -19,7 +14,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	
 	private JLabel image; //pour image du personnage
 	private JLabel texte; //pour son pseudo et son nombre de carte
-	private JCheckBox checkBox; // coché s'il a bien annoncé "carte" (pas besoin de préciser pour les autres annonces ?)
+	private JCheckBox checkBox; // coché s'il a bien annoncé "carte"
 
 	public InterfaceGraphiqueJoueurArtificiel(Joueur j) {
 		initialize(j);

@@ -30,8 +30,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 		System.out.println("(3) Quitter le jeu");
 		System.out.println("------------------");
 		
-		initPartie(); // AUTO A SUPPRIMER ET DECOMMENTER JUSTE EN DESSOUS
-		/*
+		
 		Integer choix;
 		boolean choixok = true;
 		do {
@@ -53,6 +52,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 					break;
 
 				case 3:
+					System.exit(0);
 					break;
 
 				default:
@@ -60,7 +60,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 				}
 			}
 		} while (!choixok);
-		*/
+		
 	}
 
 	private void initPartie() {
