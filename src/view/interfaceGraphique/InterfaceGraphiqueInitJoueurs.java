@@ -51,11 +51,9 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 		JPanel jPanelFond = new JPanel();
 		menuInitJFrame.add(jPanelFond);
 
-		// JPanel jPanelTitre = new JPanel();
-		// jPanelTitre.setLayout(new GridLayout(2,1));
 		jPanelFond.setLayout(new BorderLayout());
 
-		JLabel titre = new JLabel("8 Américain");
+		JLabel titre = new JLabel("Création des Joueurs");
 		titre.setFont(new Font("TimesRoman", Font.PLAIN, 25));
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		jPanelFond.add(titre, BorderLayout.NORTH);

@@ -43,5 +43,24 @@ public class Basique extends Variante {
 				break;
 		}
 	}
-
+	
+	public static String getStringVariante() {
+		String str = "";
+		
+		str+="CINQ : \n \t Le joueur donne une de ses cartes à un joueur choisi.\n";	
+		
+		str+="SEPT : \n \t Saute le tour du joueur suivant.\n";	
+		
+		str+="HUIT : \n \t Contre une attaque puis le joueur change la couleur de la carte.\n";	
+		
+		str+="NEUF : \n \t Fait piocher une carte au joueur suivant.\n";	
+		
+		str+="DIX : \n \t Fait rejouer le joueur.\n";	
+		
+		str+="VALET : \n \t Change le sens du jeu.\n";	
+		
+		str+="AS : \n \t Attaque avec une valeur de 2.\n";	
+		
+		return str;
+	};
 }

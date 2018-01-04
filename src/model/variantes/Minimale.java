@@ -16,4 +16,12 @@ public class Minimale extends Variante{
 		}
 		
 	}
+	
+	public static String getStringVariante() {
+		String str = "";
+
+		str+="HUIT : \n \t Le Joueur choisi une nouvelle couleur.\n";	
+		
+		return str;
+	};
 }

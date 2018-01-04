@@ -245,7 +245,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initJoueurs:
-
+				InterfaceGraphiqueInitJoueurs initJoueurs = new InterfaceGraphiqueInitJoueurs(getControleur());
 				break;
 
 			case finTourJoueurHumain:
@@ -264,7 +264,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case initPartie:
-
+				InterfaceGraphiqueInitPartie initPartie = new InterfaceGraphiqueInitPartie(getControleur());
 				break;
 			
 			case debutPartie:

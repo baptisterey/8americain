@@ -9,6 +9,8 @@ import java.io.IOException;
 import controleur.Controleur;
 import model.Jeu;
 import model.variantes.Basique;
+import model.variantes.Minimale;
+import model.variantes.Monclar;
 import model.variantes.Variante;
 
 public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runnable {
@@ -20,7 +22,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 	@Override
 	public void run() {
 		System.out.println("=================== 8 Américain ====================");
-		System.out.println("<< Zéro carte dans la main et c'est super bien ! >>");
+		System.out.println("<< Zéro carte dans ta main et c'est super bien ! >>");
 		System.out.println("====================================================");
 		System.out.println("(0) Lire les règles");
 		System.out.println("(1) Commencer une partie");
@@ -39,7 +41,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 			if (choix != null) {
 				switch (choix) {
 				case 0:
-					afficherFichier(new File("./src/regles.txt"));
+					afficherFichier(new File("regles.txt"));
 					break;
 
 				case 1:
@@ -47,7 +49,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 					break;
 
 				case 2:
-					afficherFichier(new File("./src/credits.txt"));
+					afficherFichier(new File("credits.txt"));
 					break;
 
 				case 3:
@@ -69,8 +71,8 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 		boolean operationInterompue = false;
 		boolean choixok;
 		
-		System.out.println("CREATION AUTO DE LA VARIANTE ET DU DECK POUR TESTER, CHANGER DANS InterfaceConsoleInitPartie");
-/*
+		//System.out.println("CREATION AUTO DE LA VARIANTE ET DU DECK POUR TESTER, CHANGER DANS InterfaceConsoleInitPartie");
+
 		System.out.println("==== CHOIX DU MODE DE JEU ====");
 
 		// CHOIX DU DECK
@@ -162,7 +164,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 			} while (!choixok);
 		}
-		*/
+		
 		if(!operationInterompue) {
 			getControleur().getJeu().setMethodeCompte(methodeComptage);
 			getControleur().getJeu().setVariante(variante);
