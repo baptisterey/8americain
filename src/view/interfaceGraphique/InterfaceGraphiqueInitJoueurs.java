@@ -184,8 +184,7 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 		jButExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuInitJFrame.setVisible(false);
-				menuInitJFrame.dispose();
+				System.exit(0);
 			}
 		});
 	}
