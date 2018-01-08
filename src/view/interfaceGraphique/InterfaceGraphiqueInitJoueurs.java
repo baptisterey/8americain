@@ -37,11 +37,10 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 	private ArrayList<String> dataJList = new ArrayList<>();
 	private JTextField jTfJoueurHumain;
 
-	
 	public JFrame getMenuInitJFrame() {
 		return menuInitJFrame;
 	}
-	
+
 	public void menuInitJoueurs() {
 		joueursInit.clear();
 
@@ -128,9 +127,9 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 			public void actionPerformed(ActionEvent e) {
 
 				if (jTfNouvJoueur.getText().equals("")) {
-					JOptionPane.showMessageDialog(menuInitJFrame, "Merci d'entrer un nom!");
-				} else if (jTfNouvJoueur.getText().contains(" ")) {
-					JOptionPane.showMessageDialog(menuInitJFrame, "Merci de ne pas mettre d'espace dans votre nom!");
+					JOptionPane.showMessageDialog(menuInitJFrame,
+							"Merci d'entrer un nom pour le nouveau Joueur Artificiel!");
+
 				} else if (jTfNouvJoueur.getText().length() <= 10) {
 					if (joueursInit.size() < 6) {
 						switch (choixStrategie.getSelectedIndex()) {
@@ -163,20 +162,22 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 		});
 
 		jButCommencerJeu.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (joueursInit.size() > 0 && !jTfJoueurHumain.getText().equals("")) {
 					joueursInit.add(new Joueur(jTfJoueurHumain.getText()));
-					
+
 					menuInitJFrame.setVisible(false);
 					menuInitJFrame.dispose();
-					
+
 					// ON COMMENCE LA PARTIE
 					getControleur().getJeu().setJoueursInitiation(joueursInit);
 					getControleur().getJeu().commencerPartie();
-					
-				}else {
-					JOptionPane.showMessageDialog(menuInitJFrame, "Merci de choisir votre nom et de créer au moins un Joueur Artificiel! ");
+
+				} else {
+					JOptionPane.showMessageDialog(menuInitJFrame,
+							"Merci de choisir votre nom et de créer au moins un Joueur Artificiel! ");
 				}
 			}
 		});

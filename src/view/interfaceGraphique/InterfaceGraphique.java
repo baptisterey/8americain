@@ -60,6 +60,9 @@ public class InterfaceGraphique extends IHM {
 	private javax.swing.JFrame fenetreDeJeu;
 	private javax.swing.JFrame fenetreChangerCouleur;
 
+	private JFrame fenetreDonnerCarte;
+	private JFrame fenetreDonnerJoueur;
+
 	private InterfaceGraphiqueInitPartie initPartie;
 	private InterfaceGraphiqueInitJoueurs initJoueurs;
 
@@ -346,14 +349,27 @@ public class InterfaceGraphique extends IHM {
 				jPanelJoueursArtificielsEditable.add(new InterfaceGraphiqueJoueurArtificiel(joueur));
 			}
 		}
+
+		jPanelJoueursArtificiels.revalidate();
+		jPanelJoueursArtificiels.repaint();
+
+		jScrollPaneJoueursArtificiels.revalidate();
+		jScrollPaneJoueursArtificiels.repaint();
+
+		jPanelJoueursArtificielsEditable.revalidate();
+		jPanelJoueursArtificielsEditable.repaint();
+
 	}
 
 	private void afficherMainJoueur(Joueur joueurCourant) {
 		jPanelMainDuJoueurEditable.removeAll();
 
 		for (Carte carte : joueurCourant.getMain()) {
-			String str = "images/cartes/"+Carte.VALEURS[carte.getValeur()]+"_"+Carte.COULEURS[carte.getCouleur()]+".png";
-			ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));//pour gérer la taille des images
+			String str = "images/cartes/" + Carte.VALEURS[carte.getValeur()] + "_" + Carte.COULEURS[carte.getCouleur()]
+					+ ".png";
+			ImageIcon icon = new ImageIcon(
+					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));// pour gérer la
+																									// taille des images
 			JButton bouton = new JButton(icon);
 			bouton.setBackground(Color.WHITE);
 			bouton.addActionListener(new ActionListener() {
@@ -367,13 +383,14 @@ public class InterfaceGraphique extends IHM {
 			});
 			jPanelMainDuJoueurEditable.add(bouton);
 		}
-
-
 	}
 
 	private void menuChangerCouleur(EffetAvecInput effet, Joueur joueurCourant) {
 		fenetreChangerCouleur = new JFrame();
 		fenetreDeJeu.setEnabled(false);
+
+		fenetreChangerCouleur.setLocation(350, 500);
+
 		fenetreChangerCouleur.setVisible(true);
 		fenetreChangerCouleur.setSize(500, 200);
 
@@ -460,6 +477,72 @@ public class InterfaceGraphique extends IHM {
 		fenetreChangerCouleur.add(panel);
 	}
 
+	private void menuDonnerCarte(EffetAvecInput effet, Joueur joueurCourant) {
+		fenetreDonnerCarte = new JFrame();
+		fenetreDeJeu.setEnabled(false);
+		fenetreDonnerCarte.setVisible(true);
+		fenetreDonnerCarte.setSize(500, 200);
+
+		fenetreDonnerCarte.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+
+		panel.add(new JLabel("Choisir votre carte à donner", JLabel.CENTER), BorderLayout.NORTH);
+
+		JPanel panelImg = new JPanel();
+
+		for (Carte carte : joueurCourant.getMain()) {
+			String str = "images/cartes/" + Carte.VALEURS[carte.getValeur()] + "_" + Carte.COULEURS[carte.getCouleur()]
+					+ ".png";
+			ImageIcon icon = new ImageIcon(
+					new ImageIcon(str).getImage().getScaledInstance(35, 70, Image.SCALE_DEFAULT));// pour gérer la
+																									// taille des images
+			JButton bouton = new JButton(icon);
+			bouton.setBackground(Color.WHITE);
+			bouton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Integer[] data = new Integer[2];
+					data[0] = joueurCourant.getMain().indexOf(carte);
+					fenetreDonnerJoueur = new JFrame();
+					fenetreDonnerCarte.setEnabled(false);
+					fenetreDonnerJoueur.setVisible(true);
+					fenetreDonnerJoueur.setSize(500, 200);
+
+					fenetreChangerCouleur.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+					JPanel panel2 = new JPanel();
+					panel2.setLayout(new BorderLayout());
+
+					panel2.add(new JLabel("Choisir joueur à qui donner la carte", JLabel.CENTER), BorderLayout.NORTH);
+
+					JPanel panelImg2 = new JPanel();
+
+					for (Joueur joueur : Jeu.getInstance().getJoueurs()) {
+						if (joueur instanceof JoueurArtificiel) {
+							JButton bouton = new JButton(joueur.getPseudo());
+							bouton.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									data[1] = Jeu.getInstance().getJoueurs().indexOf(joueur);
+									try {
+										effet.setData(data, joueurCourant);
+										getControleur().getJeu().jouerEffetAvecInputEnCours(effet, joueurCourant);
+									} catch (ErreurDonneesEffet e1) {
+										e1.printStackTrace();
+									}
+								}
+							});
+							panelImg2.add(bouton);
+						}
+					}
+
+				}
+			});
+			panelImg.add(bouton);
+		}
+
+	}
+
 	public void update(Observable jeu, Object msg) {
 		if (msg instanceof Message) {
 			switch (((Message) msg).getType()) {
@@ -485,6 +568,7 @@ public class InterfaceGraphique extends IHM {
 				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
 					fenetreDeJeu.setEnabled(true);
 					fenetreChangerCouleur.dispose();
+					refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				}
 				afficherConsole(
 						((Message) msg).getJoueurCourant().getPseudo() + " a arreté une attaque et a choisi la couleur "
@@ -495,12 +579,17 @@ public class InterfaceGraphique extends IHM {
 				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
 					fenetreDeJeu.setEnabled(true);
 					fenetreChangerCouleur.dispose();
+					refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				}
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " a choisi la couleur "
 						+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
 				break;
 
 			case effetDonner:
+				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
+					fenetreDeJeu.setEnabled(true);
+					fenetreChangerCouleur.dispose();
+				}
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " ajoute un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + " dans la main de "
 						+ ((Message) msg).getJoueurVictime().getPseudo());
@@ -531,6 +620,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case annonceContreCarteEchoue:
+				refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo()
 						+ " pioche deux cartes pour avoir annoncer un Contre Carte sans aucune raison!");
 				break;
@@ -549,7 +639,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case choixDonnerCarte:
-
+				menuDonnerCarte(((Message) msg).getEffetAvecInputEnCours(), ((Message) msg).getJoueurCourant());
 				break;
 
 			case cartePosee:

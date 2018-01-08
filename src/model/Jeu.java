@@ -66,7 +66,7 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Joueur> getGagnants() {
 		return gagnants;
 	}
-	
+
 	public int getNumManche() {
 		return numManche;
 	}
@@ -111,6 +111,16 @@ public class Jeu extends java.util.Observable {
 		msg.setJoueurCourant(getJoueurHumain());
 		setChanged();
 		notifyObservers(msg);
+
+		// On place de le joueur humain en premier dans l'array pour qu'il soit le
+		// premier à jouer
+		for (Joueur joueur : joueursInitiation) {
+			if (!(joueur instanceof JoueurArtificiel)) {
+				Joueur joueurHumain = joueur;
+				joueursInitiation.remove(joueur);
+				joueursInitiation.addFirst(joueurHumain);
+			}
+		}
 
 		commencerNouvelleManche();
 	}
@@ -701,8 +711,7 @@ public class Jeu extends java.util.Observable {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Indique si la partie est terminée en fonction des scores des joueurs et de la
 	 * méthode de comptage.

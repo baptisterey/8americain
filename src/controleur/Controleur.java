@@ -4,8 +4,6 @@ import model.*;
 import view.IHM;
 import view.interfaceConsole.InterfaceConsole;
 import view.interfaceGraphique.InterfaceGraphique;
-import view.interfaceGraphique.InterfaceGraphiqueInitJoueurs;
-import view.interfaceGraphique.InterfaceGraphiqueInitPartie;
 
 /**
  * Implémentation du modèle MVC. Ici le Controleur.

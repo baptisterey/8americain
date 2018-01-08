@@ -12,6 +12,8 @@ import model.Joueur;
 
 public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel image; //pour image du personnage
 	private JLabel texte; //pour son pseudo et son nombre de carte
 	private JCheckBox checkBox; // coché s'il a bien annoncé "carte"
