@@ -65,7 +65,8 @@ public class InterfaceGraphique extends IHM {
 
 	private InterfaceGraphiqueInitPartie initPartie;
 	private InterfaceGraphiqueInitJoueurs initJoueurs;
-
+	
+	private javax.swing.JLabel jLabelDefausse;
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -95,7 +96,8 @@ public class InterfaceGraphique extends IHM {
 		jPanelMainDuJoueurEditable = new javax.swing.JPanel();
 		jScrollPaneMainDuJoueur = new javax.swing.JScrollPane();
 		jScrollPaneJoueursArtificiels = new javax.swing.JScrollPane();
-
+		jLabelDefausse = new javax.swing.JLabel();
+		
 		fenetreDeJeu.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		fenetreDeJeu.setPreferredSize(new java.awt.Dimension(1300, 768));
 		fenetreDeJeu.setResizable(false);
@@ -140,12 +142,22 @@ public class InterfaceGraphique extends IHM {
 
 		jPanelDefausse.setPreferredSize(new java.awt.Dimension(165, 0));
 
-		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanelDefausse);
-		jPanelDefausse.setLayout(jPanel3Layout);
-		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 165, Short.MAX_VALUE));
-		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 0, Short.MAX_VALUE));
+        javax.swing.GroupLayout jPanelDefausseLayout = new javax.swing.GroupLayout(jPanelDefausse);
+        jPanelDefausse.setLayout(jPanelDefausseLayout);
+        jPanelDefausseLayout.setHorizontalGroup(
+            jPanelDefausseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDefausseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelDefausseLayout.setVerticalGroup(
+            jPanelDefausseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDefausseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
 		javax.swing.GroupLayout jPanelWestLayout = new javax.swing.GroupLayout(jPanelWest);
 		jPanelWest.setLayout(jPanelWestLayout);
@@ -339,6 +351,13 @@ public class InterfaceGraphique extends IHM {
 
 		// Actualisation de la main du Joueur
 		afficherMainJoueur(joueurCourant);
+
+		// Actualisation de la défausse
+		String str = "images/cartes/" + Carte.VALEURS[jeu.getDefausse().getLast().getValeur()] + "_"
+				+ Carte.COULEURS[jeu.getDefausse().getLast().getCouleur()] + ".png";
+		ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));
+		jLabelDefausse.setIcon(icon);
+		
 	}
 
 	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
