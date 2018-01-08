@@ -106,10 +106,12 @@ public class InterfaceGraphique extends IHM {
 		jPanelJoueursArtificiels.setLayout(jPanelJoueursArtificielsLayout);
 		jPanelJoueursArtificielsLayout.setHorizontalGroup(
 				jPanelJoueursArtificielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addComponent(jScrollPaneJoueursArtificiels));
-		jPanelJoueursArtificielsLayout.setVerticalGroup(jPanelJoueursArtificielsLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-						jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE));
+						.addComponent(jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE, 716,
+								javax.swing.GroupLayout.PREFERRED_SIZE));
+		jPanelJoueursArtificielsLayout.setVerticalGroup(
+				jPanelJoueursArtificielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE, 107,
+								javax.swing.GroupLayout.PREFERRED_SIZE));
 
 		jPanelMainDuJoueur.setBorder(javax.swing.BorderFactory.createTitledBorder("Votre main"));
 
@@ -118,10 +120,11 @@ public class InterfaceGraphique extends IHM {
 		javax.swing.GroupLayout jPanelMainDuJoueurLayout = new javax.swing.GroupLayout(jPanelMainDuJoueur);
 		jPanelMainDuJoueur.setLayout(jPanelMainDuJoueurLayout);
 		jPanelMainDuJoueurLayout.setHorizontalGroup(jPanelMainDuJoueurLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPaneMainDuJoueur));
-		jPanelMainDuJoueurLayout.setVerticalGroup(
-				jPanelMainDuJoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-						jScrollPaneMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE));
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPaneMainDuJoueur,
+						javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE));
+		jPanelMainDuJoueurLayout.setVerticalGroup(jPanelMainDuJoueurLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPaneMainDuJoueur,
+						javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE));
 
 		jPanelImgPioche.setPreferredSize(new java.awt.Dimension(165, 0));
 
@@ -143,32 +146,38 @@ public class InterfaceGraphique extends IHM {
 
 		javax.swing.GroupLayout jPanelWestLayout = new javax.swing.GroupLayout(jPanelWest);
 		jPanelWest.setLayout(jPanelWestLayout);
-		jPanelWestLayout.setHorizontalGroup(jPanelWestLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelWestLayout.createSequentialGroup().addContainerGap()
-						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addContainerGap())
-				.addGroup(jPanelWestLayout.createSequentialGroup().addGap(179, 179, 179)
-						.addComponent(jPanelImgPioche, javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(95, 95, 95)
-						.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(128, Short.MAX_VALUE)));
+		jPanelWestLayout
+				.setHorizontalGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanelWestLayout.createSequentialGroup().addContainerGap().addGroup(jPanelWestLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+										jPanelWestLayout.createSequentialGroup()
+												.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addContainerGap())
+								.addComponent(
+										jPanelJoueursArtificiels, javax.swing.GroupLayout.Alignment.TRAILING,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)
+								.addGroup(jPanelWestLayout.createSequentialGroup().addGap(125, 125, 125)
+										.addComponent(jPanelImgPioche, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(133, 133, 133)))));
 		jPanelWestLayout.setVerticalGroup(jPanelWestLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanelWestLayout.createSequentialGroup()
 						.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(30, 30, 30)
+						.addGap(41, 41, 41)
 						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jPanelImgPioche, javax.swing.GroupLayout.DEFAULT_SIZE, 231,
+								.addComponent(jPanelImgPioche, javax.swing.GroupLayout.DEFAULT_SIZE, 354,
 										Short.MAX_VALUE)
-								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 231,
+								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 354,
 										Short.MAX_VALUE))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -226,24 +235,26 @@ public class InterfaceGraphique extends IHM {
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
 						Short.MAX_VALUE)
-				.addGroup(jPanelEastLayout.createSequentialGroup().addContainerGap()
-						.addGroup(jPanelEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(jPanelEastLayout.createSequentialGroup().addComponent(jScrollPaneHistorique)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+				.addComponent(jSeparator1).addComponent(jSeparator2)
+				.addGroup(jPanelEastLayout.createSequentialGroup().addContainerGap().addGroup(jPanelEastLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jLabelManche, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(jPanelEastLayout.createSequentialGroup().addComponent(jLabelScore).addGap(0, 0,
+								Short.MAX_VALUE))
+						.addComponent(jLabelMethodeVictoire, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(jPanelEastLayout.createSequentialGroup().addGroup(jPanelEastLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanelEastLayout.createSequentialGroup()
+										.addComponent(comboBoxAnnonces, 0, 413, Short.MAX_VALUE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(jButtonAnnoncer, javax.swing.GroupLayout.PREFERRED_SIZE, 95,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addComponent(jButtonPiocher, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(jPanelEastLayout.createSequentialGroup()
-										.addComponent(comboBoxAnnonces, 0, 344, Short.MAX_VALUE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButtonAnnoncer, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
-												javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addComponent(jLabelManche, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(jPanelEastLayout.createSequentialGroup().addComponent(jLabelScore).addGap(0,
-										0, Short.MAX_VALUE))
-								.addComponent(jLabelMethodeVictoire, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-				.addComponent(jSeparator1).addComponent(jSeparator2));
+								.addComponent(jScrollPaneHistorique, javax.swing.GroupLayout.Alignment.TRAILING))
+								.addContainerGap()))));
 		jPanelEastLayout.setVerticalGroup(jPanelEastLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanelEastLayout.createSequentialGroup().addContainerGap().addComponent(jLabelTitre)
@@ -270,10 +281,9 @@ public class InterfaceGraphique extends IHM {
 						.addComponent(jButtonPiocher, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(jPanelEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(jScrollPaneHistorique, javax.swing.GroupLayout.DEFAULT_SIZE, 212,
-										Short.MAX_VALUE))
-						.addContainerGap(59, Short.MAX_VALUE)));
+						.addComponent(jScrollPaneHistorique, javax.swing.GroupLayout.PREFERRED_SIZE, 350,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(79, Short.MAX_VALUE)));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(fenetreDeJeu.getContentPane());
 		fenetreDeJeu.getContentPane().setLayout(layout);
