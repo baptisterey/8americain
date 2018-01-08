@@ -32,14 +32,33 @@ public class InterfaceGraphique extends IHM {
 		super(ctrl);
 	}
 
-	private JFrame fenetreDeJeu;
-	private JTextArea txtrHistorique;
-	private JPanel panelMainDuJoueur;
-	private JPanel panelCentreDefausse;
-	private JPanel panelJoueurArtificiel;
-	private JButton btnPiocher;
+	private javax.swing.JComboBox<String> comboBoxAnnonces;
+	private javax.swing.JButton jButtonAnnoncer;
+	private javax.swing.JButton jButtonPiocher;
+	private javax.swing.JLabel jLabelManche;
+	private javax.swing.JLabel jLabelMethodeVictoire;
+	private javax.swing.JLabel jLabelScore;
+	private javax.swing.JLabel jLabelTitre;
+	private javax.swing.JPanel jPanelDefausse;
+	private javax.swing.JPanel jPanelEast;
+	private javax.swing.JPanel jPanelImgPioche;
 
-	private JFrame fenetreChangerCouleur;
+	private javax.swing.JPanel jPanelJoueursArtificiels;
+	private javax.swing.JPanel jPanelJoueursArtificielsEditable;
+	private javax.swing.JScrollPane jScrollPaneJoueursArtificiels;
+
+	private javax.swing.JPanel jPanelMainDuJoueur;
+	private javax.swing.JPanel jPanelMainDuJoueurEditable;
+	private javax.swing.JScrollPane jScrollPaneMainDuJoueur;
+
+	private javax.swing.JPanel jPanelWest;
+	private javax.swing.JScrollPane jScrollPaneHistorique;
+	private javax.swing.JSeparator jSeparator1;
+	private javax.swing.JSeparator jSeparator2;
+	private javax.swing.JTextArea jTextAreaHistorique;
+
+	private javax.swing.JFrame fenetreDeJeu;
+	private javax.swing.JFrame fenetreChangerCouleur;
 
 	private InterfaceGraphiqueInitPartie initPartie;
 	private InterfaceGraphiqueInitJoueurs initJoueurs;
@@ -48,78 +67,279 @@ public class InterfaceGraphique extends IHM {
 	 * Initialize the contents of the frame.
 	 */
 	private void initializeJouerTour(Joueur joueurCourant) {
+		// Généré automatiquement par Windows BUILDER
 		fenetreDeJeu = new JFrame();
-		fenetreDeJeu.setBounds(100, 100, 589, 413);
-		fenetreDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetreDeJeu.getContentPane().setLayout(null);
+		fenetreDeJeu.setTitle("8 Américain");
 
-		JButton btnAnnoncer = new JButton("Annoncer");
-		btnAnnoncer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnAnnoncer.setBounds(335, 101, 203, 25);
-		fenetreDeJeu.getContentPane().add(btnAnnoncer);
+		jPanelWest = new javax.swing.JPanel();
+		jPanelJoueursArtificiels = new javax.swing.JPanel();
+		jPanelMainDuJoueur = new javax.swing.JPanel();
+		jPanelImgPioche = new javax.swing.JPanel();
+		jPanelDefausse = new javax.swing.JPanel();
+		jPanelEast = new javax.swing.JPanel();
+		jButtonPiocher = new javax.swing.JButton();
+		comboBoxAnnonces = new javax.swing.JComboBox<>();
+		jButtonAnnoncer = new javax.swing.JButton();
+		jScrollPaneHistorique = new javax.swing.JScrollPane();
+		jTextAreaHistorique = new javax.swing.JTextArea();
+		jLabelManche = new javax.swing.JLabel();
+		jLabelScore = new javax.swing.JLabel();
+		jLabelTitre = new javax.swing.JLabel();
+		jLabelMethodeVictoire = new javax.swing.JLabel();
+		jSeparator1 = new javax.swing.JSeparator();
+		jSeparator2 = new javax.swing.JSeparator();
+		jPanelJoueursArtificielsEditable = new javax.swing.JPanel();
+		jPanelMainDuJoueurEditable = new javax.swing.JPanel();
+		jScrollPaneMainDuJoueur = new javax.swing.JScrollPane();
+		jScrollPaneJoueursArtificiels = new javax.swing.JScrollPane();
 
-		btnPiocher = new JButton("Piocher");
-		btnPiocher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		fenetreDeJeu.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		fenetreDeJeu.setPreferredSize(new java.awt.Dimension(1300, 768));
+		fenetreDeJeu.setResizable(false);
+		fenetreDeJeu.setLocation(350, 30);
+
+		jPanelJoueursArtificiels.setBorder(javax.swing.BorderFactory.createTitledBorder("Joueurs Artificiels"));
+
+		jScrollPaneJoueursArtificiels.setViewportView(jPanelJoueursArtificielsEditable);
+
+		javax.swing.GroupLayout jPanelJoueursArtificielsLayout = new javax.swing.GroupLayout(jPanelJoueursArtificiels);
+		jPanelJoueursArtificiels.setLayout(jPanelJoueursArtificielsLayout);
+		jPanelJoueursArtificielsLayout.setHorizontalGroup(
+				jPanelJoueursArtificielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jScrollPaneJoueursArtificiels));
+		jPanelJoueursArtificielsLayout.setVerticalGroup(jPanelJoueursArtificielsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+						jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE));
+
+		jPanelMainDuJoueur.setBorder(javax.swing.BorderFactory.createTitledBorder("Votre main"));
+
+		jScrollPaneMainDuJoueur.setViewportView(jPanelMainDuJoueurEditable);
+
+		javax.swing.GroupLayout jPanelMainDuJoueurLayout = new javax.swing.GroupLayout(jPanelMainDuJoueur);
+		jPanelMainDuJoueur.setLayout(jPanelMainDuJoueurLayout);
+		jPanelMainDuJoueurLayout.setHorizontalGroup(jPanelMainDuJoueurLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPaneMainDuJoueur));
+		jPanelMainDuJoueurLayout.setVerticalGroup(
+				jPanelMainDuJoueurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+						jScrollPaneMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE));
+
+		jPanelImgPioche.setPreferredSize(new java.awt.Dimension(165, 0));
+
+		javax.swing.GroupLayout jPanelImgPiocheLayout = new javax.swing.GroupLayout(jPanelImgPioche);
+		jPanelImgPioche.setLayout(jPanelImgPiocheLayout);
+		jPanelImgPiocheLayout.setHorizontalGroup(jPanelImgPiocheLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 165, Short.MAX_VALUE));
+		jPanelImgPiocheLayout.setVerticalGroup(jPanelImgPiocheLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
+
+		jPanelDefausse.setPreferredSize(new java.awt.Dimension(165, 0));
+
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanelDefausse);
+		jPanelDefausse.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 165, Short.MAX_VALUE));
+		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGap(0, 0, Short.MAX_VALUE));
+
+		javax.swing.GroupLayout jPanelWestLayout = new javax.swing.GroupLayout(jPanelWest);
+		jPanelWest.setLayout(jPanelWestLayout);
+		jPanelWestLayout.setHorizontalGroup(jPanelWestLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanelWestLayout.createSequentialGroup().addContainerGap()
+						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap())
+				.addGroup(jPanelWestLayout.createSequentialGroup().addGap(179, 179, 179)
+						.addComponent(jPanelImgPioche, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(95, 95, 95)
+						.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(128, Short.MAX_VALUE)));
+		jPanelWestLayout.setVerticalGroup(jPanelWestLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanelWestLayout.createSequentialGroup()
+						.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(30, 30, 30)
+						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(jPanelImgPioche, javax.swing.GroupLayout.DEFAULT_SIZE, 231,
+										Short.MAX_VALUE)
+								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 231,
+										Short.MAX_VALUE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+
+		jPanelEast.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations"));
+
+		jButtonPiocher.setText("Piocher");
+		jButtonPiocher.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				getControleur().getJeu().jouerCarte(joueurCourant, null); // On pioche une carte
 			}
 		});
 
-		btnPiocher.setBounds(335, 139, 203, 25);
-		fenetreDeJeu.getContentPane().add(btnPiocher);
+		comboBoxAnnonces.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carte!", "Contre Carte!" }));
 
-		txtrHistorique = new JTextArea();
-		txtrHistorique.setBounds(335, 177, 203, 157);
-		fenetreDeJeu.getContentPane().add(txtrHistorique);
+		jButtonAnnoncer.setText("Annoncer");
+		jButtonAnnoncer.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				switch (comboBoxAnnonces.getSelectedIndex()) {
+				case 0:
+					getControleur().getJeu().annoncer(joueurCourant, Jeu.ANNONCE_CARTE);
+					break;
+				case 1:
+					getControleur().getJeu().annoncer(joueurCourant, Jeu.ANNONCE_CONTRE_CARTE);
+					break;
+				}
 
-		JButton btnAbandonner = new JButton("Abandonner");
-		btnAbandonner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAbandonner.setBounds(374, 339, 123, 14);
-		fenetreDeJeu.getContentPane().add(btnAbandonner);
 
-		// la main du joueur
-		panelMainDuJoueur = new JPanel();
-		panelMainDuJoueur.setBounds(12, 230, 311, 123);
-		fenetreDeJeu.getContentPane().add(panelMainDuJoueur);
-		//
+		jTextAreaHistorique.setEditable(false);
+		jTextAreaHistorique.setColumns(20);
+		jTextAreaHistorique.setRows(5);
+		jScrollPaneHistorique.setViewportView(jTextAreaHistorique);
 
-		// le centre avec la défausse
-		panelCentreDefausse = new JPanel();
-		panelCentreDefausse.setBounds(62, 139, 214, 78);
-		fenetreDeJeu.getContentPane().add(panelCentreDefausse);
-		//
+		jLabelManche.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+		jLabelManche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelManche.setText("Manche : ");
 
-		// les IA
-		panelJoueurArtificiel = new JPanel();
-		panelJoueurArtificiel.setBounds(12, 13, 311, 113);
-		fenetreDeJeu.getContentPane().add(panelJoueurArtificiel);
-		//
+		jLabelScore.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+		jLabelScore.setText("Score : ");
+
+		jLabelTitre.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+		jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelTitre.setText("8 Américain");
+		jLabelTitre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+		jLabelMethodeVictoire.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+		jLabelMethodeVictoire.setText("Le premier à 500 gagne !");
+
+		javax.swing.GroupLayout jPanelEastLayout = new javax.swing.GroupLayout(jPanelEast);
+		jPanelEast.setLayout(jPanelEastLayout);
+		jPanelEastLayout.setHorizontalGroup(jPanelEastLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+						Short.MAX_VALUE)
+				.addGroup(jPanelEastLayout.createSequentialGroup().addContainerGap()
+						.addGroup(jPanelEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanelEastLayout.createSequentialGroup().addComponent(jScrollPaneHistorique)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+								.addComponent(jButtonPiocher, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanelEastLayout.createSequentialGroup()
+										.addComponent(comboBoxAnnonces, 0, 344, Short.MAX_VALUE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(jButtonAnnoncer, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addComponent(jLabelManche, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanelEastLayout.createSequentialGroup().addComponent(jLabelScore).addGap(0,
+										0, Short.MAX_VALUE))
+								.addComponent(jLabelMethodeVictoire, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+				.addComponent(jSeparator1).addComponent(jSeparator2));
+		jPanelEastLayout.setVerticalGroup(jPanelEastLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanelEastLayout.createSequentialGroup().addContainerGap().addComponent(jLabelTitre)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jLabelManche, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(8, 8, 8)
+						.addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabelScore)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jLabelMethodeVictoire, javax.swing.GroupLayout.PREFERRED_SIZE, 26,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(10, 10, 10)
+						.addGroup(jPanelEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(comboBoxAnnonces, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButtonAnnoncer, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jButtonPiocher, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(jPanelEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addComponent(jScrollPaneHistorique, javax.swing.GroupLayout.DEFAULT_SIZE, 212,
+										Short.MAX_VALUE))
+						.addContainerGap(59, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(fenetreDeJeu.getContentPane());
+		fenetreDeJeu.getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(jPanelWest, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jPanelEast, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap()
+						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+								.addComponent(jPanelEast, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jPanelWest, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap()));
+
+		fenetreDeJeu.pack();
 
 		fenetreDeJeu.setVisible(true);
 	}
 
-	public void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
-		// On actualise la main du Joueur
-		afficherMainJoueur(joueurCourant);
+	private void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
 
-		// On actualise la défausse
-		panelCentreDefausse.removeAll();
-		panelCentreDefausse.add(new JLabel("Défausse : " + jeu.getDefausse().getLast()));
+		// Affichage du numero de la manche
+		jLabelManche.setText("Manche : " + jeu.getNumManche());
 
-		// On actualise les joueurs artificiels
+		// Affichage de la méthode de victoire
+		switch (jeu.getMethodeCompte()) {
+		case Jeu.COMPTE_NEGATIF:
+			jLabelMethodeVictoire.setText("Le premier à 100 points perd la partie!");
+			break;
+
+		case Jeu.COMPTE_POSITIF:
+			jLabelMethodeVictoire.setText("Le premier à 100 points remporte la partie!");
+			break;
+		}
+
+		// Affichage du Score
+		jLabelScore.setText("Score : " + joueurCourant.getScore());
+
+		// Actualisation de la défausse
+		jPanelDefausse.removeAll();
+
+		// Actualisation des joueurs artificiels
 		afficherJoueursArtificiels(jeu.getJoueurs());
 
-		fenetreDeJeu.repaint();
+		// Actualisation de la main du Joueur
+		afficherMainJoueur(joueurCourant);
+	}
+
+	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
+		jPanelJoueursArtificielsEditable.removeAll();
+
+		for (Joueur joueur : joueurs) {
+			if (joueur instanceof JoueurArtificiel) {
+				jPanelJoueursArtificielsEditable.add(new InterfaceGraphiqueJoueurArtificiel(joueur));
+			}
+		}
 	}
 
 	private void afficherMainJoueur(Joueur joueurCourant) {
-		panelMainDuJoueur.removeAll();
+		jPanelMainDuJoueurEditable.removeAll();
 
 		for (Carte carte : joueurCourant.getMain()) {
 			JButton bouton = new JButton(carte.toString());
@@ -132,19 +352,9 @@ public class InterfaceGraphique extends IHM {
 					}
 				}
 			});
-			panelMainDuJoueur.add(bouton);
+			jPanelMainDuJoueurEditable.add(bouton);
 		}
 
-	}
-
-	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
-		panelJoueurArtificiel.removeAll();
-
-		for (Joueur joueur : joueurs) {
-			if (joueur instanceof JoueurArtificiel) {
-				panelJoueurArtificiel.add(new InterfaceGraphiqueJoueurArtificiel(joueur));
-			}
-		}
 	}
 
 	private void menuChangerCouleur(EffetAvecInput effet, Joueur joueurCourant) {
@@ -348,6 +558,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case tourJoueurHumain:
+				afficherConsole("------- TOUR DE " + ((Message) msg).getJoueurCourant().getPseudo() + " -------");
 				refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				break;
 
@@ -366,7 +577,8 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case nouvelleManche:
-				afficherConsole("---------- MANCHE N°" + ((Message) msg).getNumeroManche() + " ----------");
+				// afficherConsole("---------- MANCHE N°" + ((Message) msg).getNumeroManche() +
+				// " ----------");
 				break;
 
 			case finPartie:
@@ -396,6 +608,6 @@ public class InterfaceGraphique extends IHM {
 	}
 
 	public void afficherConsole(String str) {
-		txtrHistorique.append(str + "\n");
+		jTextAreaHistorique.append(str + "\n");
 	}
 }

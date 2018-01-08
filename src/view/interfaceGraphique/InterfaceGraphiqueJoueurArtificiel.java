@@ -21,7 +21,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	}
 	
 	private void initialize(Joueur j ) {
-	
+		this.setLayout(new BorderLayout());
 		
 		//Center
 		this.image = new JLabel(new ImageIcon("./bot.png"));

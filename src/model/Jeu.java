@@ -66,6 +66,10 @@ public class Jeu extends java.util.Observable {
 	public LinkedList<Joueur> getGagnants() {
 		return gagnants;
 	}
+	
+	public int getNumManche() {
+		return numManche;
+	}
 
 	/**
 	 * Implementation du design patern SINGLETON
