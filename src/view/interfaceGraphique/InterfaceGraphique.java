@@ -45,34 +45,33 @@ public class InterfaceGraphique extends IHM {
 		fenetreDeJeu = new JFrame();
 		fenetreDeJeu.setBounds(100, 100, 589, 413);
 		fenetreDeJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetreDeJeu.getContentPane().setLayout(null);
 		fenetreDeJeu.setResizable(true);
-		fenetreDeJeu.setVisible(true);
+		
 		
 		JPanel panel = new JPanel(new BorderLayout()); //le borderlayout de base n'aura qu'un CENTER est un EAST
-		fenetreDeJeu.getContentPane().add(panel);
+		
 		
 		//Center
 		JPanel panelCenter = new JPanel(new BorderLayout()); //c'est le bordel
 		panel.add(panelCenter); //devrait partager la partie gauche en trois partie... on croise les doigts
 								// de manière pas trop dégueu
-			//Center de panelCenter
-			JPanel panelMainDefausse = new JPanel(new BorderLayout());
-			panelCenter.add(panelMainDefausse, BorderLayout.CENTER);
-				//Center de panelMainDefausse
-				panelMainDuJoueur = new JPanel();
-				panelMainDefausse.add(panelMainDuJoueur);
-				//
-				//North de panelMainDefausse
-				panelCentreDefausse = new JPanel();
-				panelMainDefausse.add(panelCentreDefausse, BorderLayout.NORTH);
-				//
-			//
+		//Center de panelCenter
+		JPanel panelMainDefausse = new JPanel(new BorderLayout());
+		panelCenter.add(panelMainDefausse, BorderLayout.CENTER);
+		//Center de panelMainDefausse
+		panelMainDuJoueur = new JPanel();
+		panelMainDefausse.add(panelMainDuJoueur);
+		//
+		//North de panelMainDefausse
+		panelCentreDefausse = new JPanel();
+		panelMainDefausse.add(panelCentreDefausse, BorderLayout.NORTH);
+		//
+		//
 			
-			//North de panelCenter
-			panelJoueurArtificiel = new JPanel();
-			panelCenter.add(panelJoueurArtificiel, BorderLayout.NORTH);
-			//
+		//North de panelCenter
+		panelJoueurArtificiel = new JPanel();
+		panelCenter.add(panelJoueurArtificiel, BorderLayout.NORTH);
+		//
 		//
 			
 		//East
@@ -104,17 +103,21 @@ public class InterfaceGraphique extends IHM {
 			//North de panelEast
 			JPanel panelImageAnnoncer = new JPanel(new BorderLayout());
 			panelEast.add(panelImageAnnoncer, BorderLayout.NORTH);
-				//Center de panelImageAnnoncer
-				JLabel jolieImage = new JLabel(new ImageIcon("jolieImage"));
-				panelImageAnnoncer.add(jolieImage);
-				//
-				//South de panelImageAnnoncer
-				btnAnnoncer = new JButton();
-				btnAnnoncer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-					}
-				});
-				panelImageAnnoncer.add(btnAnnoncer, BorderLayout.SOUTH);
+			//Center de panelImageAnnoncer
+			JLabel jolieImage = new JLabel(new ImageIcon("jolieImage"));
+			panelImageAnnoncer.add(jolieImage);
+			//
+			//South de panelImageAnnoncer
+			btnAnnoncer = new JButton();
+			btnAnnoncer.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+				
+			});
+			panelImageAnnoncer.add(btnAnnoncer, BorderLayout.SOUTH);
+			
+			fenetreDeJeu.add(panel);
+			fenetreDeJeu.setVisible(true);
 				//
 			//
 		//
@@ -170,7 +173,8 @@ public class InterfaceGraphique extends IHM {
 		fenetreDeJeu.setVisible(true);
 		*/
 	}
-
+	
+	
 	public void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
 		// On actualise la main du Joueur
 		afficherMainJoueur(joueurCourant);
@@ -214,6 +218,8 @@ public class InterfaceGraphique extends IHM {
 			}
 		}
 	}
+	
+	
 
 	public void update(Observable jeu, Object msg) {
 		if (msg instanceof Message) {
