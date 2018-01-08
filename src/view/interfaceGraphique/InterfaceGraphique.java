@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Observable;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
 
 import controleur.Controleur;
 import model.Carte;
@@ -352,7 +352,10 @@ public class InterfaceGraphique extends IHM {
 		jPanelMainDuJoueurEditable.removeAll();
 
 		for (Carte carte : joueurCourant.getMain()) {
-			JButton bouton = new JButton(carte.toString());
+			String str = "images/cartes/"+Carte.VALEURS[carte.getValeur()]+"_"+Carte.COULEURS[carte.getCouleur()]+".png";
+			ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));//pour gérer la taille des images
+			JButton bouton = new JButton(icon);
+			bouton.setBackground(Color.WHITE);
 			bouton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -364,6 +367,7 @@ public class InterfaceGraphique extends IHM {
 			});
 			jPanelMainDuJoueurEditable.add(bouton);
 		}
+
 
 	}
 
