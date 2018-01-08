@@ -258,6 +258,10 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case effetContrerChangerCouleur:
+				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
+					fenetreDeJeu.setEnabled(true);
+					fenetreChangerCouleur.dispose();
+				}
 				afficherConsole(
 						((Message) msg).getJoueurCourant().getPseudo() + " a arreté une attaque et a choisi la couleur "
 								+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
