@@ -30,10 +30,12 @@ public class Controleur {
 	public static void main(String[] args) {
 
 		Controleur controleur = new Controleur();
-
+		
+		// Création d'une interface Console
 		IHM ihm = new InterfaceConsole(controleur);
 		controleur.getJeu().addObserver(ihm);
 
+		// Création d'une interface Graphique
 		IHM ihm2 = new InterfaceGraphique(controleur);
 		controleur.getJeu().addObserver(ihm2);
 		

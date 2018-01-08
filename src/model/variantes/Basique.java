@@ -44,6 +44,11 @@ public class Basique extends Variante {
 		}
 	}
 	
+	/**
+	 * Permet de savoir qu'elles sont les cartes modifiées par la Variante.
+	 * 
+	 * @return Renvoie la liste des cartes modifiées par la Variante.
+	 */
 	public static String getStringVariante() {
 		String str = "";
 		

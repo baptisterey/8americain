@@ -58,6 +58,14 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 
 	}
 
+	/**
+	 * Demande à l'utilisateur de rentrer une chaîne de caractères puis appelle la
+	 * méthode annoncer() dans Jeu.
+	 * 
+	 * @param joueurCourant
+	 *            Le Joueur qui annonce.
+	 * @return Renvoie faux si le Thread est interrompu.
+	 */
 	private boolean annoncer(Joueur joueurCourant) {
 		String annonce = lireChaine("Votre annonce :");
 		if (annonce != null) {
@@ -67,6 +75,14 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 		return false;
 	}
 
+	/**
+	 * Demande à l'Utilisateur de poser une Carte, il peut également piocher. Si la
+	 * carte ne peut pas être posée, redemande. Si le Thread est interrompu, ne fait
+	 * rien.
+	 * 
+	 * @param joueurCourant
+	 *            Le Joueur qui joue
+	 */
 	private void joueurCarte(Joueur joueurCourant) {
 		String carteDefausse = "Carte sommet défausse : ";
 		if (Jeu.getInstance().getDefausse().isEmpty()) {

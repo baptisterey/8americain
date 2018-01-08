@@ -29,8 +29,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 		System.out.println("(2) Regarder les crédits");
 		System.out.println("(3) Quitter le jeu");
 		System.out.println("------------------");
-		
-		
+
 		Integer choix;
 		boolean choixok = true;
 		do {
@@ -60,9 +59,14 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 				}
 			}
 		} while (!choixok);
-		
+
 	}
 
+	/**
+	 * Initialise la partie en demandant le nombre de cartes, la méthode de comptage
+	 * et la variante. Si le Thread est interrompu ne fait rien, les modifications
+	 * ne sont appliquées qu'aprés validation finale de l'utilisateur.
+	 */
 	private void initPartie() {
 		int deck = Jeu.DECK_52_CARTES;
 		int methodeComptage = Jeu.COMPTE_POSITIF;
@@ -70,8 +74,9 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 		boolean operationInterompue = false;
 		boolean choixok;
-		
-		//System.out.println("CREATION AUTO DE LA VARIANTE ET DU DECK POUR TESTER, CHANGER DANS InterfaceConsoleInitPartie");
+
+		// System.out.println("CREATION AUTO DE LA VARIANTE ET DU DECK POUR TESTER,
+		// CHANGER DANS InterfaceConsoleInitPartie");
 
 		System.out.println("==== CHOIX DU MODE DE JEU ====");
 
@@ -146,11 +151,11 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 					case 0:
 						variante = new Basique();
 						break;
-						
+
 					case 1:
 						variante = new Minimale();
 						break;
-						
+
 					case 2:
 						variante = new Monclar();
 						break;
@@ -164,16 +169,22 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 			} while (!choixok);
 		}
-		
-		if(!operationInterompue) {
+
+		if (!operationInterompue) {
 			getControleur().getJeu().setMethodeCompte(methodeComptage);
 			getControleur().getJeu().setVariante(variante);
 			getControleur().getJeu().setNbCarteDeck(deck);
-			
+
 			getControleur().getJeu().initJoueurs();
 		}
 	}
 
+	/**
+	 * Lit le fichier et affiche son contenue dans la console.
+	 * 
+	 * @param f
+	 *            Le fichier à afficher.
+	 */
 	private void afficherFichier(File f) {
 		FileReader fr;
 		try {

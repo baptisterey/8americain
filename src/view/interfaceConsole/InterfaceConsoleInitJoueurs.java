@@ -17,19 +17,18 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Run
 		boolean operationInterompue = true;
 		LinkedList<Joueur> joueursInit = new LinkedList<Joueur>();
 
-		
-		// ------------------------- CREATION AUTO DES JOUEURS --------------------------------
+		// ------------------------- CREATION AUTO DES JOUEURS
+		// --------------------------------
 		/*
-		System.out.println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
-
-		joueursInit.add(new Joueur("Civetdelapin"));
-		joueursInit.add(new JoueurArtificiel("AI_1", 0));
-		joueursInit.add(new JoueurArtificiel("AI_2", 1));
-		operationInterompue = false;
-		*/
+		 * System.out.
+		 * println("---- CREATION AUTO DES JOUEURS (POUR TESTER LE RESTE) ----");
+		 * 
+		 * joueursInit.add(new Joueur("Civetdelapin")); joueursInit.add(new
+		 * JoueurArtificiel("AI_1", 0)); joueursInit.add(new JoueurArtificiel("AI_2",
+		 * 1)); operationInterompue = false;
+		 */
 		// ------------------------------------------------------------------------------------
-		
-		
+
 		System.out.println("===== CHOIX DE VOTRE NOM =====");
 		String nomJoueurHumain = super.lireChaine("Choisir votre nom : ");
 		if (nomJoueurHumain != null) {
@@ -82,6 +81,11 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Run
 		}
 	}
 
+	/**
+	 * Créer un bot en demande à l'utilisateur son nom et sa strategie.
+	 * 
+	 * @return Le nouveau BOT, renvoie NULL si le Thread est interrompu.
+	 */
 	private JoueurArtificiel creerBot() {
 		System.out.println("===== CHOIX NOM DU JOUEUR IA =====");
 		String nomBot = super.lireChaine("Choisir le nom : ");
