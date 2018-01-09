@@ -398,6 +398,15 @@ public class InterfaceGraphique extends IHM {
 			});
 			jPanelMainDuJoueurEditable.add(bouton);
 		}
+		
+		jPanelMainDuJoueur.revalidate();
+		jPanelMainDuJoueur.repaint();
+		
+		jScrollPaneMainDuJoueur.revalidate();
+		jScrollPaneMainDuJoueur.repaint();
+		
+		jPanelMainDuJoueurEditable.revalidate();
+		jPanelMainDuJoueurEditable.repaint();
 	}
 
 	private void menuChangerCouleur(EffetAvecInput effet, Joueur joueurCourant) {
