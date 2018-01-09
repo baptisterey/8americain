@@ -511,7 +511,7 @@ public class InterfaceGraphique extends IHM {
 			String str = "images/cartes/" + Carte.VALEURS[carte.getValeur()] + "_" + Carte.COULEURS[carte.getCouleur()]
 					+ ".png";
 			ImageIcon icon = new ImageIcon(
-					new ImageIcon(str).getImage().getScaledInstance(35, 70, Image.SCALE_DEFAULT));// pour gérer la
+					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));// pour gérer la
 																									// taille des images
 			JButton bouton = new JButton(icon);
 			bouton.setBackground(Color.WHITE);
