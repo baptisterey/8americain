@@ -106,26 +106,29 @@ public class Jeu extends java.util.Observable {
 	 */
 	public void commencerPartie() {
 		numManche = 1;
-
+		
+		// On place de le joueur humain en premier dans l'array pour qu'il soit le
+		// premier à jouer
+		Joueur joueurHumain = null;
+		for (Joueur joueur : joueursInitiation) {
+			if (!(joueur instanceof JoueurArtificiel)) {
+				joueurHumain = joueur;
+				
+			}
+		}
+		
+		joueursInitiation.remove(joueurHumain);
+		joueursInitiation.addFirst(joueurHumain);
+		
 		Message msg = new Message(Message.Types.debutPartie);
 		msg.setJoueurCourant(getJoueurHumain());
 		setChanged();
 		notifyObservers(msg);
-
-		// On place de le joueur humain en premier dans l'array pour qu'il soit le
-		// premier à jouer
-		for (Joueur joueur : joueursInitiation) {
-			if (!(joueur instanceof JoueurArtificiel)) {
-				Joueur joueurHumain = joueur;
-				joueursInitiation.remove(joueur);
-				joueursInitiation.addFirst(joueurHumain);
-			}
-		}
-
+		
 		commencerNouvelleManche();
 	}
 
-	public synchronized void jouerManche() {
+	public void jouerManche() {
 		if (!isMancheOver()) {
 			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait
 																	// jouer
@@ -620,7 +623,7 @@ public class Jeu extends java.util.Observable {
 		}
 
 		if (modeAttaque) {
-			if ((carte.getEffet() instanceof EffetAttaque && !(((EffetAttaque) carte.getEffet()).isContrable()))
+			if ((carte.getEffet() instanceof EffetAttaque && (((EffetAttaque) carte.getEffet()).isContrable()))
 					|| carte.getEffet() instanceof EffetContrerChangerCouleur) {
 				return true;
 			}

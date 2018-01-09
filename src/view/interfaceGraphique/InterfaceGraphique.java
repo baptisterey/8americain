@@ -67,6 +67,7 @@ public class InterfaceGraphique extends IHM {
 	private InterfaceGraphiqueInitJoueurs initJoueurs;
 
 	private javax.swing.JLabel jLabelDefausse;
+	private javax.swing.JLabel jLabelTitreDéfausse;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -98,6 +99,7 @@ public class InterfaceGraphique extends IHM {
 		jScrollPaneMainDuJoueur = new javax.swing.JScrollPane();
 		jScrollPaneJoueursArtificiels = new javax.swing.JScrollPane();
 		jLabelDefausse = new javax.swing.JLabel();
+		jLabelTitreDéfausse = new javax.swing.JLabel();
 
 		fenetreDeJeu.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		fenetreDeJeu.setPreferredSize(new java.awt.Dimension(1300, 768));
@@ -114,10 +116,12 @@ public class InterfaceGraphique extends IHM {
 				jPanelJoueursArtificielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addComponent(jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE, 716,
 								javax.swing.GroupLayout.PREFERRED_SIZE));
-		jPanelJoueursArtificielsLayout.setVerticalGroup(
-				jPanelJoueursArtificielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addComponent(jScrollPaneJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE, 107,
-								javax.swing.GroupLayout.PREFERRED_SIZE));
+		jPanelJoueursArtificielsLayout.setVerticalGroup(jPanelJoueursArtificielsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanelJoueursArtificielsLayout
+						.createSequentialGroup().addComponent(jScrollPaneJoueursArtificiels,
+								javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(0, 0, Short.MAX_VALUE)));
 
 		jPanelMainDuJoueur.setBorder(javax.swing.BorderFactory.createTitledBorder("Votre main"));
 
@@ -132,68 +136,59 @@ public class InterfaceGraphique extends IHM {
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPaneMainDuJoueur,
 						javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE));
 
-		jPanelImgPioche.setPreferredSize(new java.awt.Dimension(165, 0));
-
-		javax.swing.GroupLayout jPanelImgPiocheLayout = new javax.swing.GroupLayout(jPanelImgPioche);
-		jPanelImgPioche.setLayout(jPanelImgPiocheLayout);
-		jPanelImgPiocheLayout.setHorizontalGroup(jPanelImgPiocheLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 165, Short.MAX_VALUE));
-		jPanelImgPiocheLayout.setVerticalGroup(jPanelImgPiocheLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 0, Short.MAX_VALUE));
-
+		jPanelDefausse.setBackground(new java.awt.Color(255, 255, 255));
 		jPanelDefausse.setPreferredSize(new java.awt.Dimension(165, 0));
-		jPanelDefausse.setBackground(Color.WHITE);
-		
+
+		jLabelDefausse.setBackground(new java.awt.Color(204, 0, 102));
+
 		javax.swing.GroupLayout jPanelDefausseLayout = new javax.swing.GroupLayout(jPanelDefausse);
 		jPanelDefausse.setLayout(jPanelDefausseLayout);
 		jPanelDefausseLayout.setHorizontalGroup(jPanelDefausseLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanelDefausseLayout.createSequentialGroup().addContainerGap()
-						.addComponent(jLabelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+						.addComponent(jLabelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
 						.addContainerGap()));
-		jPanelDefausseLayout.setVerticalGroup(jPanelDefausseLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelDefausseLayout.createSequentialGroup().addContainerGap()
-						.addComponent(jLabelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-						.addContainerGap()));
+		jPanelDefausseLayout
+				.setVerticalGroup(jPanelDefausseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jLabelDefausse, javax.swing.GroupLayout.Alignment.TRAILING,
+								javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE));
+
+		jLabelTitreDéfausse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelTitreDéfausse.setText("Défausse");
 
 		javax.swing.GroupLayout jPanelWestLayout = new javax.swing.GroupLayout(jPanelWest);
 		jPanelWest.setLayout(jPanelWestLayout);
-		jPanelWestLayout
-				.setHorizontalGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanelWestLayout.createSequentialGroup().addContainerGap().addGroup(jPanelWestLayout
-								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-										jPanelWestLayout.createSequentialGroup()
-												.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addContainerGap())
-								.addComponent(
-										jPanelJoueursArtificiels, javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+		jPanelWestLayout.setHorizontalGroup(jPanelWestLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanelWestLayout.createSequentialGroup().addContainerGap().addGroup(jPanelWestLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanelWestLayout.createSequentialGroup()
+								.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addContainerGap())
+						.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.Alignment.TRAILING,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+								Short.MAX_VALUE)))
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelWestLayout.createSequentialGroup()
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 157,
 										Short.MAX_VALUE)
-								.addGroup(jPanelWestLayout.createSequentialGroup().addGap(125, 125, 125)
-										.addComponent(jPanelImgPioche, javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(133, 133, 133)))));
+								.addComponent(jLabelTitreDéfausse, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGap(287, 287, 287)));
 		jPanelWestLayout.setVerticalGroup(jPanelWestLayout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(jPanelWestLayout.createSequentialGroup()
 						.addComponent(jPanelJoueursArtificiels, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(41, 41, 41)
-						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jPanelImgPioche, javax.swing.GroupLayout.DEFAULT_SIZE, 354,
-										Short.MAX_VALUE)
-								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 354,
-										Short.MAX_VALUE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(jLabelTitreDéfausse)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE, 193,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(107, 107, 107).addComponent(jPanelMainDuJoueur, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
 
 		jPanelEast.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations"));
@@ -350,11 +345,10 @@ public class InterfaceGraphique extends IHM {
 		// Actualisation de la défausse
 		String str = "images/cartes/" + Carte.VALEURS[jeu.getDefausse().getLast().getValeur()] + "_"
 				+ Carte.COULEURS[jeu.getDefausse().getLast().getCouleur()] + ".png";
-		ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(jPanelDefausse.getWidth(), jPanelDefausse.getHeight(), Image.SCALE_DEFAULT));
-		
+		ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(133, 193, Image.SCALE_DEFAULT));
+
 		jLabelDefausse.setIcon(icon);
-		jLabelDefausse.setBackground(Color.WHITE);
-		
+
 		jPanelDefausse.revalidate();
 		jPanelDefausse.repaint();
 

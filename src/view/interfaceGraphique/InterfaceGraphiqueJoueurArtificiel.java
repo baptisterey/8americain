@@ -11,45 +11,60 @@ import javax.swing.JPanel;
 import model.Joueur;
 
 public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	private JLabel image; //pour image du personnage
-	private JLabel texte; //pour son pseudo et son nombre de carte
-	private JCheckBox checkBox; // coché s'il a bien annoncé "carte"
+
+	private javax.swing.JCheckBox jCheckBoxAnnonceCarte;
+	private javax.swing.JLabel jLabelCartes;
+	private javax.swing.JLabel jLabelNomBot;
+	private javax.swing.JLabel jLabelScore;
 
 	public InterfaceGraphiqueJoueurArtificiel(Joueur j) {
 		initialize(j);
 	}
-	
-	private void initialize(Joueur j ) {
-		this.setLayout(new BorderLayout());
+
+	private void initialize(Joueur j) {
+
+		jLabelNomBot = new javax.swing.JLabel();
+		jCheckBoxAnnonceCarte = new javax.swing.JCheckBox();
+		jLabelScore = new javax.swing.JLabel();
+		jLabelCartes = new javax.swing.JLabel();
+
+		this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+		jLabelNomBot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelNomBot.setText(j.getPseudo());
+
+		jCheckBoxAnnonceCarte.setText("a annoncé 'Carte'");
+		jCheckBoxAnnonceCarte.setSelected(j.isPeutFinir());
+		jCheckBoxAnnonceCarte.setEnabled(false);
 		
-		//Center
-		this.image = new JLabel(new ImageIcon("./bot.png"));
-        this.add(this.image);
-        //
-        
-        
-        String pseudo = j.getPseudo();
-        int nombreCarte = j.getMain().size();
-        
-        //North
-        this.texte = new JLabel(pseudo + " : "+nombreCarte+" cartes");
-        this.add(texte, BorderLayout.NORTH);
-        //
-        
-        //South
-        
-        //
-        
-        //West
-        this.checkBox = new JCheckBox("a annoncé 'Carte'");
-        this.checkBox.setEnabled(false);
-        this.checkBox.setSelected(j.isPeutFinir());
-        this.add(checkBox, BorderLayout.WEST);
-        //
-        this.setVisible(true);
+		jLabelScore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelScore.setText("Score : " + j.getScore());
+
+		jLabelCartes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelCartes.setText(j.getMain().size() + " Cartes");
+
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(this);
+		this.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabelNomBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+						Short.MAX_VALUE)
+				.addComponent(jLabelScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+						Short.MAX_VALUE)
+				.addComponent(jLabelCartes, javax.swing.GroupLayout.Alignment.TRAILING,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
+						.addComponent(jCheckBoxAnnonceCarte, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+						.addContainerGap()));
+		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+						.addContainerGap().addComponent(jLabelNomBot)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+						.addComponent(jLabelCartes).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jLabelScore).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jCheckBoxAnnonceCarte).addContainerGap()));
+
 	}
-	
+
 }
