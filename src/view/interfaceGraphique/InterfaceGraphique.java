@@ -497,7 +497,7 @@ public class InterfaceGraphique extends IHM {
 		fenetreDeJeu.setEnabled(false);
 		fenetreDonnerCarte.setVisible(true);
 		fenetreDonnerCarte.setSize(500, 200);
-
+		fenetreDonnerCarte.setTitle("Choisir une carte");
 		fenetreDonnerCarte.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		JPanel panel = new JPanel();
@@ -523,8 +523,9 @@ public class InterfaceGraphique extends IHM {
 					fenetreDonnerCarte.setEnabled(false);
 					fenetreDonnerJoueur.setVisible(true);
 					fenetreDonnerJoueur.setSize(500, 200);
+					fenetreDonnerJoueur.setTitle("Choisir le joueur");
 
-					fenetreChangerCouleur.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+					fenetreDonnerJoueur.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 					JPanel panel2 = new JPanel();
 					panel2.setLayout(new BorderLayout());
@@ -550,12 +551,15 @@ public class InterfaceGraphique extends IHM {
 							panelImg2.add(bouton);
 						}
 					}
-
+					panel2.add(panelImg2, BorderLayout.CENTER);
+					fenetreDonnerJoueur.add(panel2);
 				}
 			});
 			panelImg.add(bouton);
 		}
+		panel.add(panelImg, BorderLayout.CENTER);
 
+		fenetreDonnerCarte.add(panel);
 	}
 
 	public void update(Observable jeu, Object msg) {
@@ -603,7 +607,10 @@ public class InterfaceGraphique extends IHM {
 			case effetDonner:
 				if (!(((Message) msg).getJoueurCourant() instanceof JoueurArtificiel)) {
 					fenetreDeJeu.setEnabled(true);
-					fenetreChangerCouleur.dispose();
+					fenetreDonnerCarte.dispose();
+					if (fenetreDonnerJoueur != null) {
+						fenetreDonnerJoueur.dispose();
+					}
 				}
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " ajoute un(e) "
 						+ ((Message) msg).getCarteADonner().toString() + " dans la main de "

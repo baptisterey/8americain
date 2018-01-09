@@ -260,6 +260,7 @@ public class Jeu extends java.util.Observable {
 	 * numéro de manche et appelle la méthode commencerNouvelleManche();
 	 */
 	public void finirManche() {
+		compterScore();
 		if (!isPartieOver()) {
 			numManche++;
 			commencerNouvelleManche();

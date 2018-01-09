@@ -83,7 +83,8 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 		String[] decks = { "32 Cartes", "52 Cartes" };
 		choixDecks = new JComboBox<String>(decks);
 		jPanelCenterFondNord.add(choixDecks);
-
+		choixDecks.setSelectedIndex(1);
+		
 		jPanelCenterFondNord.add(new JLabel(""));
 
 		jPanelCenterFondNord.add(new JLabel("  Choix du mode de comptage : ", null, JLabel.LEFT));

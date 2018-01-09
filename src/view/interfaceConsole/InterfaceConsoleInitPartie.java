@@ -40,6 +40,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 				switch (choix) {
 				case 0:
 					afficherFichier(new File("regles.txt"));
+					choixok = false;
 					break;
 
 				case 1:
@@ -48,6 +49,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 				case 2:
 					afficherFichier(new File("credits.txt"));
+					choixok = false;
 					break;
 
 				case 3:
