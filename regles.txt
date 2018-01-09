@@ -1,8 +1,53 @@
 ==== REGLES DU 8 AMERICAIN =====
-But du jeu
-	Le but du jeu est de n'avoir plus de carte dans la main.
 
-Déroulement du jeu
-	Pour débuter, chaque joueur reçoit un nombre de carte.
+	Ce jeu se joue avec un jeu de carte normal. Chaque joueur possède 
+des cartes en main. L'objectif des joueurs est de se débarasser de ses
+cartes avant ses adversaires. Pour se débarasser d'une carte, il faut 
+pouvoir la déposer sur la défausse durant son tour de jeu. Se débarasser 
+d'une carte active son effet, qui est déterminé par la variante choisie. 
+Les effets de chaque variantes seront décrites au moment du choix de la 
+variante. 
+
+Voici quelques règles valables pour toutes les variantes :	
+	- Une carte est posable si elle possède la même couleur ou la 
+	même valeur que la dernière carte de la défausse.
+	- Si un joueur ne peut pas poser de carte durant son tour, 
+	il doit en piocher une et son tour est fini.
+	- Avant de poser son avant dernière carte, un joueur doit annoncer 
+	"Carte !". S'il ne le fait pas, les autres joueurs peuvent annoncer
+	"Contre-carte !" et le faire piocher 2 cartes.
+		
+
+La distribution des cartes est déterminée par le nombre de joueurs :
+	- Pour deux joueurs : 10 cartes chacun
+	- Pour trois joueurs : 8 cartes chacun
+	- Pour quatre joueurs ou plus : 6 cartes chacun
+	(maximum 8 joueurs pour un jeu de 52 cartes et 5 joueurs pour un jeu de 32)
 	
-(... TODO : FAIRE UNE VRAIE REGLE ..)
+La distribution des cartes marque le début d'une manche. A la fin d'une
+manche, on compte le nombre de points de chaque joueurs. Il existe deux manières
+de compter les points que l'on peut choisir en début de la partie :
+
+Compte positif :
+	Le premier joueur à se débarasser de sa main gagne 50 points. Le deuxième 20 
+	et le troisième 10. Les autres 0. On arrête la manche dès qu'il ne reste qu'un
+	joueur avec des cartes en main ou dès que trois joueurs n'ont plus de carte.
+	La partie se termine lorsqu'un joueur dépasse 100 points. Ce joueur 
+	remporte la partie.
+	
+Compte négatif :
+	La manche se termine dès qu'un joueur n'a plus de carte en main. Le nombre de 
+	points donner à chaque joueur dépend des cartes qu'ils ont en main. Chaque 
+	effet vaut un certain nombre de points, il faut faire la somme ces valeurs :
+		- un effet fort (attaquer ou changer de couleur) vaut 50 points
+		- un effet moyen (tous les autres effets) vaut 20 points
+		- une tête sans effet vaut 10 points
+		- les cartes sans effets valent leurs valeurs
+		
+	La partie se termine si un joueur dépasse 100 points. Le gagnant sera celui 
+	avec le moins de points. 
+		
+	
+	
+	
+
