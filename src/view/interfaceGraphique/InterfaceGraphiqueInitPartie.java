@@ -23,14 +23,38 @@ import model.variantes.Basique;
 import model.variantes.Minimale;
 import model.variantes.Monclar;
 
-public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
+/**
+ * Interface graphique pour initialiser la partie. Permet de choisir
+ * quelle variante jouer, le nombre de cartes et la méthode de comptage de
+ * points.
+ */
 
+public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
+	/**
+	 * Fenêtre contenant l'ensemble de l'interface graphique.
+	 */
 	private JFrame menuInitJFrame;
+	/**
+	 * Nombre de cartes dans la partie.
+	 */
 	private JComboBox choixDecks;
+	/**
+	 * méthode de comptage de la partie.
+	 */
 	private JComboBox choixMethodes;
+	/**
+	 * Variante de la partie.
+	 */
 	private JComboBox choixVariante;
+	/**
+	 * Affiche les effets des cartes selon la variante choisie.
+	 */
 	private JTextPane textPane;
 
+	/**
+	 * Constructeur. Appel la méthode {@link}{@link #menuInitPartie()}.
+	 * @param ctrl
+	 */
 	public InterfaceGraphiqueInitPartie(Controleur ctrl) {
 		super(ctrl);
 		menuInitPartie();
@@ -39,7 +63,11 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 	public JFrame getMenuInitJFrame() {
 		return menuInitJFrame;
 	}
-
+	
+	/**
+	 * Initialise le contenu de la fenêtre.
+	 */
+	
 	private void menuInitPartie() {
 		menuInitJFrame = new JFrame();
 		menuInitJFrame.setTitle("8 Américain");

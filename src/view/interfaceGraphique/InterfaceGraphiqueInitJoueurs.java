@@ -22,8 +22,17 @@ import controleur.Controleur;
 import model.Joueur;
 import model.JoueurArtificiel;
 
-public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
+/**
+ * Interface graphique pour l'initialisation des joueurs d'une nouvelle partie.
+ * Permet de choisir le pseudo du joueur, et d'ajouter des bots en choisissant
+ * leur pseudo et leur stratégie attitré.
+ */
 
+public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
+	/**
+	 * Constructeur. Appel la méthode {@link}{@link #menuInitJoueurs()}
+	 * @param ctrl
+	 */
 	public InterfaceGraphiqueInitJoueurs(Controleur ctrl) {
 		super(ctrl);
 		menuInitJoueurs();
@@ -40,7 +49,11 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 	public JFrame getMenuInitJFrame() {
 		return menuInitJFrame;
 	}
-
+	
+	/**
+	 * Initialise le contenu de la fenêtre et permet d'initier les joueurs.
+	 */
+	
 	public void menuInitJoueurs() {
 		joueursInit.clear();
 
@@ -61,7 +74,7 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		jPanelFond.add(titre, BorderLayout.NORTH);
 
-		JPanel jPanelCentreChampFond = new JPanel(); // fond avec les champs
+		JPanel jPanelCentreChampFond = new JPanel();
 		jPanelFond.add(jPanelCentreChampFond, BorderLayout.CENTER);
 
 		jPanelCentreChampFond.setLayout(new BorderLayout());

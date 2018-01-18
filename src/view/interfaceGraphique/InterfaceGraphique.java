@@ -26,8 +26,15 @@ import view.IHM;
 
 import javax.swing.JPanel;
 
-public class InterfaceGraphique extends IHM {
+/**
+ * Interface graphique principale
+ */
 
+public class InterfaceGraphique extends IHM {
+	/**
+	 * Constructeur.
+	 * @param ctrl
+	 */
 	public InterfaceGraphique(Controleur ctrl) {
 		super(ctrl);
 	}
@@ -70,7 +77,7 @@ public class InterfaceGraphique extends IHM {
 	private javax.swing.JLabel jLabelTitreDéfausse;
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise le contenu de la fenêtre.
 	 */
 	private void initializeJouerTour(Joueur joueurCourant) {
 		// Généré automatiquement par Windows BUILDER
@@ -317,6 +324,12 @@ public class InterfaceGraphique extends IHM {
 		fenetreDeJeu.setVisible(true);
 	}
 
+	/**
+	 * Actualise la fenêtre principale. Appel les méthodes {@link}{@link #afficherJoueursArtificiels(List)} 
+	 * et {@link}{@link #afficherMainJoueur(Joueur)}.
+	 * @param jeu
+	 * @param joueurCourant
+	 */
 	private void refreshDisplay(Jeu jeu, Joueur joueurCourant) {
 
 		// Affichage du numero de la manche
@@ -355,7 +368,12 @@ public class InterfaceGraphique extends IHM {
 		jLabelDefausse.revalidate();
 		jLabelDefausse.repaint();
 	}
-
+	
+	/**
+	 * Actualise les données des joueurs artificiels. 
+	 * @param joueurs
+	 */
+	
 	private void afficherJoueursArtificiels(List<Joueur> joueurs) {
 		jPanelJoueursArtificielsEditable.removeAll();
 
@@ -375,7 +393,12 @@ public class InterfaceGraphique extends IHM {
 		jPanelJoueursArtificielsEditable.repaint();
 
 	}
-
+	
+	/**
+	 * Actualise les cartes dans la main du joueur.
+	 * @param joueurCourant
+	 */
+	
 	private void afficherMainJoueur(Joueur joueurCourant) {
 		jPanelMainDuJoueurEditable.removeAll();
 
@@ -383,8 +406,8 @@ public class InterfaceGraphique extends IHM {
 			String str = "images/cartes/" + Carte.VALEURS[carte.getValeur()] + "_" + Carte.COULEURS[carte.getCouleur()]
 					+ ".png";
 			ImageIcon icon = new ImageIcon(
-					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));// pour gérer la
-																									// taille des images
+					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));
+																									
 			JButton bouton = new JButton(icon);
 			bouton.setBackground(Color.WHITE);
 			bouton.addActionListener(new ActionListener() {
@@ -408,7 +431,13 @@ public class InterfaceGraphique extends IHM {
 		jPanelMainDuJoueurEditable.revalidate();
 		jPanelMainDuJoueurEditable.repaint();
 	}
-
+	
+	/**
+	 * Ouvre une nouvelle fenêtre pour que le joueur puisse choisir une couleur.
+	 * @param effet
+	 * @param joueurCourant
+	 */
+	
 	private void menuChangerCouleur(EffetAvecInput effet, Joueur joueurCourant) {
 		fenetreChangerCouleur = new JFrame();
 		fenetreDeJeu.setEnabled(false);
@@ -500,7 +529,15 @@ public class InterfaceGraphique extends IHM {
 
 		fenetreChangerCouleur.add(panel);
 	}
-
+	
+	/**
+	 * Ouvre une nouvelle fenêtre avec toutes les cartes du joueurs dedans. Une fois que le joueur a choisi
+	 * une carte, une autre fenêtre s'ouvre avec les pseudos des différents adversaires pour déciderà qui donner
+	 * la carte choisie.
+	 * @param effet
+	 * @param joueurCourant
+	 */
+	
 	private void menuDonnerCarte(EffetAvecInput effet, Joueur joueurCourant) {
 		fenetreDonnerCarte = new JFrame();
 		fenetreDeJeu.setEnabled(false);
@@ -520,8 +557,8 @@ public class InterfaceGraphique extends IHM {
 			String str = "images/cartes/" + Carte.VALEURS[carte.getValeur()] + "_" + Carte.COULEURS[carte.getCouleur()]
 					+ ".png";
 			ImageIcon icon = new ImageIcon(
-					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));// pour gérer la
-																									// taille des images
+					new ImageIcon(str).getImage().getScaledInstance(80, 110, Image.SCALE_DEFAULT));
+																									
 			JButton bouton = new JButton(icon);
 			bouton.setBackground(Color.WHITE);
 			bouton.addActionListener(new ActionListener() {
@@ -570,7 +607,15 @@ public class InterfaceGraphique extends IHM {
 
 		fenetreDonnerCarte.add(panel);
 	}
-
+	
+	/**
+	 * Ajoute un String dans l'historique de la partie. Cherche quel type de message
+	 * est attendu puis appel la méthode {@link}{@link #afficherConsole(String)}.
+	 * Permmet également l'affichage des fenêtres spéciales pour les EffetsAvecInput.
+	 * @param jeu
+	 * @param msg
+	 */
+	
 	public void update(Observable jeu, Object msg) {
 		if (msg instanceof Message) {
 			switch (((Message) msg).getType()) {
@@ -712,8 +757,8 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case nouvelleManche:
-				// afficherConsole("---------- MANCHE N°" + ((Message) msg).getNumeroManche() +
-				// " ----------");
+				afficherConsole("---------- MANCHE N°" + ((Message) msg).getNumeroManche() +
+				" ----------");
 				break;
 
 			case finPartie:
@@ -741,7 +786,11 @@ public class InterfaceGraphique extends IHM {
 		}
 
 	}
-
+	
+	/**
+	 * Ajoute un String dans l'historique de la partie.
+	 * @param str
+	 */
 	public void afficherConsole(String str) {
 		jTextAreaHistorique.append(str + "\n");
 	}

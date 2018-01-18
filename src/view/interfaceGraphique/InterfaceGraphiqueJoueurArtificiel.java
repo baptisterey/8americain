@@ -10,19 +10,43 @@ import javax.swing.JPanel;
 
 import model.Joueur;
 
+/**
+ * Interface graphique qui résume l'ensemble des données d'un joueur artificiel
+ * nécéssaire pour joueur la partie.
+ */
+
 public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Coché si le joueur artificiel à annoncé "Carte !".
+	 */
 	private javax.swing.JCheckBox jCheckBoxAnnonceCarte;
+	/**
+	 * Affiche le nombre de cartes dans la main du joueur.
+	 */
 	private javax.swing.JLabel jLabelCartes;
+	/**
+	 * Affiche le nom du joueur artificiel.
+	 */
 	private javax.swing.JLabel jLabelNomBot;
+	/**
+	 * Affiche le score du joueur artificiel.
+	 */
 	private javax.swing.JLabel jLabelScore;
-
+	
+	/**
+	 * Constructeur. Appel la méthode {@link}{@link #initialize(Joueur)}.
+	 * @param j
+	 */
 	public InterfaceGraphiqueJoueurArtificiel(Joueur j) {
 		initialize(j);
 	}
 
+	/**
+	 * Initialise le contenun de la fenêtre.
+	 * @param j
+	 */
 	private void initialize(Joueur j) {
 
 		jLabelNomBot = new javax.swing.JLabel();
