@@ -299,6 +299,10 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	/**
+	 * Determine un gagnant en fonction du mode de comptage puis notifie un message
+	 * de type finPartie et appelle la fonction {@link Jeu#initPartie()}
+	 */
 	public void finirPartie() {
 		Joueur gagnant = getJoueursInitiation().get(0);
 		if (getMethodeCompte() == Jeu.COMPTE_POSITIF) {
@@ -322,6 +326,17 @@ public class Jeu extends java.util.Observable {
 		initPartie(); // On recommence une partie
 	}
 
+	/**
+	 * Joue la carte du joueurCourant.
+	 * 
+	 * @param joueurCourant
+	 *            Le joueur qui joue la carte
+	 * @param carte
+	 *            La carte à jouer
+	 * @throws ErreurCarteInposable
+	 *             Exception levée si la carte ne peut pas être posée sur la
+	 *             défausse.
+	 */
 	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
 		boolean effetJouableDirectement = true;
 
@@ -428,7 +443,7 @@ public class Jeu extends java.util.Observable {
 			throw new ErreurCarteInposable();
 		}
 
-		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) { // Si c'est le
+		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) {
 			finirTour(joueurCourant);
 		}
 	}
