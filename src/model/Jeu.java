@@ -106,28 +106,34 @@ public class Jeu extends java.util.Observable {
 	 */
 	public void commencerPartie() {
 		numManche = 1;
-		
+
 		// On place de le joueur humain en premier dans l'array pour qu'il soit le
 		// premier à jouer
 		Joueur joueurHumain = null;
 		for (Joueur joueur : joueursInitiation) {
 			if (!(joueur instanceof JoueurArtificiel)) {
 				joueurHumain = joueur;
-				
+
 			}
 		}
-		
+
 		joueursInitiation.remove(joueurHumain);
 		joueursInitiation.addFirst(joueurHumain);
-		
+
 		Message msg = new Message(Message.Types.debutPartie);
 		msg.setJoueurCourant(getJoueurHumain());
 		setChanged();
 		notifyObservers(msg);
-		
+
 		commencerNouvelleManche();
 	}
 
+	/**
+	 * Fait jouer un tour à tous les Joueurs Artificiels en appelant
+	 * {@link #jouerTourJoueursArtificiels()} et lorsque c'est à Joueur Humain de
+	 * jouer, on notfie avec un Message de type tourJoueurHumain. Si la manche est
+	 * terminé (@ {@link #isMancheOver()}) appelle {link #finirManche()}
+	 */
 	public void jouerManche() {
 		if (!isMancheOver()) {
 			Joueur joueurCourant = jouerTourJoueursArtificiels(); // On fait
@@ -161,6 +167,11 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	/**
+	 * Permet d'obtenir le jour humain de la partie
+	 * 
+	 * @return Le seul joueur humain de la partie
+	 */
 	private Joueur getJoueurHumain() {
 		for (Joueur joueur : getJoueursInitiation()) {
 			if (!(joueur instanceof JoueurArtificiel)) {
@@ -170,6 +181,10 @@ public class Jeu extends java.util.Observable {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
 		while (joueurCourant instanceof JoueurArtificiel && !isMancheOver()) {
@@ -212,6 +227,9 @@ public class Jeu extends java.util.Observable {
 		return joueurCourant;
 	}
 
+	/**
+	 * Appelle {@link #initCarteManche()} puis notifie avec un message de type nouvelleManche et enfin appelle {@link #jouerManche()}
+	 */
 	public void commencerNouvelleManche() {
 		initCarteManche();
 
@@ -477,8 +495,12 @@ public class Jeu extends java.util.Observable {
 		notifyObservers(new Message(Message.Types.finTourJoueurHumain));
 		finirTour(joueurCourant);
 	}
-
-	public synchronized void initCarteManche() {
+	
+	
+	/**
+	 * 
+	 */
+	public void initCarteManche() {
 
 		joueurs.clear();
 		gagnants.clear();
@@ -554,7 +576,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Inverse l'array joueurs grâce à Collections.reverse()
+	 * Inverse l'array joueurs grâce à {@link Collections#reverse(java.util.List)}
 	 */
 	public void changerSensJeu() {
 		Collections.reverse(joueurs);
@@ -562,7 +584,11 @@ public class Jeu extends java.util.Observable {
 		// OBLIGATOIRE Sinon le joueur rejoue.
 		joueurs.add(joueurs.removeFirst());
 	}
-
+	
+	/**
+	 * Place le joueurCourant au début de la liste {@link #joueurs}
+	 * @param joueurCourant Le joueur qui va rejouer
+	 */
 	public void faireRejouer(Joueur joueurCourant) {
 		while (!joueurCourant.equals(joueurs.get(0))) {
 			joueurs.add(joueurs.removeFirst());
