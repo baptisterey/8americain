@@ -182,8 +182,9 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
+	 * Fait jouer tous les joueurs artificiels (annonce et carte)
 	 * 
-	 * @return
+	 * @return Le joueur Humain
 	 */
 	private Joueur jouerTourJoueursArtificiels() {
 		Joueur joueurCourant = getJoueurCourant();
@@ -228,7 +229,8 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Appelle {@link #initCarteManche()} puis notifie avec un message de type nouvelleManche et enfin appelle {@link #jouerManche()}
+	 * Appelle {@link #initCarteManche()} puis notifie avec un message de type
+	 * nouvelleManche et enfin appelle {@link #jouerManche()}
 	 */
 	public void commencerNouvelleManche() {
 		initCarteManche();
@@ -240,8 +242,15 @@ public class Jeu extends java.util.Observable {
 		jouerManche();
 	}
 
+	/**
+	 * Effectue les actions de fin de tour
+	 * 
+	 * @param joueurCourant
+	 *            Le joueur qui finit son tour
+	 */
 	public void finirTour(Joueur joueurCourant) {
 
+		// Si le joueur a annoncé trop tôt (il a plus d'une carte)
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
 			piocherCarte(joueurCourant, 2);
@@ -253,8 +262,10 @@ public class Jeu extends java.util.Observable {
 			notifyObservers(msg);
 		}
 
+		// Si il a plus de cartes il a fini de jouer
 		if (joueurCourant.getMain().isEmpty()) {
 
+			// On l'ajoute à la liste des gagnants
 			Jeu.getInstance().getGagnants().add(joueurCourant);
 			Jeu.getInstance().getJoueurs().remove(joueurCourant);
 
@@ -265,6 +276,7 @@ public class Jeu extends java.util.Observable {
 			notifyObservers(msg);
 		}
 
+		// Si c'est le fin d'un joueur humain on notifie
 		if (!(joueurCourant instanceof JoueurArtificiel)) {
 			setChanged();
 			notifyObservers(new Message(Message.Types.finTourJoueurHumain));
@@ -314,8 +326,8 @@ public class Jeu extends java.util.Observable {
 		boolean effetJouableDirectement = true;
 
 		if (isCartePosable(carte)) {
-			if (carte == null) {
-				if (isModeAttaque()) {
+			if (carte == null) { // Le joueur veut piocher
+				if (isModeAttaque()) { // Si le mode attaque est activé, le joueur pioche le nombre de cartes du tas.
 					int nbCarteAttaque = getNbCarteAttaque();
 					piocherCarte(joueurCourant, nbCarteAttaque);
 					setModeAttaque(false);
@@ -326,7 +338,7 @@ public class Jeu extends java.util.Observable {
 
 					setChanged();
 					notifyObservers(msg);
-				} else {
+				} else { // Sinon il pioche une carte et met fin à son tour
 					piocherCarte(joueurCourant, 1);
 
 					Message msg = new Message(Message.Types.piocherCarte);
@@ -398,7 +410,8 @@ public class Jeu extends java.util.Observable {
 					}
 
 				}
-				if (effetJouableDirectement) {
+				if (effetJouableDirectement) { // Pas besoin d'init la carte (carte sans input ou alors un bot à déja
+												// entré les données)
 					setChanged();
 					notifyObservers(carte.getEffet().action(joueurCourant)); // On
 																				// joue
@@ -415,15 +428,19 @@ public class Jeu extends java.util.Observable {
 			throw new ErreurCarteInposable();
 		}
 
-		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) {
+		if (!(joueurCourant instanceof JoueurArtificiel) && effetJouableDirectement) { // Si c'est le
 			finirTour(joueurCourant);
 		}
 	}
-	
+
 	/**
 	 * Effectue les opérations pour en fonction de l'annonce du joueur
-	 * @param joueurCourant Le joueur qui annonce
-	 * @param annonce L'annonce du joueur, doit être Jeu.ANNONCE_CARTE ou Jeu.ANNONCE_CONTRE_CARTE
+	 * 
+	 * @param joueurCourant
+	 *            Le joueur qui annonce
+	 * @param annonce
+	 *            L'annonce du joueur, doit être Jeu.ANNONCE_CARTE ou
+	 *            Jeu.ANNONCE_CONTRE_CARTE
 	 */
 	public void annoncer(Joueur joueurCourant, String annonce) {
 		Message msg = new Message(Message.Types.joueurAnnonce);
@@ -500,8 +517,7 @@ public class Jeu extends java.util.Observable {
 		notifyObservers(new Message(Message.Types.finTourJoueurHumain));
 		finirTour(joueurCourant);
 	}
-	
-	
+
 	/**
 	 * Effectue toutes les opérations nécéssaires pour l'initilisation d'une manche.
 	 */
@@ -511,7 +527,7 @@ public class Jeu extends java.util.Observable {
 		gagnants.clear();
 		pioche.clear();
 		defausse.clear();
-		
+
 		// RESET DE TOUS LES JOUEURS ET INIT DE joueurs
 		for (Joueur joueur : joueursInitiation) {
 			joueur.getMain().clear();
@@ -529,7 +545,7 @@ public class Jeu extends java.util.Observable {
 				pioche.add(carte);
 			}
 		}
-		
+
 		// Mélange de la pioche
 		Collections.shuffle(pioche);
 
@@ -541,7 +557,7 @@ public class Jeu extends java.util.Observable {
 		} else {
 			nbpiocher = 6;
 		}
-		
+
 		// On fait piocher les cartes du début
 		for (Joueur joueur : getJoueurs()) {
 			piocherCarte(joueur, nbpiocher);
@@ -594,10 +610,12 @@ public class Jeu extends java.util.Observable {
 		// OBLIGATOIRE Sinon le joueur rejoue.
 		joueurs.add(joueurs.removeFirst());
 	}
-	
+
 	/**
 	 * Place le joueurCourant au début de la liste {@link #joueurs}
-	 * @param joueurCourant Le joueur qui va rejouer
+	 * 
+	 * @param joueurCourant
+	 *            Le joueur qui va rejouer
 	 */
 	public void faireRejouer(Joueur joueurCourant) {
 		while (!joueurCourant.equals(joueurs.get(0))) {
