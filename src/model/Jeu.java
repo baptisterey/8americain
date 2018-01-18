@@ -419,7 +419,12 @@ public class Jeu extends java.util.Observable {
 			finirTour(joueurCourant);
 		}
 	}
-
+	
+	/**
+	 * Effectue les opérations pour en fonction de l'annonce du joueur
+	 * @param joueurCourant Le joueur qui annonce
+	 * @param annonce L'annonce du joueur, doit être Jeu.ANNONCE_CARTE ou Jeu.ANNONCE_CONTRE_CARTE
+	 */
 	public void annoncer(Joueur joueurCourant, String annonce) {
 		Message msg = new Message(Message.Types.joueurAnnonce);
 		msg.setJoueurCourant(joueurCourant);
@@ -498,15 +503,16 @@ public class Jeu extends java.util.Observable {
 	
 	
 	/**
-	 * 
+	 * Effectue toutes les opérations nécéssaires pour l'initilisation d'une manche.
 	 */
 	public void initCarteManche() {
-
+		// RESET DES ARRAYS
 		joueurs.clear();
 		gagnants.clear();
 		pioche.clear();
 		defausse.clear();
-
+		
+		// RESET DE TOUS LES JOUEURS ET INIT DE joueurs
 		for (Joueur joueur : joueursInitiation) {
 			joueur.getMain().clear();
 			joueurs.add(joueur);
@@ -514,6 +520,7 @@ public class Jeu extends java.util.Observable {
 			joueur.setPeutFinir(false);
 		}
 
+		// Création des cartes et attribution des effets en fonction de la variante
 		for (int valeur = nbCarteDeck; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
@@ -522,7 +529,8 @@ public class Jeu extends java.util.Observable {
 				pioche.add(carte);
 			}
 		}
-
+		
+		// Mélange de la pioche
 		Collections.shuffle(pioche);
 
 		int nbpiocher = 0;
@@ -533,6 +541,8 @@ public class Jeu extends java.util.Observable {
 		} else {
 			nbpiocher = 6;
 		}
+		
+		// On fait piocher les cartes du début
 		for (Joueur joueur : getJoueurs()) {
 			piocherCarte(joueur, nbpiocher);
 		}
