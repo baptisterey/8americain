@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 public class InterfaceGraphique extends IHM {
 	/**
 	 * Constructeur.
-	 * @param ctrl
+	 * @param ctrl Le controleur attribué à cette Interface
 	 */
 	public InterfaceGraphique(Controleur ctrl) {
 		super(ctrl);
@@ -613,7 +613,7 @@ public class InterfaceGraphique extends IHM {
 	 * est attendu puis appel la méthode {@link}{@link #afficherConsole(String)}.
 	 * Permmet également l'affichage des fenêtres spéciales pour les EffetsAvecInput.
 	 * @param jeu
-	 * @param msg
+	 * @param msg 
 	 */
 	
 	public void update(Observable jeu, Object msg) {
@@ -789,7 +789,7 @@ public class InterfaceGraphique extends IHM {
 	
 	/**
 	 * Ajoute un String dans l'historique de la partie.
-	 * @param str
+	 * @param str La chaîne de caractères à afficher.
 	 */
 	public void afficherConsole(String str) {
 		jTextAreaHistorique.append(str + "\n");

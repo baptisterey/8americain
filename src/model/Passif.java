@@ -2,7 +2,10 @@ package model;
 
 import model.effets.EffetAttaque;
 import model.effets.EffetContrerChangerCouleur;
-
+/**
+ * Implémente l'interface Stragégie, avec des actions passives.
+ *
+ */
 public class Passif implements Strategie {
 
 	public Carte choisirCarteStrategie(Joueur joueurCourant) {

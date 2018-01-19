@@ -11,6 +11,11 @@ import model.effets.ErreurDonneesEffet;
 import model.variantes.Basique;
 import model.variantes.Variante;
 
+/**
+ * Partie MODEL du MCV : implétemente Observable. Possède toutes les données du
+ * jeu et les méthodes principales, comme la boucle de jeu.
+ *
+ */
 public class Jeu extends java.util.Observable {
 
 	// DEFINITION DES VARIABLES REPRESENTANTS CHAQUE METHODE DE COMPTAGE
@@ -509,6 +514,10 @@ public class Jeu extends java.util.Observable {
 		}
 	}
 
+	/**
+	 * Indique au Observers que le modèle est prêt à créer des joueurs en notifiant
+	 * un message de type initJoueurs
+	 */
 	public void initJoueurs() {
 		setChanged();
 		notifyObservers(new Message(Message.Types.initJoueurs));

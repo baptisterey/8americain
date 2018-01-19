@@ -6,7 +6,7 @@ import model.Joueur;
 import model.Message;
 
 /**
- * 
+ * Donne une carte de la main du joueur courant à un joueur de son choix.
  */
 public class EffetDonner extends EffetAvecInput {
 	/**

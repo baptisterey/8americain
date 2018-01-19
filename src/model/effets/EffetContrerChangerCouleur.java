@@ -4,6 +4,10 @@ import model.Jeu;
 import model.Joueur;
 import model.Message;
 
+/**
+ * Contre une attaque en cours si il y en a une puis demande au joueur de
+ * choisir une nouvelle couleur.
+ */
 public class EffetContrerChangerCouleur extends EffetChangerCouleur {
 
 	/**

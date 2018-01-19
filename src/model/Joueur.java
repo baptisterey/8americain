@@ -2,7 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Joueur jouant la partie.
+ *
+ */
 public class Joueur {
 
 	/**
