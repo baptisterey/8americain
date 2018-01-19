@@ -6,6 +6,11 @@ import model.ErreurCarteInposable;
 import model.Jeu;
 import model.Joueur;
 
+/**
+ * Représente les options du joueur durant son tour de jeu.
+ *
+ */
+
 public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runnable {
 	private Joueur joueurCourant;
 

@@ -13,6 +13,12 @@ import model.variantes.Minimale;
 import model.variantes.Monclar;
 import model.variantes.Variante;
 
+/**
+ * Représente l'affichage de la console au lancement de l'application.
+ * permet de commencer une partie en précisant les règles de celle ci.
+ *
+ */
+
 public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runnable {
 
 	public InterfaceConsoleInitPartie(Controleur ctrl) {

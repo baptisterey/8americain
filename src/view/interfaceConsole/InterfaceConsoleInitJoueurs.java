@@ -6,6 +6,13 @@ import controleur.Controleur;
 import model.Joueur;
 import model.JoueurArtificiel;
 
+/**
+ * Représente la demande faite auprès de l'Utilisateur pour initialiser les joueurs 
+ * de la partie. Elle permet d'initier le nom du joueur et d'ajouter des bots (en
+ * précisant leur nom et leur stratégie).
+ *
+ */
+
 public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Runnable {
 
 	public InterfaceConsoleInitJoueurs(Controleur ctrl) {

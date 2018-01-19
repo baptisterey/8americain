@@ -7,7 +7,14 @@ import model.Joueur;
 import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
+/**
+ * Représente la demande faite auprès de l'Utilisateur lorsque ce dernier joue
+ * joue une carte à effet DonnerCarte.
+ *
+ */
+
 public class InterfaceConsoleEffetDonner extends InterfaceConsole implements Runnable {
+	
 	private EffetAvecInput effet;
 	private Joueur joueurCourant;
 	
