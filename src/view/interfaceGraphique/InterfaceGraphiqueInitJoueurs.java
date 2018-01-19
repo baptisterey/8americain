@@ -25,12 +25,12 @@ import model.JoueurArtificiel;
 /**
  * Interface graphique pour l'initialisation des joueurs d'une nouvelle partie.
  * Permet de choisir le pseudo du joueur, et d'ajouter des bots en choisissant
- * leur pseudo et leur stratégie attitré.
+ * leur pseudo et leur strategie attitre.
  */
 
 public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 	/**
-	 * Constructeur. Appel la méthode {@link}{@link #menuInitJoueurs()}
+	 * Constructeur. Appel la methode {@link}{@link #menuInitJoueurs()}
 	 * @param ctrl
 	 */
 	public InterfaceGraphiqueInitJoueurs(Controleur ctrl) {
@@ -51,14 +51,14 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 	}
 	
 	/**
-	 * Initialise le contenu de la fenêtre et permet d'initier les joueurs.
+	 * Initialise le contenu de la fenetre et permet d'initier les joueurs.
 	 */
 	
 	public void menuInitJoueurs() {
 		joueursInit.clear();
 
 		menuInitJFrame = new JFrame();
-		menuInitJFrame.setTitle("8 Américain");
+		menuInitJFrame.setTitle("8 Americain");
 		menuInitJFrame.setSize(400, 600);
 		menuInitJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuInitJFrame.setResizable(false);
@@ -69,7 +69,7 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 
 		jPanelFond.setLayout(new BorderLayout());
 
-		JLabel titre = new JLabel("Création des Joueurs");
+		JLabel titre = new JLabel("Creation des Joueurs");
 		titre.setFont(new Font("TimesRoman", Font.PLAIN, 25));
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		jPanelFond.add(titre, BorderLayout.NORTH);
@@ -167,7 +167,7 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 					jTfNouvJoueur.setText(null);
 
 				} else {
-					JOptionPane.showMessageDialog(menuInitJFrame, "Merci d'entrer un nom inférieur à  10 caractéres ");
+					JOptionPane.showMessageDialog(menuInitJFrame, "Merci d'entrer un nom inferieur e 10 caracteres ");
 				}
 
 			}
@@ -190,7 +190,7 @@ public class InterfaceGraphiqueInitJoueurs extends InterfaceGraphique {
 
 				} else {
 					JOptionPane.showMessageDialog(menuInitJFrame,
-							"Merci de choisir votre nom et de créer au moins un Joueur Artificiel! ");
+							"Merci de choisir votre nom et de creer au moins un Joueur Artificiel! ");
 				}
 			}
 		});

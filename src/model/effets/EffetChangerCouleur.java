@@ -6,8 +6,8 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Effet représentant une Carte qui peut changer de Couleur lorsqu'on la joue.
- * Elle a besoin d'être initialiser avec setData avant d'être jouer.
+ * Effet representant une Carte qui peut changer de Couleur lorsqu'on la joue.
+ * Elle a besoin d'etre initialiser avec setData avant d'etre jouer.
  */
 public class EffetChangerCouleur extends EffetAvecInput {
 
@@ -17,7 +17,7 @@ public class EffetChangerCouleur extends EffetAvecInput {
 	protected int nouvelleCouleur = -1;
 
 	/**
-	 * Constante privée indiquant le score de cet Effet.
+	 * Constante privee indiquant le score de cet Effet.
 	 */
 	private static final int score = 50;
 
@@ -27,7 +27,7 @@ public class EffetChangerCouleur extends EffetAvecInput {
 
 	/**
 	 * Change la couleur de la Carte en fonction de l'attribut nouvelleCouleur (doit
-	 * être initialiser d'abord avec setData).
+	 * etre initialiser d'abord avec setData).
 	 * Renvoie un message de type effetChangerCouleur.
 	 */
 	@Override

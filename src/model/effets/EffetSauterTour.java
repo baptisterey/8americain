@@ -5,12 +5,12 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Effet représentant une action qui va annuler le tour du joueur suivant?
+ * Effet representant une action qui va annuler le tour du joueur suivant?
  */
 public class EffetSauterTour extends Effet {
 
 	/**
-	 * Constante privée indiquant le score de cet Effet.
+	 * Constante privee indiquant le score de cet Effet.
 	 */
 	private static final int score = 20;
 
@@ -19,7 +19,7 @@ public class EffetSauterTour extends Effet {
 	}
 
 	/**
-	 * Change le boolean peutJoueur du joueurSuivant à false puis renvoie un msg de
+	 * Change le boolean peutJoueur du joueurSuivant e false puis renvoie un msg de
 	 * type effetSauterTour.
 	 */
 	public Message action(Joueur joueurCourant) {

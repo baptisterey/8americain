@@ -7,9 +7,9 @@ import model.Joueur;
 import model.JoueurArtificiel;
 
 /**
- * Représente la demande faite auprès de l'Utilisateur pour initialiser les joueurs 
+ * Represente la demande faite aupres de l'Utilisateur pour initialiser les joueurs 
  * de la partie. Elle permet d'initier le nom du joueur et d'ajouter des bots (en
- * précisant leur nom et leur stratégie).
+ * precisant leur nom et leur strategie).
  *
  */
 
@@ -40,7 +40,7 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Run
 					finCreationBot = true;
 
 					System.out.println("===== ACTION =====");
-					System.out.println("(0) Créer un nouveau Joueur IA");
+					System.out.println("(0) Creer un nouveau Joueur IA");
 					System.out.println("(1) Commencer la partie");
 					System.out.println("------------------");
 
@@ -77,7 +77,7 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Run
 	}
 
 	/**
-	 * Créer un bot en demande à l'utilisateur son nom et sa strategie.
+	 * Creer un bot en demande e l'utilisateur son nom et sa strategie.
 	 * 
 	 * @return Le nouveau BOT, renvoie NULL si le Thread est interrompu.
 	 */
@@ -94,7 +94,7 @@ public class InterfaceConsoleInitJoueurs extends InterfaceConsole implements Run
 			do {
 				choixok = true;
 
-				Integer strategie = super.lireInteger("Choisir une stragégie : ");
+				Integer strategie = super.lireInteger("Choisir une stragegie : ");
 
 				if (strategie != null) {
 					if (strategie == JoueurArtificiel.AGRESSIF || strategie == JoueurArtificiel.PASSIF) {

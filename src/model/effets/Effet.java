@@ -4,29 +4,29 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Classe squelette représentant un Effet lié à une Carte. Il possède une
- * méthode action().
+ * Classe squelette representant un Effet lie e une Carte. Il possede une
+ * methode action().
  *
  */
 public abstract class Effet {
 	/**
-	 * La valeur de la carte, elle peut être fixe ou dynamique.
+	 * La valeur de la carte, elle peut etre fixe ou dynamique.
 	 */
 	protected int valeurScore;
 
 	/**
-	 * Détermine si la Carte est toujours posable ou bien suit les régles de posage
+	 * Determine si la Carte est toujours posable ou bien suit les regles de posage
 	 * classiques.
 	 */
 	private boolean alwaysPosable = false;
 
 	/**
-	 * Réalise l'effet adéquat puis retourne un Message indiquant l'action
-	 * effectuée.
+	 * Realise l'effet adequat puis retourne un Message indiquant l'action
+	 * effectuee.
 	 * 
 	 * @param joueurCourant
-	 *            Le joueur qui a joué la Carte (et donc l'Effet).
-	 * @return Le Message associé à l'Effet, indique ce qu'il sait passé grâce à son
+	 *            Le joueur qui a joue la Carte (et donc l'Effet).
+	 * @return Le Message associe e l'Effet, indique ce qu'il sait passe grece e son
 	 *         Type.
 	 */
 	public abstract Message action(Joueur joueurCourant);

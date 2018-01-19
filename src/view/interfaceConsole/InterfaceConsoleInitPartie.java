@@ -14,8 +14,8 @@ import model.variantes.Monclar;
 import model.variantes.Variante;
 
 /**
- * Représente l'affichage de la console au lancement de l'application.
- * permet de commencer une partie en précisant les règles de celle ci.
+ * Represente l'affichage de la console au lancement de l'application.
+ * permet de commencer une partie en precisant les regles de celle ci.
  *
  */
 
@@ -27,12 +27,12 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 	@Override
 	public void run() {
-		System.out.println("=================== 8 Américain ====================");
-		System.out.println("<< Zéro carte dans ta main et c'est super bien ! >>");
+		System.out.println("=================== 8 Americain ====================");
+		System.out.println("<< Zero carte dans ta main et c'est super bien ! >>");
 		System.out.println("====================================================");
-		System.out.println("(0) Lire les règles");
+		System.out.println("(0) Lire les regles");
 		System.out.println("(1) Commencer une partie");
-		System.out.println("(2) Regarder les crédits");
+		System.out.println("(2) Regarder les credits");
 		System.out.println("(3) Quitter le jeu");
 		System.out.println("------------------");
 
@@ -71,9 +71,9 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 	}
 
 	/**
-	 * Initialise la partie en demandant le nombre de cartes, la méthode de comptage
+	 * Initialise la partie en demandant le nombre de cartes, la methode de comptage
 	 * et la variante. Si le Thread est interrompu ne fait rien, les modifications
-	 * ne sont appliquées qu'aprés validation finale de l'utilisateur.
+	 * ne sont appliquees qu'apres validation finale de l'utilisateur.
 	 */
 	private void initPartie() {
 		int deck = Jeu.DECK_52_CARTES;
@@ -90,8 +90,8 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 
 		// CHOIX DU DECK
 		System.out.println("--- Choix du Deck ---");
-		System.out.println("(0) Deck à 32 Cartes");
-		System.out.println("(1) Deck à 52 Cartes");
+		System.out.println("(0) Deck e 32 Cartes");
+		System.out.println("(1) Deck e 52 Cartes");
 		System.out.println("------------------");
 		do {
 			choixok = true;
@@ -191,7 +191,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 	 * Lit le fichier et affiche son contenue dans la console.
 	 * 
 	 * @param f
-	 *            Le fichier à afficher.
+	 *            Le fichier e afficher.
 	 */
 	private void afficherFichier(File f) {
 		FileReader fr;
@@ -212,7 +212,7 @@ public class InterfaceConsoleInitPartie extends InterfaceConsole implements Runn
 				System.out.println("Erreur lors de la lecture : " + exception.getMessage());
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier n'a pas été trouvé.");
+			System.out.println("Le fichier n'a pas ete trouve.");
 		}
 
 	}

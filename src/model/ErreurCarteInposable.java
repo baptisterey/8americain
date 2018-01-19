@@ -1,6 +1,6 @@
 package model;
 /**
- * Erreur renvoyé lorsqu'une carte a tenté d'être posée mais il était impossible qu'elle le soit.
+ * Erreur renvoye lorsqu'une carte a tente d'etre posee mais il etait impossible qu'elle le soit.
  */
 public class ErreurCarteInposable extends Error {
 

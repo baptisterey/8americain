@@ -12,8 +12,8 @@ import model.variantes.Basique;
 import model.variantes.Variante;
 
 /**
- * Partie MODEL du MCV : implétemente Observable. Possède toutes les données du
- * jeu et les méthodes principales, comme la boucle de jeu.
+ * Partie MODEL du MCV : impletemente Observable. Possede toutes les donnees du
+ * jeu et les methodes principales, comme la boucle de jeu.
  *
  */
 public class Jeu extends java.util.Observable {
@@ -97,8 +97,8 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Notifie tous les Observateurs, indiquant qu'une partie est prête à être
-	 * créer.
+	 * Notifie tous les Observateurs, indiquant qu'une partie est prete e etre
+	 * creer.
 	 */
 	public void initPartie() {
 		setChanged();
@@ -106,14 +106,14 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Initialise le compteur de manche à 1, notifie les Observateurs de la nouvelle
-	 * partie et appelle la méthode commencerNouvelleManche();
+	 * Initialise le compteur de manche e 1, notifie les Observateurs de la nouvelle
+	 * partie et appelle la methode commencerNouvelleManche();
 	 */
 	public void commencerPartie() {
 		numManche = 1;
 
 		// On place de le joueur humain en premier dans l'array pour qu'il soit le
-		// premier à jouer
+		// premier e jouer
 		Joueur joueurHumain = null;
 		for (Joueur joueur : joueursInitiation) {
 			if (!(joueur instanceof JoueurArtificiel)) {
@@ -134,10 +134,10 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Fait jouer un tour à tous les Joueurs Artificiels en appelant
-	 * {@link #jouerTourJoueursArtificiels()} et lorsque c'est à Joueur Humain de
+	 * Fait jouer un tour e tous les Joueurs Artificiels en appelant
+	 * {@link #jouerTourJoueursArtificiels()} et lorsque c'est e Joueur Humain de
 	 * jouer, on notfie avec un Message de type tourJoueurHumain. Si la manche est
-	 * terminé (@ {@link #isMancheOver()}) appelle {link #finirManche()}
+	 * termine (@ {@link #isMancheOver()}) appelle {link #finirManche()}
 	 */
 	public void jouerManche() {
 		if (!isMancheOver()) {
@@ -255,7 +255,7 @@ public class Jeu extends java.util.Observable {
 	 */
 	public void finirTour(Joueur joueurCourant) {
 
-		// Si le joueur a annoncé trop tôt (il a plus d'une carte)
+		// Si le joueur a annonce trop tet (il a plus d'une carte)
 		if (joueurCourant.isPeutFinir() && joueurCourant.getMain().size() != 1) {
 			joueurCourant.setPeutFinir(false);
 			piocherCarte(joueurCourant, 2);
@@ -270,7 +270,7 @@ public class Jeu extends java.util.Observable {
 		// Si il a plus de cartes il a fini de jouer
 		if (joueurCourant.getMain().isEmpty()) {
 
-			// On l'ajoute à la liste des gagnants
+			// On l'ajoute e la liste des gagnants
 			Jeu.getInstance().getGagnants().add(joueurCourant);
 			Jeu.getInstance().getJoueurs().remove(joueurCourant);
 
@@ -291,8 +291,8 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Si la partie est finie, appelle la méthode finirPartie(), sinon incrémente le
-	 * numéro de manche et appelle la méthode commencerNouvelleManche();
+	 * Si la partie est finie, appelle la methode finirPartie(), sinon incremente le
+	 * numero de manche et appelle la methode commencerNouvelleManche();
 	 */
 	public void finirManche() {
 		compterScore();
@@ -337,17 +337,17 @@ public class Jeu extends java.util.Observable {
 	 * @param joueurCourant
 	 *            Le joueur qui joue la carte
 	 * @param carte
-	 *            La carte à jouer
+	 *            La carte e jouer
 	 * @throws ErreurCarteInposable
-	 *             Exception levée si la carte ne peut pas être posée sur la
-	 *             défausse.
+	 *             Exception levee si la carte ne peut pas etre posee sur la
+	 *             defausse.
 	 */
 	public void jouerCarte(Joueur joueurCourant, Carte carte) throws ErreurCarteInposable {
 		boolean effetJouableDirectement = true;
 
 		if (isCartePosable(carte)) {
 			if (carte == null) { // Le joueur veut piocher
-				if (isModeAttaque()) { // Si le mode attaque est activé, le joueur pioche le nombre de cartes du tas.
+				if (isModeAttaque()) { // Si le mode attaque est active, le joueur pioche le nombre de cartes du tas.
 					int nbCarteAttaque = getNbCarteAttaque();
 					piocherCarte(joueurCourant, nbCarteAttaque);
 					setModeAttaque(false);
@@ -358,7 +358,7 @@ public class Jeu extends java.util.Observable {
 
 					setChanged();
 					notifyObservers(msg);
-				} else { // Sinon il pioche une carte et met fin à son tour
+				} else { // Sinon il pioche une carte et met fin e son tour
 					piocherCarte(joueurCourant, 1);
 
 					Message msg = new Message(Message.Types.piocherCarte);
@@ -385,7 +385,7 @@ public class Jeu extends java.util.Observable {
 																	// l'effet
 																	// avec les
 																	// donnees
-																	// nécessaires
+																	// necessaires
 
 					Integer[] data;
 					if (carte.getEffet() instanceof EffetDonner) {
@@ -430,8 +430,8 @@ public class Jeu extends java.util.Observable {
 					}
 
 				}
-				if (effetJouableDirectement) { // Pas besoin d'init la carte (carte sans input ou alors un bot à déja
-												// entré les données)
+				if (effetJouableDirectement) { // Pas besoin d'init la carte (carte sans input ou alors un bot e deja
+												// entre les donnees)
 					setChanged();
 					notifyObservers(carte.getEffet().action(joueurCourant)); // On
 																				// joue
@@ -454,12 +454,12 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Effectue les opérations pour en fonction de l'annonce du joueur
+	 * Effectue les operations pour en fonction de l'annonce du joueur
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui annonce
 	 * @param annonce
-	 *            L'annonce du joueur, doit être Jeu.ANNONCE_CARTE ou
+	 *            L'annonce du joueur, doit etre Jeu.ANNONCE_CARTE ou
 	 *            Jeu.ANNONCE_CONTRE_CARTE
 	 */
 	public void annoncer(Joueur joueurCourant, String annonce) {
@@ -515,7 +515,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Indique au Observers que le modèle est prêt à créer des joueurs en notifiant
+	 * Indique au Observers que le modele est pret e creer des joueurs en notifiant
 	 * un message de type initJoueurs
 	 */
 	public void initJoueurs() {
@@ -524,14 +524,14 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Methode à appeler une fois setData() réaliser dans effet. Elle permet de
+	 * Methode e appeler une fois setData() realiser dans effet. Elle permet de
 	 * jouer l'effet et de finir le tour du joueur humain.
 	 * 
 	 * @param effet
-	 *            Effet qui va être jouer, doit être déja initialiser avec un appel
-	 *            de sa méthode setData().
+	 *            Effet qui va etre jouer, doit etre deja initialiser avec un appel
+	 *            de sa methode setData().
 	 * @param joueurCourant
-	 *            Joueur utilisant cet Effet, après cela son tour est terminé.
+	 *            Joueur utilisant cet Effet, apres cela son tour est termine.
 	 */
 	public void jouerEffetAvecInputEnCours(EffetAvecInput effet, Joueur joueurCourant) {
 		setChanged();
@@ -543,7 +543,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Effectue toutes les opérations nécéssaires pour l'initilisation d'une manche.
+	 * Effectue toutes les operations necessaires pour l'initilisation d'une manche.
 	 */
 	public void initCarteManche() {
 		// RESET DES ARRAYS
@@ -560,7 +560,7 @@ public class Jeu extends java.util.Observable {
 			joueur.setPeutFinir(false);
 		}
 
-		// Création des cartes et attribution des effets en fonction de la variante
+		// Creation des cartes et attribution des effets en fonction de la variante
 		for (int valeur = nbCarteDeck; valeur < 13; valeur++) {
 			for (int couleur = 0; couleur < 4; couleur++) {
 				Carte carte = new Carte(valeur, couleur);
@@ -570,7 +570,7 @@ public class Jeu extends java.util.Observable {
 			}
 		}
 
-		// Mélange de la pioche
+		// Melange de la pioche
 		Collections.shuffle(pioche);
 
 		int nbpiocher = 0;
@@ -582,7 +582,7 @@ public class Jeu extends java.util.Observable {
 			nbpiocher = 6;
 		}
 
-		// On fait piocher les cartes du début
+		// On fait piocher les cartes du debut
 		for (Joueur joueur : getJoueurs()) {
 			piocherCarte(joueur, nbpiocher);
 		}
@@ -626,7 +626,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Inverse l'array joueurs grâce à {@link Collections#reverse(java.util.List)}
+	 * Inverse l'array joueurs grece e {@link Collections#reverse(java.util.List)}
 	 */
 	public void changerSensJeu() {
 		Collections.reverse(joueurs);
@@ -636,7 +636,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Place le joueurCourant au début de la liste {@link #joueurs}
+	 * Place le joueurCourant au debut de la liste {@link #joueurs}
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui va rejouer
@@ -648,12 +648,12 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Ajoute la carte dans la défausse et la supprimer de la main du joueur
+	 * Ajoute la carte dans la defausse et la supprimer de la main du joueur
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui joue la carte
 	 * @param carte
-	 *            La carte à défausser
+	 *            La carte e defausser
 	 */
 	public void defausserCarte(Joueur joueurCourant, Carte carte) {
 		defausse.add(carte);
@@ -661,13 +661,13 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Fait piocher autant de carte que nécéssaire au joueur. Si la pioche est vide,
-	 * on mélange la défausse et on l'ajoute à la pioche.
+	 * Fait piocher autant de carte que necessaire au joueur. Si la pioche est vide,
+	 * on melange la defausse et on l'ajoute e la pioche.
 	 * 
 	 * @param joueur
 	 *            Le joueur piochant les cartes
 	 * @param nb
-	 *            Le nombre de cartes à piocher
+	 *            Le nombre de cartes e piocher
 	 */
 	public void piocherCarte(Joueur joueur, int nb) {
 		for (int i = 0; i < nb; i++) {
@@ -688,12 +688,12 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Indique si la carte est posable par rapport au sommet de la défausse. En mode
-	 * normal, la couleur et la valeur de la carte sont regardés, en mode attaquen,
+	 * Indique si la carte est posable par rapport au sommet de la defausse. En mode
+	 * normal, la couleur et la valeur de la carte sont regardes, en mode attaquen,
 	 * seul les cartes attaques et contre sont posables.
 	 * 
 	 * @param carte
-	 *            La carte qui va être tester
+	 *            La carte qui va etre tester
 	 * @return Vrai si elle est posable, Faux sinon.
 	 */
 	public boolean isCartePosable(Carte carte) {
@@ -732,9 +732,9 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Regarde en fonction de la methode de comptage si la manche est terminée.
+	 * Regarde en fonction de la methode de comptage si la manche est terminee.
 	 * 
-	 * @return Vrai si la manche est terminé, Faux sinon.
+	 * @return Vrai si la manche est termine, Faux sinon.
 	 */
 	public boolean isMancheOver() {
 
@@ -745,7 +745,7 @@ public class Jeu extends java.util.Observable {
 					return true;
 				}
 			}
-		} else if (this.methodeCompte == COMPTE_POSITIF) { // Si un podium peut être formé, la manche est finie.
+		} else if (this.methodeCompte == COMPTE_POSITIF) { // Si un podium peut etre forme, la manche est finie.
 			if ((this.gagnants.size() > 2) || (getNombreJoueursActifs() < 2)) {
 				return true;
 			}
@@ -754,7 +754,7 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Attribue pour chacun des joueurs le score adéquat en fonction de la méthode
+	 * Attribue pour chacun des joueurs le score adequat en fonction de la methode
 	 * de comptage.
 	 */
 	public void compterScore() {
@@ -795,10 +795,10 @@ public class Jeu extends java.util.Observable {
 	}
 
 	/**
-	 * Indique si la partie est terminée en fonction des scores des joueurs et de la
-	 * méthode de comptage.
+	 * Indique si la partie est terminee en fonction des scores des joueurs et de la
+	 * methode de comptage.
 	 * 
-	 * @return Vrai si la partie est terminée, Faux sinon.
+	 * @return Vrai si la partie est terminee, Faux sinon.
 	 */
 	public boolean isPartieOver() {
 		boolean b = false;

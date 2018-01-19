@@ -5,7 +5,7 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Effet représentant une Attaque d'un Joueur qui peut être contrable ou non.
+ * Effet representant une Attaque d'un Joueur qui peut etre contrable ou non.
  */
 public class EffetAttaque extends Effet {
 
@@ -15,12 +15,12 @@ public class EffetAttaque extends Effet {
 	private boolean isContrable = true;
 
 	/**
-	 * Indique la valeur d'attaque de l'Effet (le nombre de cartes à piocher).
+	 * Indique la valeur d'attaque de l'Effet (le nombre de cartes e piocher).
 	 */
 	private int valeurAttaque;
 
 	/**
-	 * Constante privée indiquant le score de cet Effet.
+	 * Constante privee indiquant le score de cet Effet.
 	 */
 	private static final int score = 50;
 
@@ -37,7 +37,7 @@ public class EffetAttaque extends Effet {
 	/**
 	 * Si la carte est contrable, fait basculer le jeu en mode Attaque (on ne peut
 	 * poser que des cartes Attaque sous peine de piocher la valeur de toutes les
-	 * cartes déja posées). Sinon fait piocher directement le nombre de cartes
+	 * cartes deja posees). Sinon fait piocher directement le nombre de cartes
 	 * (valeurAttaque) au joueur suivant. Renvoie un message de type
 	 * effetModeAttaque pour le premier cas ou effetAttaque pour le second cas.
 	 */

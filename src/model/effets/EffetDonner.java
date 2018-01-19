@@ -6,21 +6,21 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Donne une carte de la main du joueur courant à un joueur de son choix.
+ * Donne une carte de la main du joueur courant e un joueur de son choix.
  */
 public class EffetDonner extends EffetAvecInput {
 	/**
-	 * Le joueur à qui on va donner la Carte.
+	 * Le joueur e qui on va donner la Carte.
 	 */
 	Joueur joueurADonner;
 
 	/**
-	 * La carte choisi qui va être donner.
+	 * La carte choisi qui va etre donner.
 	 */
 	Carte carteADonner;
 
 	/**
-	 * Constante privée indiquant le score de cet Effet.
+	 * Constante privee indiquant le score de cet Effet.
 	 */
 	private static final int score = 20;
 

@@ -1,5 +1,5 @@
 /**
-* Implémentation du design patern MVC. La view donne une 
-* présentation du model.
+* Implementation du design patern MVC. La view donne une 
+* presentation du model.
 */
 package view;

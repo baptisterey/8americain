@@ -7,12 +7,12 @@ import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
 /**
- * Représente la demande faite auprès de l'Utilisateur lorsque ce dernier doit
+ * Represente la demande faite aupres de l'Utilisateur lorsque ce dernier doit
  * choisir une nouvelle couleur (effet ChangerCouleur).
  */
 public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole implements Runnable {
 	/**
-	 * L'effet qui doit être initialiser avant d'être joué. 
+	 * L'effet qui doit etre initialiser avant d'etre joue. 
 	 */
 	private EffetAvecInput effet;
 	
@@ -37,8 +37,8 @@ public class InterfaceConsoleEffetChangerCouleur extends InterfaceConsole implem
 
 	@Override
 	/**
-	 * Demande à l'utilisateur une nouvelle couleur, initialise l'EffetAvecInput
-	 * <<effet>> avec cette donnée et appelle la méthode jouerEffetAvecInputEnCours
+	 * Demande e l'utilisateur une nouvelle couleur, initialise l'EffetAvecInput
+	 * <<effet>> avec cette donnee et appelle la methode jouerEffetAvecInputEnCours
 	 * de Jeu. 
 	 * Si le thread est interrompu, ne fait rien.
 	 */

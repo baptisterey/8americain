@@ -1,14 +1,14 @@
 package model;
 
 /**
- * Implèmentation du pattern Stratégie. Utilisé ici pour créer deux style de
- * jeu, le style Agressif ou Passif. Cette classe contient les méthodes
- * utilisées par les JoueurArtificiel lorsqu'un choix doit être fait.
+ * Implementation du pattern Strategie. Utilise ici pour creer deux style de
+ * jeu, le style Agressif ou Passif. Cette classe contient les methodes
+ * utilisees par les JoueurArtificiel lorsqu'un choix doit etre fait.
  */
 public interface Strategie {
 
 	/**
-	 * Retourne la carte qui va être jouer.
+	 * Retourne la carte qui va etre jouer.
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui choisi.
@@ -17,12 +17,12 @@ public interface Strategie {
 	public Carte choisirCarteStrategie(Joueur joueurCourant);
 
 	/**
-	 * Retourne le choix du joueur et de la carte à donner.
+	 * Retourne le choix du joueur et de la carte e donner.
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui choisi.
-	 * @return Un tableau d'entier représentant l'index du joueur à qui donner la
-	 *         carte et l'index de la carte à donner.
+	 * @return Un tableau d'entier representant l'index du joueur e qui donner la
+	 *         carte et l'index de la carte e donner.
 	 */
 	public Integer[] choisirDataDonner(Joueur joueurCourant);
 
@@ -31,7 +31,7 @@ public interface Strategie {
 	 * 
 	 * @param joueurCourant
 	 *            Le joueur qui choisi.
-	 * @return Un tableau d'entier représentant la nouvelle couleur choisie.
+	 * @return Un tableau d'entier representant la nouvelle couleur choisie.
 	 */
 	public Integer[] choisirDataChangerCouleur(Joueur joueurCourant);
 

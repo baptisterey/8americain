@@ -18,9 +18,9 @@ public class Minimale extends Variante {
 	}
 
 	/**
-	 * Permet de savoir qu'elles sont les cartes modifiées par la Variante.
+	 * Permet de savoir qu'elles sont les cartes modifiees par la Variante.
 	 * 
-	 * @return Renvoie la liste des cartes modifiées par la Variante.
+	 * @return Renvoie la liste des cartes modifiees par la Variante.
 	 */
 	public static String getStringVariante() {
 		String str = "";

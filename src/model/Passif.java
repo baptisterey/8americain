@@ -3,7 +3,7 @@ package model;
 import model.effets.EffetAttaque;
 import model.effets.EffetContrerChangerCouleur;
 /**
- * Implémente l'interface Stragégie, avec des actions passives.
+ * Implemente l'interface Stragegie, avec des actions passives.
  *
  */
 public class Passif implements Strategie {
@@ -32,7 +32,7 @@ public class Passif implements Strategie {
 		}
 
 		int indexJoueurChoisi = 0;
-		for (int j = 1; j < Jeu.getInstance().getJoueurs().size() - 1; j++) { // le joueur courant est en derniï¿½re
+		for (int j = 1; j < Jeu.getInstance().getJoueurs().size() - 1; j++) { // le joueur courant est en derniere
 																				// position de cette linkedList
 																				// normalement
 			if (Jeu.getInstance().getJoueurs().get(indexJoueurChoisi).getMain().size() > Jeu.getInstance().getJoueurs()

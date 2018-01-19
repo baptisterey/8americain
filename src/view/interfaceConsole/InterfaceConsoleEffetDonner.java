@@ -8,8 +8,8 @@ import model.effets.EffetAvecInput;
 import model.effets.ErreurDonneesEffet;
 
 /**
- * Représente la demande faite auprès de l'Utilisateur lorsque ce dernier joue
- * joue une carte à effet DonnerCarte.
+ * Represente la demande faite aupres de l'Utilisateur lorsque ce dernier joue
+ * joue une carte e effet DonnerCarte.
  *
  */
 

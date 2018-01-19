@@ -11,15 +11,15 @@ import javax.swing.JPanel;
 import model.Joueur;
 
 /**
- * Interface graphique qui résume l'ensemble des données d'un joueur artificiel
- * nécéssaire pour joueur la partie.
+ * Interface graphique qui resume l'ensemble des donnees d'un joueur artificiel
+ * necessaire pour joueur la partie.
  */
 
 public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Coché si le joueur artificiel à annoncé "Carte !".
+	 * Coche si le joueur artificiel e annonce "Carte !".
 	 */
 	private javax.swing.JCheckBox jCheckBoxAnnonceCarte;
 	/**
@@ -36,7 +36,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	private javax.swing.JLabel jLabelScore;
 	
 	/**
-	 * Constructeur. Appel la méthode {@link}{@link #initialize(Joueur)}.
+	 * Constructeur. Appel la methode {@link}{@link #initialize(Joueur)}.
 	 * @param j
 	 */
 	public InterfaceGraphiqueJoueurArtificiel(Joueur j) {
@@ -44,7 +44,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 	}
 
 	/**
-	 * Initialise le contenun de la fenêtre.
+	 * Initialise le contenun de la fenetre.
 	 * @param j
 	 */
 	private void initialize(Joueur j) {
@@ -59,7 +59,7 @@ public class InterfaceGraphiqueJoueurArtificiel extends JPanel {
 		jLabelNomBot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		jLabelNomBot.setText(j.getPseudo());
 
-		jCheckBoxAnnonceCarte.setText("a annoncé 'Carte'");
+		jCheckBoxAnnonceCarte.setText("a annonce 'Carte'");
 		jCheckBoxAnnonceCarte.setSelected(j.isPeutFinir());
 		jCheckBoxAnnonceCarte.setEnabled(false);
 		

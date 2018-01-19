@@ -4,7 +4,7 @@ import model.effets.Effet;
 import model.effets.EffetClassique;
 
 /**
- * Représente une Carte, avec une Couleur, une Valeur et d'un Effet représentant
+ * Represente une Carte, avec une Couleur, une Valeur et d'un Effet representant
  * son action.
  */
 public class Carte {
@@ -106,7 +106,7 @@ public class Carte {
 	}
 
 	/**
-	 * Renvoie une réprésentation en chaîne de caractéres.
+	 * Renvoie une representation en chaene de caracteres.
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

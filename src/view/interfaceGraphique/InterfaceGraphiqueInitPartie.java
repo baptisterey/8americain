@@ -25,13 +25,13 @@ import model.variantes.Monclar;
 
 /**
  * Interface graphique pour initialiser la partie. Permet de choisir
- * quelle variante jouer, le nombre de cartes et la méthode de comptage de
+ * quelle variante jouer, le nombre de cartes et la methode de comptage de
  * points.
  */
 
 public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 	/**
-	 * Fenêtre contenant l'ensemble de l'interface graphique.
+	 * Fenetre contenant l'ensemble de l'interface graphique.
 	 */
 	private JFrame menuInitJFrame;
 	/**
@@ -39,7 +39,7 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 	 */
 	private JComboBox choixDecks;
 	/**
-	 * méthode de comptage de la partie.
+	 * methode de comptage de la partie.
 	 */
 	private JComboBox choixMethodes;
 	/**
@@ -52,7 +52,7 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 	private JTextPane textPane;
 
 	/**
-	 * Constructeur. Appel la méthode {@link}{@link #menuInitPartie()}.
+	 * Constructeur. Appel la methode {@link}{@link #menuInitPartie()}.
 	 * @param ctrl
 	 */
 	public InterfaceGraphiqueInitPartie(Controleur ctrl) {
@@ -65,12 +65,12 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 	}
 	
 	/**
-	 * Initialise le contenu de la fenêtre.
+	 * Initialise le contenu de la fenetre.
 	 */
 	
 	private void menuInitPartie() {
 		menuInitJFrame = new JFrame();
-		menuInitJFrame.setTitle("8 Américain");
+		menuInitJFrame.setTitle("8 Americain");
 		menuInitJFrame.setSize(400, 600);
 		menuInitJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuInitJFrame.setResizable(false);
@@ -81,7 +81,7 @@ public class InterfaceGraphiqueInitPartie extends InterfaceGraphique {
 
 		jPanelFond.setLayout(new BorderLayout());
 
-		JLabel titre = new JLabel("8 Américain");
+		JLabel titre = new JLabel("8 Americain");
 		titre.setFont(new Font("TimesRoman", Font.PLAIN, 25));
 		titre.setHorizontalAlignment(JLabel.CENTER);
 

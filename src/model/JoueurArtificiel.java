@@ -1,23 +1,23 @@
 package model;
 
 /**
- * JoueurArtificiel représente un Joueur BOT qui posséde une surcharge de la
- * méthode choisirCarte() qui utilise une strategie propre au Joueur.
+ * JoueurArtificiel represente un Joueur BOT qui possede une surcharge de la
+ * methode choisirCarte() qui utilise une strategie propre au Joueur.
  */
 
 public class JoueurArtificiel extends Joueur {
 	/**
-	 * La stratégie du joueur artificiel.
+	 * La strategie du joueur artificiel.
 	 */
 	private Strategie strategie;
 
 	/**
-	 * Constante pour la stratégie Passive.
+	 * Constante pour la strategie Passive.
 	 */
 	public static final int PASSIF = 0;
 
 	/**
-	 * Constante pour la stratégie Agressive.
+	 * Constante pour la strategie Agressive.
 	 */
 	public static final int AGRESSIF = 1;
 	
@@ -31,7 +31,7 @@ public class JoueurArtificiel extends Joueur {
 		case AGRESSIF:
 			this.strategie = new Agressif();
 			break;
-		default: // Par défaut on choisi une strategie Passive.
+		default: // Par defaut on choisi une strategie Passive.
 			this.strategie = new Passif();
 		}
 

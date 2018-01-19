@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 public class InterfaceGraphique extends IHM {
 	/**
 	 * Constructeur.
-	 * @param ctrl Le controleur attribué à cette Interface
+	 * @param ctrl Le controleur attribue e cette Interface
 	 */
 	public InterfaceGraphique(Controleur ctrl) {
 		super(ctrl);
@@ -74,15 +74,15 @@ public class InterfaceGraphique extends IHM {
 	private InterfaceGraphiqueInitJoueurs initJoueurs;
 
 	private javax.swing.JLabel jLabelDefausse;
-	private javax.swing.JLabel jLabelTitreDéfausse;
+	private javax.swing.JLabel jLabelTitreDefausse;
 
 	/**
-	 * Initialise le contenu de la fenêtre.
+	 * Initialise le contenu de la fenetre.
 	 */
 	private void initializeJouerTour(Joueur joueurCourant) {
-		// Généré automatiquement par Windows BUILDER
+		// Genere automatiquement par Windows BUILDER
 		fenetreDeJeu = new JFrame();
-		fenetreDeJeu.setTitle("8 Américain");
+		fenetreDeJeu.setTitle("8 Americain");
 
 		jPanelWest = new javax.swing.JPanel();
 		jPanelJoueursArtificiels = new javax.swing.JPanel();
@@ -106,7 +106,7 @@ public class InterfaceGraphique extends IHM {
 		jScrollPaneMainDuJoueur = new javax.swing.JScrollPane();
 		jScrollPaneJoueursArtificiels = new javax.swing.JScrollPane();
 		jLabelDefausse = new javax.swing.JLabel();
-		jLabelTitreDéfausse = new javax.swing.JLabel();
+		jLabelTitreDefausse = new javax.swing.JLabel();
 
 		fenetreDeJeu.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		fenetreDeJeu.setPreferredSize(new java.awt.Dimension(1300, 768));
@@ -160,8 +160,8 @@ public class InterfaceGraphique extends IHM {
 						.addComponent(jLabelDefausse, javax.swing.GroupLayout.Alignment.TRAILING,
 								javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE));
 
-		jLabelTitreDéfausse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabelTitreDéfausse.setText("Défausse");
+		jLabelTitreDefausse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		jLabelTitreDefausse.setText("Defausse");
 
 		javax.swing.GroupLayout jPanelWestLayout = new javax.swing.GroupLayout(jPanelWest);
 		jPanelWest.setLayout(jPanelWestLayout);
@@ -181,7 +181,7 @@ public class InterfaceGraphique extends IHM {
 						.addGroup(jPanelWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 								.addComponent(jPanelDefausse, javax.swing.GroupLayout.DEFAULT_SIZE, 157,
 										Short.MAX_VALUE)
-								.addComponent(jLabelTitreDéfausse, javax.swing.GroupLayout.DEFAULT_SIZE,
+								.addComponent(jLabelTitreDefausse, javax.swing.GroupLayout.DEFAULT_SIZE,
 										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGap(287, 287, 287)));
 		jPanelWestLayout.setVerticalGroup(jPanelWestLayout
@@ -191,7 +191,7 @@ public class InterfaceGraphique extends IHM {
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jLabelTitreDéfausse)
+						.addComponent(jLabelTitreDefausse)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jPanelDefausse, javax.swing.GroupLayout.PREFERRED_SIZE, 193,
 								javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,11 +238,11 @@ public class InterfaceGraphique extends IHM {
 
 		jLabelTitre.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
 		jLabelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabelTitre.setText("8 Américain");
+		jLabelTitre.setText("8 Americain");
 		jLabelTitre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
 		jLabelMethodeVictoire.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-		jLabelMethodeVictoire.setText("Le premier à 500 gagne !");
+		jLabelMethodeVictoire.setText("Le premier e 500 gagne !");
 
 		javax.swing.GroupLayout jPanelEastLayout = new javax.swing.GroupLayout(jPanelEast);
 		jPanelEast.setLayout(jPanelEastLayout);
@@ -325,7 +325,7 @@ public class InterfaceGraphique extends IHM {
 	}
 
 	/**
-	 * Actualise la fenêtre principale. Appel les méthodes {@link}{@link #afficherJoueursArtificiels(List)} 
+	 * Actualise la fenetre principale. Appel les methodes {@link}{@link #afficherJoueursArtificiels(List)} 
 	 * et {@link}{@link #afficherMainJoueur(Joueur)}.
 	 * @param jeu
 	 * @param joueurCourant
@@ -335,14 +335,14 @@ public class InterfaceGraphique extends IHM {
 		// Affichage du numero de la manche
 		jLabelManche.setText("Manche : " + jeu.getNumManche());
 
-		// Affichage de la méthode de victoire
+		// Affichage de la methode de victoire
 		switch (jeu.getMethodeCompte()) {
 		case Jeu.COMPTE_NEGATIF:
-			jLabelMethodeVictoire.setText("Le premier à 100 points perd la partie!");
+			jLabelMethodeVictoire.setText("Le premier e 100 points perd la partie!");
 			break;
 
 		case Jeu.COMPTE_POSITIF:
-			jLabelMethodeVictoire.setText("Le premier à 100 points remporte la partie!");
+			jLabelMethodeVictoire.setText("Le premier e 100 points remporte la partie!");
 			break;
 		}
 
@@ -355,7 +355,7 @@ public class InterfaceGraphique extends IHM {
 		// Actualisation de la main du Joueur
 		afficherMainJoueur(joueurCourant);
 
-		// Actualisation de la défausse
+		// Actualisation de la defausse
 		String str = "images/cartes/" + Carte.VALEURS[jeu.getDefausse().getLast().getValeur()] + "_"
 				+ Carte.COULEURS[jeu.getDefausse().getLast().getCouleur()] + ".png";
 		ImageIcon icon = new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(133, 193, Image.SCALE_DEFAULT));
@@ -370,7 +370,7 @@ public class InterfaceGraphique extends IHM {
 	}
 	
 	/**
-	 * Actualise les données des joueurs artificiels. 
+	 * Actualise les donnees des joueurs artificiels. 
 	 * @param joueurs
 	 */
 	
@@ -415,7 +415,7 @@ public class InterfaceGraphique extends IHM {
 					try {
 						getControleur().getJeu().jouerCarte(joueurCourant, carte);
 					} catch (ErreurCarteInposable e1) {
-						JOptionPane.showMessageDialog(fenetreDeJeu, carte.toString() + " n'a pas pu être posé(e)!");
+						JOptionPane.showMessageDialog(fenetreDeJeu, carte.toString() + " n'a pas pu etre pose(e)!");
 					}
 				}
 			});
@@ -433,7 +433,7 @@ public class InterfaceGraphique extends IHM {
 	}
 	
 	/**
-	 * Ouvre une nouvelle fenêtre pour que le joueur puisse choisir une couleur.
+	 * Ouvre une nouvelle fenetre pour que le joueur puisse choisir une couleur.
 	 * @param effet
 	 * @param joueurCourant
 	 */
@@ -531,8 +531,8 @@ public class InterfaceGraphique extends IHM {
 	}
 	
 	/**
-	 * Ouvre une nouvelle fenêtre avec toutes les cartes du joueurs dedans. Une fois que le joueur a choisi
-	 * une carte, une autre fenêtre s'ouvre avec les pseudos des différents adversaires pour déciderà qui donner
+	 * Ouvre une nouvelle fenetre avec toutes les cartes du joueurs dedans. Une fois que le joueur a choisi
+	 * une carte, une autre fenetre s'ouvre avec les pseudos des differents adversaires pour decidere qui donner
 	 * la carte choisie.
 	 * @param effet
 	 * @param joueurCourant
@@ -549,7 +549,7 @@ public class InterfaceGraphique extends IHM {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 
-		panel.add(new JLabel("Choisir votre carte à donner", JLabel.CENTER), BorderLayout.NORTH);
+		panel.add(new JLabel("Choisir votre carte e donner", JLabel.CENTER), BorderLayout.NORTH);
 
 		JPanel panelImg = new JPanel();
 
@@ -576,7 +576,7 @@ public class InterfaceGraphique extends IHM {
 					JPanel panel2 = new JPanel();
 					panel2.setLayout(new BorderLayout());
 
-					panel2.add(new JLabel("Choisir joueur à qui donner la carte", JLabel.CENTER), BorderLayout.NORTH);
+					panel2.add(new JLabel("Choisir joueur e qui donner la carte", JLabel.CENTER), BorderLayout.NORTH);
 
 					JPanel panelImg2 = new JPanel();
 
@@ -610,8 +610,8 @@ public class InterfaceGraphique extends IHM {
 	
 	/**
 	 * Ajoute un String dans l'historique de la partie. Cherche quel type de message
-	 * est attendu puis appel la méthode {@link}{@link #afficherConsole(String)}.
-	 * Permmet également l'affichage des fenêtres spéciales pour les EffetsAvecInput.
+	 * est attendu puis appel la methode {@link}{@link #afficherConsole(String)}.
+	 * Permmet egalement l'affichage des fenetres speciales pour les EffetsAvecInput.
 	 * @param jeu
 	 * @param msg 
 	 */
@@ -621,7 +621,7 @@ public class InterfaceGraphique extends IHM {
 			switch (((Message) msg).getType()) {
 			case effetAttaque:
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " oblige "
-						+ ((Message) msg).getJoueurVictime().getPseudo() + " à piocher "
+						+ ((Message) msg).getJoueurVictime().getPseudo() + " e piocher "
 						+ ((Message) msg).getNbCartesAttaque() + " carte(s)!");
 				break;
 
@@ -633,7 +633,7 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case effetSauterTour:
-				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " empéche "
+				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " empeche "
 						+ ((Message) msg).getJoueurVictime().getPseudo() + " de jouer!");
 				break;
 
@@ -644,7 +644,7 @@ public class InterfaceGraphique extends IHM {
 					refreshDisplay(getControleur().getJeu(), ((Message) msg).getJoueurCourant());
 				}
 				afficherConsole(
-						((Message) msg).getJoueurCourant().getPseudo() + " a arreté une attaque et a choisi la couleur "
+						((Message) msg).getJoueurCourant().getPseudo() + " a arrete une attaque et a choisi la couleur "
 								+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
 				break;
 
@@ -691,7 +691,7 @@ public class InterfaceGraphique extends IHM {
 
 			case annonceContreCarteReussi:
 				afficherConsole(((Message) msg).getJoueurVictime().getPseudo()
-						+ " pioche deux cartes grâce à un Contre Carte réussi de "
+						+ " pioche deux cartes grece e un Contre Carte reussi de "
 						+ ((Message) msg).getJoueurCourant().getPseudo() + "!");
 				break;
 
@@ -725,12 +725,12 @@ public class InterfaceGraphique extends IHM {
 
 			case annonceCarteTropTot:
 				afficherConsole(((Message) msg).getJoueurCourant().getPseudo()
-						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
+						+ " pioche deux cartes pour avoir annoncer un Carte trop tet!");
 				break;
 
 			case joueurAFiniManche:
 				afficherConsole(
-						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa dernière carte! Bravo!");
+						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa derniere carte! Bravo!");
 				break;
 
 			case afficherTour:
@@ -753,11 +753,11 @@ public class InterfaceGraphique extends IHM {
 				break;
 
 			case annonceCarte:
-				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " a bien annoncé Carte!");
+				afficherConsole(((Message) msg).getJoueurCourant().getPseudo() + " a bien annonce Carte!");
 				break;
 
 			case nouvelleManche:
-				afficherConsole("---------- MANCHE N°" + ((Message) msg).getNumeroManche() +
+				afficherConsole("---------- MANCHE Ne" + ((Message) msg).getNumeroManche() +
 				" ----------");
 				break;
 
@@ -789,7 +789,7 @@ public class InterfaceGraphique extends IHM {
 	
 	/**
 	 * Ajoute un String dans l'historique de la partie.
-	 * @param str La chaîne de caractères à afficher.
+	 * @param str La chaene de caracteres e afficher.
 	 */
 	public void afficherConsole(String str) {
 		jTextAreaHistorique.append(str + "\n");

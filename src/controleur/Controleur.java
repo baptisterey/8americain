@@ -6,7 +6,7 @@ import view.interfaceConsole.InterfaceConsole;
 import view.interfaceGraphique.InterfaceGraphique;
 
 /**
- * Implémentation du modèle MVC. Ici le Controleur.
+ * Implementation du modele MVC. Ici le Controleur.
  */
 public class Controleur {
 
@@ -29,11 +29,11 @@ public class Controleur {
 
 		Controleur controleur = new Controleur();
 		
-		// Création d'une interface Console
+		// Creation d'une interface Console
 		IHM ihm = new InterfaceConsole(controleur);
 		controleur.getJeu().addObserver(ihm);
 
-		// Création d'une interface Graphique
+		// Creation d'une interface Graphique
 		IHM ihm2 = new InterfaceGraphique(controleur);
 		controleur.getJeu().addObserver(ihm2);
 		

@@ -11,15 +11,15 @@ import view.IHM;
 import model.Carte;
 
 /**
- * Classe représentant une Interface en ligne de commande, elle hérite de IHM et
- * implémente donc Observer.
+ * Classe representant une Interface en ligne de commande, elle herite de IHM et
+ * implemente donc Observer.
  */
 public class InterfaceConsole extends IHM {
 
 	/**
-	 * Le thread associé à la classe. Avant de créer un nouveau Thread, on assure
-	 * que ce dernier soit bien terminé afin d'éviter une incohérence dans les
-	 * Entrées fournies par l'utilisateur.
+	 * Le thread associe e la classe. Avant de creer un nouveau Thread, on assure
+	 * que ce dernier soit bien termine afin d'eviter une incoherence dans les
+	 * Entrees fournies par l'utilisateur.
 	 */
 	private static Thread th;
 
@@ -28,13 +28,13 @@ public class InterfaceConsole extends IHM {
 	}
 
 	/**
-	 * Utilise la méthode lireChaine(String msg), et tente de convertir la chaîne de
-	 * caractères entrée par l'utilisateur, répéte jusqu'a succès ou que lireChaine
-	 * ait renvoyé null (thread interrompu).
+	 * Utilise la methode lireChaine(String msg), et tente de convertir la chaene de
+	 * caracteres entree par l'utilisateur, repete jusqu'a succes ou que lireChaine
+	 * ait renvoye null (thread interrompu).
 	 * 
 	 * @param msg
-	 *            Le message à afficher avant de demander un Entier.
-	 * @return L'Entier entré par l'utilisateur ou null si le Thread se fait
+	 *            Le message e afficher avant de demander un Entier.
+	 * @return L'Entier entre par l'utilisateur ou null si le Thread se fait
 	 *         interrompre.
 	 */
 	protected Integer lireInteger(String msg) {
@@ -60,13 +60,13 @@ public class InterfaceConsole extends IHM {
 	}
 
 	/**
-	 * Envoie la chaîne de caractères entrée par l'utilisateur. L'appel de la
-	 * méthode interrupt sur l'attribut th interrompt termine cette méthode en la
+	 * Envoie la chaene de caracteres entree par l'utilisateur. L'appel de la
+	 * methode interrupt sur l'attribut th interrompt termine cette methode en la
 	 * faisant retourner null.
 	 * 
 	 * @param msg
-	 *            Le message à afficher avant de demander une Chaîne.
-	 * @return La chaîne de caractères entrée par l'utilisateur ou null si le Thread
+	 *            Le message e afficher avant de demander une Chaene.
+	 * @return La chaene de caracteres entree par l'utilisateur ou null si le Thread
 	 *         se fait interrompre.
 	 */
 	protected String lireChaine(String msg) {
@@ -87,10 +87,10 @@ public class InterfaceConsole extends IHM {
 
 	@Override
 	/**
-	 * Implementation de l'interface Observer. L'objet passé est la classe Message,
-	 * on réalise alors la bonne action en fonction de son type. Lorsqu'une Action
-	 * de la part de l'utilisateur est requise, on créer la Classe correspondante
-	 * (Voir suite du package) et on l'éxecute dans le Thread th grâce à la méthode
+	 * Implementation de l'interface Observer. L'objet passe est la classe Message,
+	 * on realise alors la bonne action en fonction de son type. Lorsqu'une Action
+	 * de la part de l'utilisateur est requise, on creer la Classe correspondante
+	 * (Voir suite du package) et on l'execute dans le Thread th grece e la methode
 	 * commencerThread().
 	 */
 	public void update(Observable jeu, Object msg) {
@@ -98,7 +98,7 @@ public class InterfaceConsole extends IHM {
 			switch (((Message) msg).getType()) {
 			case effetAttaque:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " oblige "
-						+ ((Message) msg).getJoueurVictime().getPseudo() + " à piocher "
+						+ ((Message) msg).getJoueurVictime().getPseudo() + " e piocher "
 						+ ((Message) msg).getNbCartesAttaque() + " carte(s)!");
 				break;
 
@@ -110,13 +110,13 @@ public class InterfaceConsole extends IHM {
 				break;
 
 			case effetSauterTour:
-				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " empéche "
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " empeche "
 						+ ((Message) msg).getJoueurVictime().getPseudo() + " de jouer!");
 				break;
 
 			case effetContrerChangerCouleur:
 				System.out.println(
-						((Message) msg).getJoueurCourant().getPseudo() + " a arreté une attaque et a choisi la couleur "
+						((Message) msg).getJoueurCourant().getPseudo() + " a arrete une attaque et a choisi la couleur "
 								+ Carte.COULEURS[((Message) msg).getNouvelleCouleur()] + "!");
 				break;
 
@@ -151,7 +151,7 @@ public class InterfaceConsole extends IHM {
 
 			case annonceContreCarteReussi:
 				System.out.println(((Message) msg).getJoueurVictime().getPseudo()
-						+ " pioche deux cartes grâce à un Contre Carte réussi de "
+						+ " pioche deux cartes grece e un Contre Carte reussi de "
 						+ ((Message) msg).getJoueurCourant().getPseudo() + "!");
 				break;
 
@@ -186,12 +186,12 @@ public class InterfaceConsole extends IHM {
 
 			case annonceCarteTropTot:
 				System.out.println(((Message) msg).getJoueurCourant().getPseudo()
-						+ " pioche deux cartes pour avoir annoncer un Carte trop tôt!");
+						+ " pioche deux cartes pour avoir annoncer un Carte trop tet!");
 				break;
 
 			case joueurAFiniManche:
 				System.out.println(
-						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa dernière carte! Bravo!");
+						((Message) msg).getJoueurCourant().getPseudo() + " vient de poser sa derniere carte! Bravo!");
 				break;
 
 			case afficherTour:
@@ -211,11 +211,11 @@ public class InterfaceConsole extends IHM {
 				break;
 
 			case annonceCarte:
-				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " a bien annoncé Carte!");
+				System.out.println(((Message) msg).getJoueurCourant().getPseudo() + " a bien annonce Carte!");
 				break;
 
 			case nouvelleManche:
-				System.out.println("---------- MANCHE N°" + ((Message) msg).getNumeroManche() + " ----------");
+				System.out.println("---------- MANCHE Ne" + ((Message) msg).getNumeroManche() + " ----------");
 				break;
 
 			case finPartie:
@@ -237,11 +237,11 @@ public class InterfaceConsole extends IHM {
 	}
 
 	/**
-	 * Interrompt le thread en cours et execute le Runnable passé en paramêtre dans
+	 * Interrompt le thread en cours et execute le Runnable passe en parametre dans
 	 * le Thread th.
 	 * 
 	 * @param runnable
-	 *            L'interface à executer.
+	 *            L'interface e executer.
 	 */
 	private void commencerThread(Runnable runnable) {
 		arreterThread();

@@ -45,14 +45,14 @@ public class Basique extends Variante {
 	}
 	
 	/**
-	 * Permet de savoir qu'elles sont les cartes modifiées par la Variante.
+	 * Permet de savoir qu'elles sont les cartes modifiees par la Variante.
 	 * 
-	 * @return Renvoie la liste des cartes modifiées par la Variante.
+	 * @return Renvoie la liste des cartes modifiees par la Variante.
 	 */
 	public static String getStringVariante() {
 		String str = "";
 		
-		str+="CINQ : \n \t Le joueur donne une de ses cartes à un joueur choisi.\n";	
+		str+="CINQ : \n \t Le joueur donne une de ses cartes e un joueur choisi.\n";	
 		
 		str+="SEPT : \n \t Saute le tour du joueur suivant.\n";	
 		

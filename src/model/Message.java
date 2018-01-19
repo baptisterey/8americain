@@ -3,8 +3,8 @@ package model;
 import model.effets.EffetAvecInput;
 
 /**
- * Classe utilisée dans le pattern Observer / Observable afin de faire passer
- * les données dans la méthode notifyObservers();
+ * Classe utilisee dans le pattern Observer / Observable afin de faire passer
+ * les donnees dans la methode notifyObservers();
  * On identifie un message par son type.
  */
 public class Message {

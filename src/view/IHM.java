@@ -5,12 +5,12 @@ import java.util.Observer;
 import controleur.Controleur;
 
 /**
- * Classe abstraite servant de squelette pour chacun des types d'Interface. Elle implémente l'interface Observer.
+ * Classe abstraite servant de squelette pour chacun des types d'Interface. Elle implemente l'interface Observer.
  */
 public abstract class IHM implements Observer{
 
 	/**
-	 * Le controleur utilisé par l'application.
+	 * Le controleur utilise par l'application.
 	 */
 	private Controleur controleur;
 
@@ -28,7 +28,7 @@ public abstract class IHM implements Observer{
 
 	/**
 	 * Setter pour l'attribut controleur. 
-	 * @param controleur Le controleur à assigner.
+	 * @param controleur Le controleur e assigner.
 	 */
 	public void setControleur(Controleur controleur) {
 		this.controleur = controleur;

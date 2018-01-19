@@ -4,7 +4,7 @@ import model.effets.EffetAttaque;
 import model.effets.EffetContrerChangerCouleur;
 
 /**
- * Implémente l'interface Stragégie, avec des actions agressives.
+ * Implemente l'interface Stragegie, avec des actions agressives.
  *
  */
 public class Agressif implements Strategie {
@@ -35,7 +35,7 @@ public class Agressif implements Strategie {
 		}
 
 		int indexJoueurChoisi = 0;
-		for (int j = 1; j < Jeu.getInstance().getJoueurs().size() - 1; j++) { // le joueur courant est en derniï¿½re
+		for (int j = 1; j < Jeu.getInstance().getJoueurs().size() - 1; j++) { // le joueur courant est en derniere
 																				// position de cette linkedList
 			if (Jeu.getInstance().getJoueurs().get(indexJoueurChoisi).getMain().size() > Jeu.getInstance().getJoueurs()
 					.get(j).getMain().size()) {

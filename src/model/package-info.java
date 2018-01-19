@@ -1,5 +1,5 @@
 /**
-* Implémentation du design patern MVC. Le model contient les données 
+* Implementation du design patern MVC. Le model contient les donnees 
 * et la logique du jeu.
 */
 package model;

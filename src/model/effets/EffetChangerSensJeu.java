@@ -5,11 +5,11 @@ import model.Joueur;
 import model.Message;
 
 /**
- * Effet représentant un changement dans le sens du tour de jeu.
+ * Effet representant un changement dans le sens du tour de jeu.
  */
 public class EffetChangerSensJeu extends Effet {
 	/**
-	 * Constante privée pour le score de l'Effet.
+	 * Constante privee pour le score de l'Effet.
 	 */
 	private static final int score = 20;
 
@@ -19,7 +19,7 @@ public class EffetChangerSensJeu extends Effet {
 
 	@Override
 	/**
-	 * Change le sens du jeu grâce un appel de changerSensJeu() de la classe Jeu.
+	 * Change le sens du jeu grece un appel de changerSensJeu() de la classe Jeu.
 	 * Renvoie un message de type effetChangerSensJeu.
 	 */
 	public Message action(Joueur joueurCourant) {

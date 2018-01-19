@@ -7,7 +7,7 @@ import model.Jeu;
 import model.Joueur;
 
 /**
- * Représente les options du joueur durant son tour de jeu.
+ * Represente les options du joueur durant son tour de jeu.
  *
  */
 
@@ -24,10 +24,10 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 		System.out.println("---- A TOI DE JOUER ----");
 		for (Joueur joueur : getControleur().getJeu().getJoueurs()) {
 			if (joueur != joueurCourant) {
-				System.out.println(joueur.getPseudo() + " possède " + joueur.getMain().size() + " carte(s)!");
+				System.out.println(joueur.getPseudo() + " possede " + joueur.getMain().size() + " carte(s)!");
 			}
 		}
-		System.out.println("Carte sommet défausse : " + Jeu.getInstance().getDefausse().getLast());
+		System.out.println("Carte sommet defausse : " + Jeu.getInstance().getDefausse().getLast());
 		System.out.println("-- MAIN DE " + joueurCourant.getPseudo() + " --");
 		for (Carte carte : joueurCourant.getMain()) {
 			System.out.println(" * " + carte.toString());
@@ -64,8 +64,8 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 	}
 
 	/**
-	 * Demande à l'utilisateur de rentrer une chaîne de caractères puis appelle la
-	 * méthode annoncer() dans Jeu.
+	 * Demande e l'utilisateur de rentrer une chaene de caracteres puis appelle la
+	 * methode annoncer() dans Jeu.
 	 * 
 	 * @param joueurCourant
 	 *            Le Joueur qui annonce.
@@ -81,15 +81,15 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 	}
 
 	/**
-	 * Demande à l'Utilisateur de poser une Carte, il peut également piocher. Si la
-	 * carte ne peut pas être posée, redemande. Si le Thread est interrompu, ne fait
+	 * Demande e l'Utilisateur de poser une Carte, il peut egalement piocher. Si la
+	 * carte ne peut pas etre posee, redemande. Si le Thread est interrompu, ne fait
 	 * rien.
 	 * 
 	 * @param joueurCourant
 	 *            Le Joueur qui joue
 	 */
 	private void joueurCarte(Joueur joueurCourant) {
-		String carteDefausse = "Carte sommet défausse : ";
+		String carteDefausse = "Carte sommet defausse : ";
 		if (Jeu.getInstance().getDefausse().isEmpty()) {
 			carteDefausse += "aucune!";
 
@@ -130,7 +130,7 @@ public class InterfaceConsoleJouerTour extends InterfaceConsole implements Runna
 					try {
 						getControleur().getJeu().jouerCarte(joueurCourant, carte);
 					} catch (ErreurCarteInposable e) {
-						System.out.println(carte.toString() + " n'a pas pu être posé(e)!");
+						System.out.println(carte.toString() + " n'a pas pu etre pose(e)!");
 						choixok = false;
 					}
 				}
